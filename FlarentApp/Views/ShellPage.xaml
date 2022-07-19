@@ -1,0 +1,143 @@
+﻿<Page
+    x:Class="FlarentApp.Views.ShellPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:FlarentApp.Behaviors"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    xmlns:helpers="using:FlarentApp.Helpers"
+    xmlns:views="using:FlarentApp.Views"
+    xmlns:details="using:FlarentApp.Views.DetailPages"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:app="using:FlarentApp.Helpers"
+    Loaded="OnLoaded"
+    mc:Ignorable="d"
+    x:FieldModifier="Public">
+    <Page.Resources>
+        <Flyout x:Key="UserInfoFlyout" Placement="RightEdgeAlignedBottom">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Spacing="8" Orientation="Horizontal">
+                    <PersonPicture Height="45" ProfilePicture="{x:Bind User.AvatarUrl,Mode=OneWay}"/>
+                    <StackPanel>
+                        <TextBlock Text="{x:Bind User.DisplayName,Mode=OneWay}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                        <TextBlock Text="{x:Bind User.Bio,Mode=OneWay}" TextWrapping="Wrap" MaxWidth="256"/>
+                    </StackPanel>
+                </StackPanel>
+                <ListView x:Name="UserActonListView" Grid.Row="1" Margin="{StaticResource SmallTopMargin}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="UserActonListView_ItemClick">
+                    <ListView.Items>
+                        <ListViewItem >
+                            <StackPanel Orientation="Horizontal" Spacing="12" Tag="PersonalPage">
+                                <FontIcon Glyph="&#xE136;"/>
+                                <TextBlock Text="个人主页"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem >
+                            <StackPanel Orientation="Horizontal" Spacing="12" Tag="MyFavorite">
+                                <FontIcon Glyph="&#xE734;"/>
+                                <TextBlock Text="我的收藏"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem >
+                            <StackPanel Orientation="Horizontal" Spacing="12" Tag="Logout">
+                                <FontIcon Glyph="&#xEDE1;"/>
+                                <TextBlock Text="退出登录"/>
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView.Items>
+                </ListView>
+            </Grid>
+        </Flyout>
+        <Flyout x:Key="NotificationFlyout" Placement="RightEdgeAlignedBottom">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            </Grid>
+        </Flyout>
+
+    </Page.Resources>
+    <winui:NavigationView
+        x:Name="navigationView"
+        IsBackButtonVisible="Visible"
+        IsBackEnabled="{x:Bind IsBackEnabled, Mode=OneWay}"
+        SelectedItem="{x:Bind Selected, Mode=OneWay}"
+        ItemInvoked="OnItemInvoked"
+        IsSettingsVisible="True"
+        OpenPaneLength="200"
+        winui:BackdropMaterial.ApplyToRootOrPageBackground="True">
+        <winui:NavigationView.MenuItems>
+            <!--
+            TODO: Change the symbols for each item as appropriate for your app
+            More on Segoe UI Symbol icons: https://docs.microsoft.com/windows/uwp/style/segoe-ui-symbol-font
+            Or to use an IconElement instead of a Symbol see https://github.com/microsoft/TemplateStudio/blob/main/docs/UWP/projectTypes/navigationpane.md
+            Edit String/en-US/Resources.resw: Add a menu item title for each page
+            -->
+            <winui:NavigationViewItem x:Uid="Shell_Home" Icon="Home" helpers:NavHelper.NavigateTo="views:HomePage" />
+            <winui:NavigationViewItem x:Uid="Shell_Posts" Icon="Comment" helpers:NavHelper.NavigateTo="views:PostsPage" />
+            <winui:NavigationViewItem x:Uid="Shell_Users" Icon="ContactInfo" helpers:NavHelper.NavigateTo="views:UsersPage" Visibility="{x:Bind app:Flarent.Settings.Token,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}"/>
+            <winui:NavigationViewItem x:Uid="Shell_Catagories" Icon="Library" helpers:NavHelper.NavigateTo="views:CatagoriesPage" />
+            <winui:NavigationViewItem Content="帖子" Icon="More" helpers:NavHelper.NavigateTo="details:DiscussionDetailPage" Visibility="Collapsed"/>
+            <winui:NavigationViewItem Content="用户" Icon="More" helpers:NavHelper.NavigateTo="details:UserDetailPage" Visibility="Collapsed"/>
+
+        </winui:NavigationView.MenuItems>
+        <winui:NavigationView.FooterMenuItems>
+            <winui:NavigationViewItem x:Name="NotificationMenuItem" Content="通知" SelectsOnInvoked="False" Tag="Notification" FlyoutBase.AttachedFlyout="{StaticResource NotificationFlyout}" IsEnabled="False" Visibility="{x:Bind app:Flarent.Settings.Token,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}">
+                <winui:NavigationViewItem.InfoBadge >
+                    <winui:InfoBadge x:Name="NotificationsInfoBadge"/>
+                </winui:NavigationViewItem.InfoBadge>
+                <winui:NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xEA8F;"/>
+                </winui:NavigationViewItem.Icon>
+            </winui:NavigationViewItem>
+            <winui:NavigationViewItem x:Name="UserMenuItem" Content="{x:Bind User.DisplayName,Mode=OneWay}" Icon="Contact" SelectsOnInvoked="False" Tag="User" FlyoutBase.AttachedFlyout="{StaticResource UserInfoFlyout}"/>
+
+
+
+        </winui:NavigationView.FooterMenuItems>
+        <Grid>
+            <SplitView
+                x:Name="splitView"
+                PanePlacement="Right"
+                OpenPaneLength="{x:Bind app:Flarent.Settings.PaneWidth,Mode=OneWay}" Canvas.ZIndex="1" >
+                <SplitView.Pane>
+                    <Frame
+                        x:Name="rightFrame"
+                        BorderThickness="1,0,0,0"
+                        
+                        BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Stretch"/>
+                </SplitView.Pane>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                </Grid>
+            </SplitView>
+            <Frame x:Name="shellFrame" Margin="0,48,0,0" x:FieldModifier="Public"/>
+            <TextBlock x:Name="PageNameTextBlock" Text="{x:Bind Selected.Content,Mode=OneWay}" FontWeight="SemiBold" Margin="96,13,0,0" FontSize="14" Canvas.ZIndex="-1"/>
+
+        </Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="LargeLayout" >
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="641"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="shellFrame.Margin" Value="0"/>
+                        <Setter Target="PageNameTextBlock.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+    </winui:NavigationView>
+</Page>

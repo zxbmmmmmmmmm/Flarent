@@ -1,0 +1,69 @@
+﻿<UserControl
+    x:Class="FlarentApp.Views.Controls.DiscussionTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FlarentApp.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:models="using:FlarumApi.Models"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid x:Name="ContentArea" HorizontalAlignment="Stretch" MaxWidth="1200" Margin="{StaticResource SmallLeftTopRightBottomMargin}">
+        <StackPanel Orientation="Horizontal">
+            <Border CornerRadius="80" Width="45" Height="45" VerticalAlignment="Top" Margin="0,4,0,0">
+                <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" x:Name="PosterButton" Background="#0000" BorderBrush="#0000" Click="PosterButton_Click" Padding="0" Height="52" Width="52" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTipService.ToolTip="{x:Bind Discussion.User.DisplayName}">
+                    <muxc:PersonPicture Canvas.ZIndex="1" ProfilePicture="{x:Bind Discussion.User.AvatarUrl,Mode=OneWay}" Height="45" ToolTipService.ToolTip="{x:Bind Discussion.User.DisplayName}" VerticalAlignment="Top" />
+                </Button>
+            </Border>
+            <StackPanel Margin="{StaticResource SmallLeftMargin}">
+                <TextBlock Text="{x:Bind Discussion.Title,Mode=OneWay}" FontSize="20"/>
+                <StackPanel Orientation="Horizontal">
+                    <ListView ItemsSource="{x:Bind Discussion.Tags,Mode=OneWay}" SelectionMode="None" Margin="0,6,0,0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Tag">
+                                <local:SmallTagTemplate TagData="{x:Bind}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <controls:WrapPanel HorizontalSpacing="4"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem" >
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="MinHeight" Value="20" />
+                                <Setter Property="MinWidth" Value="30" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                    <FontIcon x:Name="RelpyIcon" Glyph="&#xE97A;" FontSize="14" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" Visibility="{x:Bind IsFirstPost,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <HyperlinkButton x:Name="LastPostedUserButton" Click="LastPostedUserButton_Click" Content="{x:Bind Discussion.LastPostedUser.DisplayName}" Style="{StaticResource TextBlockButtonStyle}" Margin="4,1,0,0"/>
+                    <TextBlock Text="{x:Bind Discussion.LastPostedAt,Converter={StaticResource DateConverter},Mode=OneWay}" Margin="6,7,0,0" Style="{StaticResource  DetailBodyBaseMediumStyle}"/>
+                </StackPanel>
+                <TextBlock x:Name="FirstPostTextBlock" Text="{x:Bind Discussion.FirstPost.ContentHtml,Mode=OneWay,Converter={StaticResource DecodeHtmlConverter}}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxHeight="50" TextWrapping="Wrap" MaxWidth="1080" FontSize="14" Visibility="Collapsed"/>
+
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" >
+            <FontIcon Glyph="&#xE8F2;" FontSize="16"/>
+            <TextBlock Text="{x:Bind Discussion.CommentCount}" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,6"/>
+        </StackPanel>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="LargeLayout" >
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1400"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="FirstPostTextBlock.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</UserControl>

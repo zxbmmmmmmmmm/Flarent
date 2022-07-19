@@ -1,0 +1,52 @@
+﻿<Page
+    x:Class="FlarentApp.Views.UsersPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:models="using:FlarumApi.Models" xmlns:localcontrols="using:FlarentApp.Views.Controls"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea">
+        <ListView x:Name="UsersListView" ItemsSource="{x:Bind Users,Mode=OneWay}" IsItemClickEnabled="True" SelectionMode="None" ItemClick="UsersListView_ItemClick">
+            <ListView.Header>
+                <Grid>
+                    <muxc:NavigationView PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" MaxWidth="1224" ItemInvoked="NavigationView_ItemInvoked">
+                        <muxc:NavigationView.MenuItems>
+                            <muxc:NavigationViewItem Content="最近登录" IsSelected="True" Tag="-lastSeenAt"/>
+                            <muxc:NavigationViewItem Content="最近注册" Tag="-joinTime" IsEnabled="False"/>
+                            <muxc:NavigationViewItem Content="最多回复" Tag="-commentCount"/>
+                            <muxc:NavigationViewItem Content="最晚登录" Tag="lastSeenAt"/>
+
+                        </muxc:NavigationView.MenuItems>
+                        <muxc:NavigationView.FooterMenuItems>
+                            <muxc:NavigationViewItem Icon="Refresh" SelectsOnInvoked="False">
+                            </muxc:NavigationViewItem>
+                        </muxc:NavigationView.FooterMenuItems>
+                    </muxc:NavigationView>
+                </Grid>
+            </ListView.Header>
+            <ListView.Footer>
+                <Grid Margin="0,24">
+                    <Button x:Name="LoadMoreButton" Content="加载更多" Click="LoadMoreButton_Click" FontSize="16" Padding="160,8" HorizontalAlignment="Center" Visibility="{x:Bind LinkNext,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}"/>
+                </Grid>
+            </ListView.Footer>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:User">
+                    <localcontrols:UserTemplate UserData="{x:Bind}" Margin="{StaticResource SmallTopBottomMargin}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" >
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="MinHeight" Value="20" />
+                    <Setter Property="MinWidth" Value="30" />
+                    <Setter Property="MaxWidth"  Value="1224"/>
+                    <Setter Property="CornerRadius" Value="4"/>
+                    <Setter Property="Margin" Value="{StaticResource SmallLeftRightMargin}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+    </Grid>
+</Page>

@@ -1,0 +1,31 @@
+﻿<Page
+    x:Class="FlarentApp.Views.CatagoriesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:localcontrols="using:FlarentApp.Views.Controls"
+    xmlns:models="using:FlarumApi.Models"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea">
+        <ListView x:Name="CatagoriesListView" ItemsSource="{x:Bind Catagories,Mode=OneWay}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="CatagoriesListView_ItemClick">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:Tag">
+                    <localcontrols:CatagoryTemplate TagData="{x:Bind}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" >
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="MinHeight" Value="20" />
+                    <Setter Property="MinWidth" Value="30" />
+                    <Setter Property="MaxWidth" Value="1224" />
+
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        
+    </Grid>
+</Page>
