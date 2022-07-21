@@ -242,6 +242,23 @@ namespace FlarumApi
                 var post = Post.CreateFromJson(datum);
                 if (post.DiscussionId != null)
                     post.Discussion = discussions.FirstOrDefault(p => p.Id == post.DiscussionId);
+                if(post.LikeIds != null)
+                {
+                    post.Likes = new List<User>();
+                    foreach(var id in post.LikeIds)
+                    {
+                        post.Likes.Add(users.FirstOrDefault(p => p.Id == id));
+                    }
+                }
+                if (post.Likes != null)
+                {
+                    if (post.Likes.Count != 0)
+                        post.ShowLikeIcon = true;
+                    else
+                        post.ShowLikeIcon = false;
+                }
+                else
+                    post.ShowLikeIcon = false;
 
                 post.User = users.FirstOrDefault(p => p.Id == post.UserId) ?? Default.DefaultUser;
                 posts.Add(post);
@@ -292,10 +309,28 @@ namespace FlarumApi
         {
             var user = new User();
             var data = jObj["data"];
-            if(data is JArray)
-                return User.CreateFromJson(data[0]);
+
+
+
+            if (data is JArray)
+                user =  User.CreateFromJson(data[0]);
             else
-                return User.CreateFromJson(data);
+                user =  User.CreateFromJson(data);
+            if (jObj["included"] != null)
+            {
+                var inclustions = InclusionTypeFilter.FiltTypes(jObj["included"]);
+                var userGroups = inclustions.Item5;
+                if (user.GroupIds != null)
+                {
+                    user.UserGroups = new ObservableCollection<UserGroup>();
+                    foreach (var id in user.GroupIds)
+                    {
+                        user.UserGroups.Add(userGroups.FirstOrDefault(p => p.Id == id));
+                    }
+                }
+            }
+
+            return user;
         }
         public static ObservableCollection<Tag> GetTags(JObject jObj)
         {

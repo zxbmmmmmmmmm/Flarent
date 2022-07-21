@@ -16,6 +16,8 @@ namespace FlarentApp.Services
 
         private static Frame _frame;
         private static object _lastParamUsed;
+        private static object _lastSplitParamUsed;
+
         private static Windows.UI.Xaml.Controls.Frame _rightFrame;
         private static Windows.UI.Xaml.Controls.SplitView _splitView;
         public static Frame Frame
@@ -110,14 +112,14 @@ namespace FlarentApp.Services
         public static void OpenInRightPane(Type pageType, object parameter = null, NavigationTransitionInfo infoOverride = null)
         {
             // Don't open the same page multiple times
-            //if (_rightFrame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(_lastParamUsed)))
-            //{
+            if (_rightFrame.Content?.GetType() != pageType || (parameter != null && !parameter.Equals(_lastSplitParamUsed)))
+            {
                 var navigationResult = _rightFrame.Navigate(pageType, parameter, infoOverride);
                 if (navigationResult)
                 {
-                    _lastParamUsed = parameter;
+                    _lastSplitParamUsed = parameter;
                 }
-            //}
+            }
 
             _splitView.IsPaneOpen = true;
         }

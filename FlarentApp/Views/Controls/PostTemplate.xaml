@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:models="using:FlarumApi.Models"
     Loaded="UserControl_Loaded"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -18,8 +18,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
@@ -47,8 +48,8 @@
             <controls:MarkdownTextBlock x:Name="DescriptionTextBlock" Background="Transparent" Text="{x:Bind Post.SpecialContent.Description}" muxc:BackdropMaterial.ApplyToRootOrPageBackground="True" Margin="4,0,0,0" />
         </StackPanel>
         
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,0,0,16" >
-            <Button>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" >
+            <Button Visibility="{x:Bind Post.Votes,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}">
                 <StackPanel Orientation="Horizontal">
                     <FontIcon Glyph="&#xE19F;" FontSize="14"/>
                     <TextBlock Text="{x:Bind Post.Votes,Mode=OneWay}" Margin="{StaticResource SmallLeftMargin}"/>
@@ -64,7 +65,34 @@
                 <SymbolIcon Symbol="More"/>
             </Button>
         </StackPanel>
-        <Border Grid.Row="3" BorderThickness="0,1,0,0" BorderBrush="#33808080" VerticalAlignment="Bottom"/>
+        <StackPanel Grid.Row="4" Margin="0,0,0,16">
+            <ListView ItemsSource="{x:Bind Post.Likes}" SelectionMode="None" VerticalAlignment="Center" >
+                <ListView.Header>
+                    <FontIcon Glyph="&#xE19F;" FontSize="14"  Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" Visibility="{x:Bind Post.ShowLikeIcon,Converter={StaticResource BoolToVisibilityConverter}}" VerticalAlignment="Top" Margin="0,10,4,0"/>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:User">
+                        <local:UserHyperLinkButton UserData="{x:Bind}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <controls:WrapPanel HorizontalSpacing="4"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem" >
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="MinHeight" Value="20" />
+                        <Setter Property="MinWidth" Value="30" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
+        </StackPanel>
+        <Border Grid.Row="4" BorderThickness="0,1,0,0" BorderBrush="#33808080" VerticalAlignment="Bottom"/>
 
     </Grid>
 

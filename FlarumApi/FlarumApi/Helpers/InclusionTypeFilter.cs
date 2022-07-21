@@ -14,16 +14,17 @@ namespace FlarumApi.Helpers
     {
         /// <summary>
         /// 筛选并序列化included中的内容
-        /// <para>1Post,2User,3Tag,4Discussion</para>
+        /// <para>1Post,2User,3Tag,4Discussion,5UserGroup</para>
         /// </summary>
         /// <param name="inclusions">included</param>
         /// <returns></returns>
-        public static Tuple<ObservableCollection<Post>, ObservableCollection<User>, ObservableCollection<Tag>, ObservableCollection<Discussion>> FiltTypes(JToken inclusions)
+        public static Tuple<ObservableCollection<Post>, ObservableCollection<User>, ObservableCollection<Tag>, ObservableCollection<Discussion>, ObservableCollection<UserGroup>> FiltTypes(JToken inclusions)
         {
             var posts = new ObservableCollection<Post>();
             var users = new ObservableCollection<User>();
             var tags = new ObservableCollection<Tag>();
             var discussions= new ObservableCollection<Discussion>();
+            var userGroups = new ObservableCollection<UserGroup>();
 
             foreach (var inclusion in inclusions)
             {
@@ -44,9 +45,12 @@ namespace FlarumApi.Helpers
                     case "discussions":
                         discussions.Add(Discussion.CreateFromJson(inclusion));
                         break;
+                    case "groups":
+                        userGroups.Add(UserGroup.CreateFromJson(inclusion));
+                        break;
                 }
             }
-            return new Tuple<ObservableCollection<Post>, ObservableCollection<User>, ObservableCollection<Tag>,ObservableCollection<Discussion>>(posts, users, tags,discussions);
+            return new Tuple<ObservableCollection<Post>, ObservableCollection<User>, ObservableCollection<Tag>,ObservableCollection<Discussion>, ObservableCollection<UserGroup>>(posts, users, tags,discussions,userGroups);
         }
     }
 }

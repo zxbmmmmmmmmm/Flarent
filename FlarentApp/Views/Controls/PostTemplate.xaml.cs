@@ -100,7 +100,14 @@ namespace FlarentApp.Views.Controls
                 if(split.Count() > 5)
                     NavigationService.OpenInRightPane(typeof(PostDetailPage), link);
                 else
+                {
+                    if(id.Contains("-"))//防止链接后面有字符存在
+                    {
+                        var index = id.IndexOf('-');
+                        id = id.Remove(index);                        
+                    }
                     NavigationService.Navigate<DiscussionDetailPage>(int.Parse(id));
+                }
 
             }
             else if(link.Contains($"{Flarent.Settings.Forum.ToLower()}/u/"))

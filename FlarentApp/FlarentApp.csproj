@@ -25,8 +25,8 @@
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
-    <AppxBundle>Never</AppxBundle>
-    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -191,6 +191,12 @@
     <Compile Include="Views\Controls\PostTemplateWithDiscussion.xaml.cs">
       <DependentUpon>PostTemplateWithDiscussion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\UserGroupColtrol.xaml.cs">
+      <DependentUpon>UserGroupColtrol.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\UserHyperLinkButton.xaml.cs">
+      <DependentUpon>UserHyperLinkButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\UserTemplate.xaml.cs">
       <DependentUpon>UserTemplate.xaml</DependentUpon>
     </Compile>
@@ -297,6 +303,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\PostTemplateWithDiscussion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\UserGroupColtrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\UserHyperLinkButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -463,6 +477,10 @@
     <ProjectReference Include="..\FlarentApp.Core\FlarentApp.Core.csproj">
       <Project>{7B366711-3AC9-4E6E-AA55-AEA7C04DF1F8}</Project>
       <Name>FlarentApp.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FlarumApi\FlarumApi\FlarumApi.csproj">
+      <Project>{0813E408-08E5-4619-AA6B-E9748B958807}</Project>
+      <Name>FlarumApi</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

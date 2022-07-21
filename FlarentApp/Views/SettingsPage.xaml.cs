@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using FlarentApp.Helpers;
 using FlarentApp.Services;
-
+using FlarentApp.Views.Dialogs;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
@@ -96,6 +96,11 @@ namespace FlarentApp.Views
         private void OpenPaneButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.OpenInRightPane(typeof(Page));
+        }
+
+        private async void ViewUpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            await new WhatsNewDialog().ShowAsync();
         }
     }
 }

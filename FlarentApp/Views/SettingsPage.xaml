@@ -10,132 +10,139 @@
     xmlns:exp="using:Richasy.ExpanderEx.Uwp"
 
     mc:Ignorable="d">
-
-    <Grid Margin="24,18,24,0">
-        <StackPanel
+    <ScrollViewer>
+        <Grid Margin="24,18,24,0">
+            <StackPanel
             x:Name="ContentArea" >
-            <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
-                <muxc:Expander.Header>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <FontIcon Glyph="&#xE793;" />
-                        <TextBlock x:Uid="Settings_Theme" Margin="{StaticResource SmallLeftMargin}"/>
-                    </StackPanel>
-                </muxc:Expander.Header>
-                <muxc:Expander.Content>
-                    <StackPanel Margin="{StaticResource SmallLeftTopRightBottomMargin}">
-                        <StackPanel Spacing="4">
-                            <RadioButton
+                <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
+                    <muxc:Expander.Header>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <FontIcon Glyph="&#xE793;" />
+                            <TextBlock x:Uid="Settings_Theme" Margin="{StaticResource SmallLeftMargin}"/>
+                        </StackPanel>
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <StackPanel Margin="{StaticResource SmallLeftTopRightBottomMargin}">
+                            <StackPanel Spacing="4">
+                                <RadioButton
                                 x:Uid="Settings_Theme_Light"
                                 Checked="ThemeChanged_CheckedAsync"
                                 IsChecked="{x:Bind ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}"
                                 FontSize="15"
                                 GroupName="AppTheme">
-                                <RadioButton.CommandParameter>
-                                    <xaml:ElementTheme>Light</xaml:ElementTheme>
-                                </RadioButton.CommandParameter>
-                            </RadioButton>
-                            <RadioButton
+                                    <RadioButton.CommandParameter>
+                                        <xaml:ElementTheme>Light</xaml:ElementTheme>
+                                    </RadioButton.CommandParameter>
+                                </RadioButton>
+                                <RadioButton
                                 x:Uid="Settings_Theme_Dark"
                                 Checked="ThemeChanged_CheckedAsync"
                                 IsChecked="{x:Bind ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
                                 FontSize="15"
                                 GroupName="AppTheme">
-                                <RadioButton.CommandParameter>
-                                    <xaml:ElementTheme>Dark</xaml:ElementTheme>
-                                </RadioButton.CommandParameter>
-                            </RadioButton>
-                            <RadioButton
+                                    <RadioButton.CommandParameter>
+                                        <xaml:ElementTheme>Dark</xaml:ElementTheme>
+                                    </RadioButton.CommandParameter>
+                                </RadioButton>
+                                <RadioButton
                                 x:Uid="Settings_Theme_Default"
                                 Checked="ThemeChanged_CheckedAsync"
                                 IsChecked="{x:Bind ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
                                 FontSize="15"
                                 GroupName="AppTheme">
-                                <RadioButton.CommandParameter>
-                                    <xaml:ElementTheme>Default</xaml:ElementTheme>
-                                </RadioButton.CommandParameter>
-                            </RadioButton>
+                                    <RadioButton.CommandParameter>
+                                        <xaml:ElementTheme>Default</xaml:ElementTheme>
+                                    </RadioButton.CommandParameter>
+                                </RadioButton>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
 
-                </muxc:Expander.Content>
-            </muxc:Expander>
-            <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
-                <muxc:Expander.Header >
-                    <Grid>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <FontIcon Glyph="&#xE8A0;" />
-                            <TextBlock Text="侧栏设置" Margin="{StaticResource SmallLeftMargin}"/>
-                        </StackPanel>
-                        <Button x:Name="OpenPaneButton" Click="OpenPaneButton_Click" Content="打开侧栏" HorizontalAlignment="Right"/>
-                    </Grid>
-                </muxc:Expander.Header>
-                <muxc:Expander.Content>
-                    <Grid HorizontalAlignment="Stretch">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Border Grid.Row="0">
-                            <Grid Margin="{StaticResource MediumBottomMargin}">
-                                <TextBlock Text="侧栏大小" VerticalAlignment="Center"/>
-                                <muxc:NumberBox     Value="{x:Bind app:Flarent.Settings.PaneWidth,Mode=TwoWay}"
+                    </muxc:Expander.Content>
+                </muxc:Expander>
+                <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
+                    <muxc:Expander.Header >
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <FontIcon Glyph="&#xE8A0;" />
+                                <TextBlock Text="侧栏设置" Margin="{StaticResource SmallLeftMargin}"/>
+                            </StackPanel>
+                            <Button x:Name="OpenPaneButton" Click="OpenPaneButton_Click" Content="打开侧栏" HorizontalAlignment="Right"/>
+                        </Grid>
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0">
+                                <Grid Margin="{StaticResource MediumBottomMargin}">
+                                    <TextBlock Text="侧栏大小" VerticalAlignment="Center"/>
+                                    <muxc:NumberBox     Value="{x:Bind app:Flarent.Settings.PaneWidth,Mode=TwoWay}"
                                                     SpinButtonPlacementMode="Inline"
                                                     Maximum="500"
                                                     Minimum="300"
                                                     SmallChange="10"
                                                     LargeChange="100" HorizontalAlignment="Right"/>
-                            </Grid>
-                        </Border>
-                        <Border Grid.Row="1">
-                            <Grid>
-                                <TextBlock Text="使用侧栏打开用户页" VerticalAlignment="Center"/>
-                                <ToggleSwitch IsOn="{x:Bind app:Flarent.Settings.ViewUsersInPane,Mode=TwoWay}" HorizontalAlignment="Right" MinWidth="10"/>
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </muxc:Expander.Content>
-            </muxc:Expander>
-            
-            <TextBlock Text="论坛" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}"/>
-            <muxc:Expander HorizontalAlignment="Stretch"  Margin="{StaticResource SmallTopMargin}">
-                <muxc:Expander.Header>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <FontIcon Glyph="&#xE206;" />
-                        <TextBlock Text="选择论坛" Margin="{StaticResource SmallLeftMargin}"/>
-                    </StackPanel>
-                </muxc:Expander.Header>
-                <muxc:Expander.Content>
-                    <TextBox Text="{x:Bind app:Flarent.Settings.Forum,Mode=TwoWay}" PlaceholderText="像这样:discuss.flarum.org" Width="256" TextChanged="TextBox_TextChanged"/>
-                </muxc:Expander.Content>
-            </muxc:Expander>
-            
-            <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}"/>
+                                </Grid>
+                            </Border>
+                            <Border Grid.Row="1">
+                                <Grid>
+                                    <TextBlock Text="使用侧栏打开用户页" VerticalAlignment="Center"/>
+                                    <ToggleSwitch IsOn="{x:Bind app:Flarent.Settings.ViewUsersInPane,Mode=TwoWay}" HorizontalAlignment="Right" MinWidth="10"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
 
-            <muxc:Expander HorizontalAlignment="Stretch"  Margin="{StaticResource SmallTopMargin}">
-                <muxc:Expander.Header>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <FontIcon Glyph="&#xE946;" />
-                        <TextBlock Text="关于" Margin="{StaticResource SmallLeftMargin}"/>
-                    </StackPanel>
-                </muxc:Expander.Header>
-                <muxc:Expander.Content>
-                    <StackPanel Margin="{StaticResource XSmallTopMargin}" HorizontalAlignment="Left">
-                        <muxc:InfoBar Title="测试版本" Message="发布于wvbCommunity" IsClosable="False" IsOpen="True">
-                        </muxc:InfoBar>
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="8">
-                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind VersionDescription, Mode=OneWay}" VerticalAlignment="Center"/>
-                            <TextBlock
+                <TextBlock Text="论坛" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}"/>
+                <muxc:Expander HorizontalAlignment="Stretch"  Margin="{StaticResource SmallTopMargin}">
+                    <muxc:Expander.Header>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <FontIcon Glyph="&#xE206;" />
+                            <TextBlock Text="选择论坛" Margin="{StaticResource SmallLeftMargin}"/>
+                        </StackPanel>
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <TextBox Text="{x:Bind app:Flarent.Settings.Forum,Mode=TwoWay}" PlaceholderText="像这样:discuss.flarum.org" Width="256" TextChanged="TextBox_TextChanged"/>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
+
+                <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}"/>
+
+                <muxc:Expander HorizontalAlignment="Stretch"  Margin="{StaticResource SmallTopMargin}">
+                    <muxc:Expander.Header>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <FontIcon Glyph="&#xE946;" />
+                            <TextBlock Text="关于" Margin="{StaticResource SmallLeftMargin}"/>
+                        </StackPanel>
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <StackPanel Margin="{StaticResource XSmallTopMargin}" HorizontalAlignment="Left">
+                            <muxc:InfoBar Title="测试版本" IsClosable="False" IsOpen="True">
+                                <StackPanel Orientation="Horizontal" Spacing="4" Margin="0,0,0,24">
+                                    <HyperlinkButton Content="作者主页" NavigateUri="https://discuss.flarum.org.cn/u/Betta_Fish" />
+                                    <HyperlinkButton Content="更新内容" x:Name="ViewUpdateButton" Click="ViewUpdateButton_Click"/>
+                                </StackPanel>
+                            </muxc:InfoBar>
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="8">
+                                <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind VersionDescription, Mode=OneWay}" VerticalAlignment="Center"/>
+                                <TextBlock
                                 x:Uid="Settings_AboutDescription"
                                 Style="{ThemeResource BodyTextBlockStyle}"  VerticalAlignment="Center"/>
-                            <HyperlinkButton x:Uid="Settings_PrivacyTermsLink"  HorizontalAlignment="Center" Style="{StaticResource TextBlockButtonStyle}"/>
+                                <HyperlinkButton x:Uid="Settings_PrivacyTermsLink"  HorizontalAlignment="Center" Style="{StaticResource TextBlockButtonStyle}"/>
+
+                            </StackPanel>
 
                         </StackPanel>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
+            </StackPanel>
 
-                    </StackPanel>
-                </muxc:Expander.Content>
-            </muxc:Expander>
-        </StackPanel>
+        </Grid>
 
-    </Grid>
+    </ScrollViewer>
+        
 </Page>

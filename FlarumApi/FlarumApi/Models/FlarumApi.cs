@@ -87,6 +87,10 @@ namespace FlarumApi.Models
         public int? DiscussionId { get; set; }
         public Discussion Discussion { get; set; }
         public SpecialContent SpecialContent { get; set; }
+        public List<int> LikeIds { get; set; }
+        public List<User> Likes { get; set; }
+        public bool ShowLikeIcon { get; set; }
+
         public static Post CreateFromJson(JToken token)
         {
             var attributes = token.Value<JToken>("attributes");
@@ -104,6 +108,14 @@ namespace FlarumApi.Models
                 if (relationships["discussion"] != null)
                 {
                     post.DiscussionId = relationships.Value<JToken>("discussion").Value<JToken>("data").Value<int?>("id") ?? null;
+                }
+                if (relationships["likes"] != null)
+                {
+                    post.LikeIds = new List<int>();
+                    foreach (var like in relationships["likes"]["data"])
+                    {
+                        post.LikeIds.Add((int)like["id"]);
+                    }
                 }
             }
             post.Number = attributes.Value<int?>("number") ?? null;
@@ -133,6 +145,10 @@ namespace FlarumApi.Models
                     case "discussionTagged":
                         post.SpecialContent.Icon = "\uE1CB";
                         post.SpecialContent.Description = "更改了标签";
+                        break;
+                    case "discussionSplit":
+                        post.SpecialContent.Icon = "\uE14B";
+                        post.SpecialContent.Description = "拆分回复";
                         break;
                     case "discussionRenamed":
                         post.SpecialContent.Icon = "\uE13E";
@@ -168,9 +184,12 @@ namespace FlarumApi.Models
         public string Bio { get; set; }
         public int DiscussionCount { get; set; }
         public int CommentCount { get; set; }
+        public ObservableCollection<UserGroup> UserGroups { get; set; }
+        public List<int> GroupIds{ get; set; }
         public static User CreateFromJson(JToken token)
         {
             var attributes = token.Value<JToken>("attributes");
+            var relationships = token.Value<JToken>("relationships");
             var user = new User
             {
                 Id = token.Value<int?>("id"),
@@ -184,30 +203,62 @@ namespace FlarumApi.Models
                 JoinTime = attributes.Value<DateTime?>("joinTime") ?? null,
                 LastSeenAt = attributes.Value<DateTime?>("lastSeenAt") ?? null
             };
+            if (relationships != null)
+            {
+                if (relationships["groups"] != null)
+                {
+                    user.GroupIds = new List<int>();
+                    foreach (var like in relationships["groups"]["data"])
+                    {
+                        user.GroupIds.Add((int)like["id"]);
+                    }
+                }
+            }
             return user;
         }
     }
-
-    /*
-    /// <summary>
-    /// 对应api内relationships
-    /// <para>所有内容有为int，对应(内容)->data->id</para>
-    /// </summary>
-    public class RelationShips
+    public class UserGroup
     {
-        public int FirstPost { get; set; }
-        public int LastPost { get; set; }
-        public int User { get; set; }
-        public int LastPostedUser { get; set; }
-        public static RelationShips CreateFromJson(JToken token)
+        public int Id { get; set; }
+        public string NameSingular { get; set; }
+        public string NamePlural { get; set; }
+        public string Color { get; set; }
+        public string Icon { get; set; }
+        public static UserGroup CreateFromJson(JToken token)
         {
-            var relationships = new RelationShips
+            var attributes = token.Value<JToken>("attributes");
+            var userGroup = new UserGroup
             {
-                FirstPost = token.Value<JToken>("firstPost").Value<int>("data");
+                Id = token.Value<int>("id"),
+                NameSingular = attributes.Value<string>("nameSingular"),
+                NamePlural = attributes.Value<string>("namePlural"),
+                Color = attributes.Value<string>("color"),
+                Icon = attributes.Value<string>("icon"),
             };
-
+            return userGroup;
         }
-    }*/
+    }
+
+        /*
+        /// <summary>
+        /// 对应api内relationships
+        /// <para>所有内容有为int，对应(内容)->data->id</para>
+        /// </summary>
+        public class RelationShips
+        {
+            public int FirstPost { get; set; }
+            public int LastPost { get; set; }
+            public int User { get; set; }
+            public int LastPostedUser { get; set; }
+            public static RelationShips CreateFromJson(JToken token)
+            {
+                var relationships = new RelationShips
+                {
+                    FirstPost = token.Value<JToken>("firstPost").Value<int>("data");
+                };
+
+            }
+        }*/
 
     public class Tag
     {
@@ -255,7 +306,7 @@ namespace FlarumApi.Models
                 Content = attributes.Value<object>("content"),
                 IsRead = attributes.Value<bool>("isRead"),
                 CreatedAt = attributes.Value<DateTime?>("createdAt") ?? null,
-        };
+            };
 
             return notification;
         }

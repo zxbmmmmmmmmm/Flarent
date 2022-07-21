@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:views="using:FlarentApp.Views" xmlns:app="using:FlarentApp.Helpers"
+    xmlns:views="using:FlarentApp.Views" xmlns:app="using:FlarentApp.Helpers" xmlns:localcontrols="using:FlarentApp.Views.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <ScrollViewer>
@@ -29,6 +29,7 @@
                     </Border>
                     <StackPanel Margin="{StaticResource MediumLeftMargin}" Spacing="6" VerticalAlignment="Center">
                         <StackPanel Orientation="Horizontal">
+                            <localcontrols:UserGroupControl UserGroups="{x:Bind User.UserGroups,Mode=OneWay}" VerticalAlignment="Center" Margin="0,6,4,0"/>
                             <TextBlock Text="{x:Bind User.DisplayName,Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}"/>
                         </StackPanel>
                         <TextBlock Text="{x:Bind User.UserName,Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" />

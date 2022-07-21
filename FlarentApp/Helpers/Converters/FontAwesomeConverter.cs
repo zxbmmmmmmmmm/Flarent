@@ -18,12 +18,12 @@ namespace FlarentApp.Helpers.Converters
             {
                 var index = icon.LastIndexOf("fa-");
                 if (index == -1)
-                    return GetEnumByDescription<FontAwesomeIcon>("tag");
+                    return FontAwesomeIcon.None;
                 else
                     return GetEnumByDescription<FontAwesomeIcon>(icon.Remove(0, index + 3));//去除无关内容，获取Icon描述
             }
 
-            return GetEnumByDescription<FontAwesomeIcon>("tag");
+            return FontAwesomeIcon.None;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -41,7 +41,8 @@ namespace FlarentApp.Helpers.Converters
                     return (T)field.GetValue(null);
                 }
             }
-            return (T)fields[1].GetValue(null);
+
+            return (T)fields[46].GetValue(null);
             //throw new ArgumentException(string.Format("{0} 未能找到对应的枚举.", description), "Description");
         }
     }

@@ -12,15 +12,15 @@
 
     <Grid x:Name="ContentArea" HorizontalAlignment="Stretch" MaxWidth="1200" Margin="{StaticResource SmallLeftTopRightBottomMargin}">
         <StackPanel Orientation="Horizontal">
-            <Border CornerRadius="80" Width="45" Height="45" VerticalAlignment="Top" Margin="0,4,0,0">
+            <Border CornerRadius="80" Width="42" Height="42" VerticalAlignment="Top" Margin="0,4,0,0">
                 <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" x:Name="PosterButton" Background="#0000" BorderBrush="#0000" Click="PosterButton_Click" Padding="0" Height="52" Width="52" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTipService.ToolTip="{x:Bind Discussion.User.DisplayName}">
-                    <muxc:PersonPicture Canvas.ZIndex="1" ProfilePicture="{x:Bind Discussion.User.AvatarUrl,Mode=OneWay}" Height="45" ToolTipService.ToolTip="{x:Bind Discussion.User.DisplayName}" VerticalAlignment="Top" />
+                    <Image Source="{x:Bind Discussion.User.AvatarUrl,Mode=OneWay}" Height="50" Width="50" Margin="0,0,0,0"/>
                 </Button>
             </Border>
             <StackPanel Margin="{StaticResource SmallLeftMargin}">
                 <TextBlock Text="{x:Bind Discussion.Title,Mode=OneWay}" FontSize="20"/>
                 <StackPanel Orientation="Horizontal">
-                    <ListView ItemsSource="{x:Bind Discussion.Tags,Mode=OneWay}" SelectionMode="None" Margin="0,6,0,0">
+                    <ListView ItemsSource="{x:Bind Discussion.Tags,Mode=OneWay}" SelectionMode="None" Margin="0,6,0,0" ItemContainerStyle="{StaticResource ListViewItemNoPaddingStyle}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:Tag">
                                 <local:SmallTagTemplate TagData="{x:Bind}"/>
@@ -31,15 +31,6 @@
                                 <controls:WrapPanel HorizontalSpacing="4"/>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem" >
-                                <Setter Property="Padding" Value="0"/>
-                                <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="MinHeight" Value="20" />
-                                <Setter Property="MinWidth" Value="30" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
                     </ListView>
                     <FontIcon x:Name="RelpyIcon" Glyph="&#xE97A;" FontSize="14" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" Visibility="{x:Bind IsFirstPost,Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <HyperlinkButton x:Name="LastPostedUserButton" Click="LastPostedUserButton_Click" Content="{x:Bind Discussion.LastPostedUser.DisplayName}" Style="{StaticResource TextBlockButtonStyle}" Margin="4,1,0,0"/>

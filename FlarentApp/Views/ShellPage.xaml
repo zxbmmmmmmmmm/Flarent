@@ -48,7 +48,7 @@
                                 <FontIcon Glyph="&#xEDE1;"/>
                                 <TextBlock Text="退出登录"/>
                             </StackPanel>
-                        </ListViewItem>
+                        </ListViewItem> 
                     </ListView.Items>
                 </ListView>
             </Grid>
@@ -105,6 +105,7 @@
             <SplitView
                 x:Name="splitView"
                 PanePlacement="Right"
+                DisplayMode="Overlay"
                 OpenPaneLength="{x:Bind app:Flarent.Settings.PaneWidth,Mode=OneWay}" Canvas.ZIndex="1" >
                 <SplitView.Pane>
                     <Frame

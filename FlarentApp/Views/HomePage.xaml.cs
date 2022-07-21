@@ -19,13 +19,16 @@ namespace FlarentApp.Views
         public HomePage()
         {
             InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<Discussion> Discussions = new ObservableCollection<Discussion>();
         public string SortBy = "";
         public string Filter = "";
+        public bool ClearData = false;
         public Tag DiscussionTag;
+
         //public string LinkNext = "";
         public string LinkNext
         {
@@ -56,21 +59,31 @@ namespace FlarentApp.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            if (e.Parameter is Tag tag)
+            if (e.NavigationMode == NavigationMode.Back&&ClearData == false)
             {
-                DiscussionTag = tag;
+                return;
             }
-            else if (e.Parameter is string filter)
-                Filter = filter;
-            GetDiscussions();           
-
+            else
+            {
+                ClearData = false;
+                DiscussionTag = null;
+                if (e.Parameter is Tag tag)
+                {
+                    DiscussionTag = tag;
+                }
+                else if (e.Parameter is string filter)
+                    Filter = filter;
+                GetDiscussions();
+            }       
 
         }
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                ClearData = true;
+            }
         }
 
         private void DiscussionsListView_ItemClick(object sender, ItemClickEventArgs e)

@@ -178,7 +178,8 @@
     <comment>Personalization text for Settings</comment>
   </data>
   <data name="FirstRun_Body.Text" xml:space="preserve">
-    <value>欢迎使用Flarent！</value>
+    <value>欢迎使用Flarent！
+你可以前往`设置-论坛-选择论坛`处更改论坛</value>
     <comment>First use prompt message body</comment>
   </data>
   <data name="FirstRunDialog.Title" xml:space="preserve">
@@ -190,15 +191,19 @@
     <comment>First use prompt message primary button text</comment>
   </data>
   <data name="WhatsNew_Body.Text" xml:space="preserve">
-    <value>新增 回复
+    <value>- 新增 likes(flarum原生点赞插件)支持
 
-新增 用户创建的帖子/讨论显示
+  ![](https://wvbimg2-1310561333.cos.ap-tokyo.myqcloud.com/2022-07-21/1658373793-112434-image.png)
 
-新增 侧栏设置，支持在侧栏打开用户页和侧栏大小调整
+- 新增 用户组显示
 
-新增 更改标题/置顶等内容显示
+  ![](https://wvbimg2-1310561333.cos.ap-tokyo.myqcloud.com/2022-07-21/1658373933-765630-image.png)
 
-修复 浅色模式下FontAwesome图标显示不正常的问题</value>
+- 新增 应用图标
+
+- 优化 返回操作(现在从贴文返回到主页时无需重新加载)
+
+- 优化 侧栏(打开相同页面时无需重新加载)</value>
     <comment>What's new prompt message body</comment>
   </data>
   <data name="WhatsNewDialog.Title" xml:space="preserve">

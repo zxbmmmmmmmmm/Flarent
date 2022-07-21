@@ -23,7 +23,7 @@ namespace FlarentApp.Helpers
     {
         public string Forum
         {
-            get => GetSettings("Forum", "community.wvbtech.com");
+            get => GetSettings("Forum", "discuss.flarum.org.cn");
             set
             {
                 ApplicationData.Current.LocalSettings.Values["Forum"] = value;
