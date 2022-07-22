@@ -40,7 +40,7 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="24,12,0,0">
                     <TextBlock Text="加入于" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
                     <TextBlock Text="{x:Bind User.JoinTime,Mode=OneWay,Converter={StaticResource DateConverter}}" Margin="4,0,0,0" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
-                    <TextBlock Text="最后登录于" Margin="{StaticResource SmallLeftMargin}" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
+                    <TextBlock Text="最后登录于" Margin="{StaticResource SmallLeftMargin}" Style="{StaticResource DetailBodyBaseMediumStyle}" Visibility="{x:Bind User.LastSeenAt,Converter={StaticResource NullToVisibilityConverter}}"/>
                     <TextBlock Text="{x:Bind User.LastSeenAt,Mode=OneWay,Converter={StaticResource DateConverter}}" Margin="4,0,0,0" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
 
                 </StackPanel>

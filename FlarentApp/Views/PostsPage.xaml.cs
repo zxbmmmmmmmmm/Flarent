@@ -55,17 +55,20 @@ namespace FlarentApp.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if(e.Parameter != null)
+            LoadingProgressRing.Visibility = Visibility.Visible;
+
+            if (e.Parameter != null)
             {
                 if (e.Parameter is string username)
                 {
                     LinkNext = $"https://{Flarent.Settings.Forum}/api/posts?sort=-createdAt&filter[type]=comment&page[limit]=10&filter[author]={username}";
-                    GetPosts();  
+                    GetPosts();
                     return;
                 }
                 return;
             }
             GetPosts();
+
         }
         private async void GetPosts()
         {
@@ -77,6 +80,7 @@ namespace FlarentApp.Views
                 Posts.Add(post);
             PostsListView.ItemsSource = Posts;
             LoadMoreButton.IsEnabled = true;
+            LoadingProgressRing.Visibility = Visibility.Collapsed;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

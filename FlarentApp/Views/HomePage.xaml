@@ -9,6 +9,7 @@
     mc:Ignorable="d" >
     <Grid x:Name="ContentArea" >
         <Grid>
+            <muxc:ProgressRing x:Name="LoadingProgressRing" Height="64" Width="64" HorizontalAlignment="Center"  VerticalAlignment="Center" />
             <ListView x:Name="DiscussionsListView" ItemsSource="{x:Bind Discussions,Mode=OneWay}" IsItemClickEnabled="True" SelectionMode="None" ItemClick="DiscussionsListView_ItemClick">
                 <ListView.Header>
                     <Grid>

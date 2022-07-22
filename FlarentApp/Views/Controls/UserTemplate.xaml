@@ -31,7 +31,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
                 <FontIcon Glyph="&#xE81C;" FontSize="15" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
-                <TextBlock Text="{x:Bind UserData.LastSeenAt,Mode=OneWay,Converter={StaticResource DateConverter}}" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
+                <TextBlock Text="{x:Bind UserData.LastSeenAt,Mode=OneWay,Converter={StaticResource DateConverter}}" Style="{StaticResource DetailBodyBaseMediumStyle}" Visibility="{x:Bind UserData.LastSeenAt,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

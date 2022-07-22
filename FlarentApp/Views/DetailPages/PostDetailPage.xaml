@@ -5,7 +5,7 @@
     xmlns:local="using:FlarentApp.Views.DetailPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:localcontrols="using:FlarentApp.Views.Controls" xmlns:models="using:FlarumApi.Models"
+    xmlns:localcontrols="using:FlarentApp.Views.Controls" xmlns:models="using:FlarumApi.Models" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -27,5 +27,6 @@
             </ListView.ItemContainerStyle>
         </ListView>
         <localcontrols:PostTemplate x:Name="PostTemp" HorizontalAlignment="Stretch" Width="520" Visibility="Collapsed"/>
+        <muxc:ProgressRing x:Name="LoadingProgressRing" Height="64" Width="64"/>
     </Grid>
 </Page>

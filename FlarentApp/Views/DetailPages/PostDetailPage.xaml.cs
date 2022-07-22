@@ -50,9 +50,10 @@ namespace FlarentApp.Views.DetailPages
             string[] words = link.Split('/');
             var targetDiscussion = words[words.Length - 2];
             var targetNum = words[words.Length - 1];//找到最后一个数字
-
+            LoadingProgressRing.Visibility = Visibility.Visible;
             var posts = await FlarumApiProviders.GetPostsWithLink($"https://{Flarent.Settings.Forum}/api/posts?filter[discussion]={targetDiscussion}&filter[number]={targetNum}", Flarent.Settings.Token);
             Posts = posts.Item1;
+            LoadingProgressRing.Visibility = Visibility.Collapsed;
             //Posts = posts.Item1;
             PostsListView.ItemsSource = Posts;
         }

@@ -11,14 +11,14 @@
     d:DesignWidth="400">
 
     <Grid Margin="24">
-        <fa:FontAwesome Icon="{x:Bind TagData.Icon,Mode=OneWay,Converter={StaticResource FontAwesomeConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="40" Foreground="#80808080"/>
+        <fa:FontAwesome Icon="{x:Bind TagData.Icon,Converter={StaticResource FontAwesomeConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="40" Foreground="#80808080"/>
         <StackPanel Margin="24,0,0,0" HorizontalAlignment="Left">
-            <TextBlock Text="{x:Bind TagData.Name,Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}"/>
-            <TextBlock Text="{x:Bind TagData.Description,Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+            <TextBlock Text="{x:Bind TagData.Name}" Style="{StaticResource TitleTextBlockStyle}"/>
+            <TextBlock Text="{x:Bind TagData.Description}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Spacing="8">
             <FontIcon Glyph="&#xE134;" />
-            <TextBlock Text="{x:Bind TagData.DiscussionCount,Mode=OneWay}"/>
+            <TextBlock Text="{x:Bind TagData.DiscussionCount}"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -13,7 +13,7 @@
         <ListView ItemContainerStyle="{StaticResource ListViewItemNoPaddingStyle}" ItemsSource="{x:Bind UserGroups,Mode=OneWay}" SelectionMode="None" Visibility="{x:Bind UserGroups,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:UserGroup">
-                    <fa:FontAwesome Icon="{x:Bind Icon,Converter={StaticResource FontAwesomeConverter},Mode=OneWay}" ToolTipService.ToolTip="{x:Bind NameSingular,Mode=OneWay}" FontSize="18" VerticalAlignment="Center"/>
+                    <fa:FontAwesome Icon="{x:Bind Icon,Mode=OneWay,Converter={StaticResource FontAwesomeConverter}}" ToolTipService.ToolTip="{x:Bind NameSingular}" FontSize="18" VerticalAlignment="Center"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
             <ListView.ItemsPanel>

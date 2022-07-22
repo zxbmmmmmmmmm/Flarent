@@ -12,9 +12,11 @@
     mc:Ignorable="d">
 
     <Grid>
+
         <ListView x:Name="PostsListView" Grid.Row="1" SelectionMode="None" IsItemClickEnabled="False" IsEnabled="{x:Bind PostSlider.IsEnabled,Mode=OneWay}" >
             <ListView.Header>
                 <StackPanel>
+
                     <StackPanel x:Name="Title" Margin="48,24,48,12"  MaxWidth="1290" Visibility="{x:Bind IsFirstPage,Mode=OneWay}">
                         <TextBlock Text="{x:Bind Discussion.Title,Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" IsTextSelectionEnabled="True"/>
                         <ListView ItemsSource="{x:Bind Discussion.Tags,Mode=OneWay}" SelectionMode="None" Margin="0,0,0,0" >

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FlarumApi.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,19 @@ namespace FlarentApp.Helpers.Converters
                 : Visibility.Collapsed;
             return value == null? invisibility : Visibility.Visible;*/
             if(value == null||value.ToString() == "")
+            {
+
                 return Visibility.Collapsed;
+            }
             else
+            {
+                if (value is ObservableCollection<UserGroup> list)
+                {
+                    if (list.Count == 0)
+                        return Visibility.Collapsed;
+                }
                 return Visibility.Visible;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

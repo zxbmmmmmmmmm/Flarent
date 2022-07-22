@@ -44,6 +44,7 @@ namespace FlarentApp.Views
         {
             Catagories = await FlarumApiProviders.GetTags(Flarent.Settings.Forum, Flarent.Settings.Token);
             CatagoriesListView.ItemsSource = Catagories;
+            LoadingProgressRing.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private void CatagoriesListView_ItemClick(object sender, ItemClickEventArgs e)

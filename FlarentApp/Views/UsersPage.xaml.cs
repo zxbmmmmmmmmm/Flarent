@@ -64,6 +64,7 @@ namespace FlarentApp.Views
             Users = data.Item1;
             LinkNext = data.Item2;
             UsersListView.ItemsSource = Users;
+            LoadingProgressRing.Visibility =  Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)

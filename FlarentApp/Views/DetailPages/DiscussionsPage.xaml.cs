@@ -74,6 +74,7 @@ namespace FlarentApp.Views.DetailPages
                 Discussions.Add(post);
             DiscussionsListView.ItemsSource = Discussions;
             LoadMoreButton.IsEnabled = true;
+            LoadingProgressRing.Visibility = Visibility.Collapsed;
         }
 
         private void LoadMoreButton_Click(object sender, RoutedEventArgs e)

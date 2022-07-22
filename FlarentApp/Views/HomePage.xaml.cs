@@ -121,7 +121,7 @@ namespace FlarentApp.Views
             // DiscussionListView.ItemsSource = ViewModel.Discussions;
             LoadMoreButton.IsEnabled = true;
             DiscussionsListView.IsEnabled = true;
-
+            LoadingProgressRing.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private async void LoadMoreButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
