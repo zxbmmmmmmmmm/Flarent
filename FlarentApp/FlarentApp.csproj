@@ -475,15 +475,14 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FlarentApp.Core\FlarentApp.Core.csproj">
-      <Project>{7B366711-3AC9-4E6E-AA55-AEA7C04DF1F8}</Project>
+      <Project>{4c2e412b-debb-4bdd-a72f-ac42cca39e96}</Project>
       <Name>FlarentApp.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\FlarumApi\FlarumApi\FlarumApi.csproj">
-      <Project>{0813E408-08E5-4619-AA6B-E9748B958807}</Project>
+      <Project>{091a8819-f104-462a-b04f-03fb1097ba47}</Project>
       <Name>FlarumApi</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

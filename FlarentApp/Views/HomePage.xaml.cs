@@ -1,4 +1,5 @@
 ﻿using FlarentApp.Helpers;
+using FlarentApp.Helpers.Converters;
 using FlarentApp.Services;
 using FlarentApp.Views.DetailPages;
 using FlarumApi;
@@ -73,6 +74,8 @@ namespace FlarentApp.Views
                 }
                 else if (e.Parameter is string filter)
                     Filter = filter;
+                else
+                    Filter = "";
                 GetDiscussions();
             }       
 
@@ -105,6 +108,18 @@ namespace FlarentApp.Views
         }
         private async void GetDiscussions()
         {
+            if(DiscussionTag != null)
+            {
+                FavoriteButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                TagNameTextBlock.Text = DiscussionTag.Name;
+                TagDescriptionTextBlock.Text = DiscussionTag.Description;
+                var converter = new FontAwesomeConverter();              
+                FontAwesomeIcon.Icon = (FontAwesome.UWP.FontAwesomeIcon)converter.Convert(DiscussionTag.Icon, null, null, null);
+            }
+            else
+            {
+                FavoriteButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            }
             LoadMoreButton.IsEnabled = false;
             DiscussionsListView.IsEnabled = false;
             string sort = "";

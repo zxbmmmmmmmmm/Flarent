@@ -58,17 +58,17 @@
                     <StackPanel Spacing="12" HorizontalAlignment="Right">
                         <Border Visibility="{x:Bind FavoriteButton.Visibility,Mode=OneWay}">
                             <Grid >
-                                <fa:FontAwesome x:Name="FontAwesomeIcon" Foreground="#80808080" FontSize="40" HorizontalAlignment="Left" Icon="{x:Bind DiscussionTag.Icon,Mode=OneWay,Converter={StaticResource FontAwesomeConverter}}"/>
+                                <fa:FontAwesome  x:Name="FontAwesomeIcon" Foreground="#80808080" FontSize="40" HorizontalAlignment="Left" Icon="{x:Bind DiscussionTag.Icon,Mode=OneWay,Converter={StaticResource FontAwesomeConverter}}"/>
                                 <StackPanel Margin="16,36,0,0">
-                                     <TextBlock Text="{x:Bind DiscussionTag.Name,Mode=OneWay}" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                                     <TextBlock Text="{x:Bind DiscussionTag.Description,Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxWidth="192"/>
+                                     <TextBlock x:Name="TagNameTextBlock" Text="{Binding DiscussionTag.Name,Mode=OneWay}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                                     <TextBlock x:Name="TagDescriptionTextBlock" Text="{x:Bind DiscussionTag.Description,Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxWidth="192"/>
                                 </StackPanel>
 
 
                             </Grid>
                         </Border>
                         <muxc:DropDownButton x:Name="ReplyButton" Content="发布主题" Width="162" Style="{StaticResource AccentButtonStyle}"  HorizontalAlignment="Center"/>
-                        <muxc:DropDownButton x:Name="FavoriteButton" Content="关注" Width="162" Visibility="{x:Bind DiscussionTag,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}" HorizontalAlignment="Center"/>
+                        <muxc:DropDownButton x:Name="FavoriteButton" Content="关注" Width="162" HorizontalAlignment="Center"/>
 
                     </StackPanel>
                 </StackPanel>
