@@ -59,12 +59,26 @@ namespace FlarentApp.Views
 
         private async void GetUsers()
         {
-            var link = $"https://{Flarent.Settings.Forum}/api/users?sort={SortBy}";
-            var data = await FlarumApiProviders.GetUsers(link, Flarent.Settings.Token);
-            Users = data.Item1;
-            LinkNext = data.Item2;
-            UsersListView.ItemsSource = Users;
-            LoadingProgressRing.Visibility =  Windows.UI.Xaml.Visibility.Collapsed;
+            ErrorControl.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            LoadingProgressRing.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            Users.Clear();
+            LinkNext = "";
+            try
+            {
+                var link = $"https://{Flarent.Settings.Forum}/api/users?sort={SortBy}";
+                var data = await FlarumApiProviders.GetUsers(link, Flarent.Settings.Token);
+                Users = data.Item1;
+                LinkNext = data.Item2;
+                UsersListView.ItemsSource = Users;
+            }
+            catch
+            {
+                ErrorControl.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            }
+            finally
+            {
+                LoadingProgressRing.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            }
         }
 
         private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)

@@ -62,25 +62,40 @@ namespace FlarentApp.Views
                 if (e.Parameter is string username)
                 {
                     LinkNext = $"https://{Flarent.Settings.Forum}/api/posts?sort=-createdAt&filter[type]=comment&page[limit]=10&filter[author]={username}";
+                    Posts.Clear();
                     GetPosts();
                     return;
                 }
                 return;
             }
+            Posts.Clear();
             GetPosts();
 
         }
         private async void GetPosts()
         {
-            LoadMoreButton.IsEnabled = false;
-            var data = await FlarumApiProviders.GetPostsWithLink(LinkNext,Flarent.Settings.Token);
-            var posts = data.Item1;
-            LinkNext = data.Item2;
-            foreach (var post in posts)
-                Posts.Add(post);
-            PostsListView.ItemsSource = Posts;
-            LoadMoreButton.IsEnabled = true;
-            LoadingProgressRing.Visibility = Visibility.Collapsed;
+            try
+            {
+                ErrorControl.Visibility = Visibility.Collapsed;
+                LoadMoreButton.IsEnabled = false;
+                var data = await FlarumApiProviders.GetPostsWithLink(LinkNext, Flarent.Settings.Token);
+                var posts = data.Item1;
+                LinkNext = data.Item2;
+                foreach (var post in posts)
+                    Posts.Add(post);
+                PostsListView.ItemsSource = Posts;
+                LoadMoreButton.IsEnabled = true;
+            }
+            catch
+            {
+                ErrorControl.Visibility = Visibility.Visible;
+                LoadMoreButton.Visibility = Visibility.Collapsed;
+            }
+            finally
+            {
+                LoadingProgressRing.Visibility = Visibility.Collapsed;
+            }
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

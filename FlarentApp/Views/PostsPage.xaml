@@ -7,7 +7,7 @@
     mc:Ignorable="d" Unloaded="Page_Unloaded">
     <Grid x:Name="ContentArea" >
         <muxc:ProgressRing x:Name="LoadingProgressRing" Height="64" Width="64" HorizontalAlignment="Center"  VerticalAlignment="Center" />
-
+        <localcontrols:ErrorControl x:Name="ErrorControl" VerticalAlignment="Center" Visibility="Collapsed"/>
         <ListView x:Name="PostsListView" Grid.Row="1" SelectionMode="None" IsItemClickEnabled="False">
             <ListView.Footer>
                 <Grid Margin="0,24">

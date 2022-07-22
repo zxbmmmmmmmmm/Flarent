@@ -75,6 +75,8 @@
                             <FontIcon Glyph="&#xE10C;" FontSize="14"/>
                             <Button.Flyout>
                                 <MenuFlyout Placement="BottomEdgeAlignedRight">
+                                    <MenuFlyoutItem x:Name="RefreshItem" Click="RefreshItem_Click" Icon="Refresh" Text="刷新"/>
+
                                     <MenuFlyoutItem x:Name="DownloadItem" Click="DownloadItem_Click" Icon="Download" Text="下载此贴"/>
                                 </MenuFlyout>
                             </Button.Flyout>

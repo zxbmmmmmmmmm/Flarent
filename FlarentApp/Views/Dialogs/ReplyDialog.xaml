@@ -5,7 +5,7 @@
     xmlns:local="using:FlarentApp.Views.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:fa="using:FontAwesome.UWP" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:fa="using:FontAwesome.UWP" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -13,6 +13,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <muxc:ProgressBar x:Name="LoadingProgressBar" IsIndeterminate="True" VerticalAlignment="Top" Visibility="Collapsed"/>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Padding="0,8">
             <FontIcon Glyph="&#xE97A;" FontSize="14" VerticalAlignment="Center"/>
             <HyperlinkButton Content="{x:Bind Discussion.Title}" />

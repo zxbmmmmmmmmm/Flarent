@@ -57,24 +57,40 @@ namespace FlarentApp.Views.DetailPages
                 if (e.Parameter is string username)
                 {
                     LinkNext = $"https://{Flarent.Settings.Forum}/api/discussions?sort=-createdAt&filter[author]={username}";
+                    Discussions.Clear();
                     GetDiscussions();
                     return;
                 }
                 return;
             }
+            Discussions.Clear();
             GetDiscussions();
         }
         private async void GetDiscussions()
         {
-            LoadMoreButton.IsEnabled = false;
-            var data = await FlarumApiProviders.GetDiscussions(null,LinkNext, null,Flarent.Settings.Token);
-            var discussions = data.Item1;
-            LinkNext = data.Item2;
-            foreach (var post in discussions)
-                Discussions.Add(post);
-            DiscussionsListView.ItemsSource = Discussions;
-            LoadMoreButton.IsEnabled = true;
-            LoadingProgressRing.Visibility = Visibility.Collapsed;
+            try
+            {
+                ErrorControl.Visibility = Visibility.Collapsed;
+                LoadMoreButton.IsEnabled = false;
+                var data = await FlarumApiProviders.GetDiscussions(null, LinkNext, null, Flarent.Settings.Token);
+                var discussions = data.Item1;
+                LinkNext = data.Item2;
+                foreach (var post in discussions)
+                    Discussions.Add(post);
+                DiscussionsListView.ItemsSource = Discussions;
+                LoadMoreButton.IsEnabled = true;
+            }
+            catch
+            {
+                ErrorControl.Visibility = Visibility.Visible;
+                LoadMoreButton.Visibility = Visibility.Collapsed;
+            }
+            finally
+            {
+                LoadingProgressRing.Visibility = Visibility.Collapsed;
+            }
+
+
         }
 
         private void LoadMoreButton_Click(object sender, RoutedEventArgs e)

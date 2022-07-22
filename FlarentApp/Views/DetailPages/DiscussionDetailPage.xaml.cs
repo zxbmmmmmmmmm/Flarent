@@ -101,14 +101,16 @@ namespace FlarentApp.Views.DetailPages
             PostSlider.AddHandler(UIElement.PointerReleasedEvent /*哪个事件*/, new PointerEventHandler(PostSlider_PointerReleased) /*使用哪个函数处理*/, true /*如果在之前处理，是否还使用函数*/);
 
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             if(e.Parameter != null)
             {
                 discussionId = (int)e.Parameter;
             }
-            GetDiscussion();
+            await GetDiscussion();
+            await TurnToPage(0);
+
         }
         private void PostScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
@@ -149,7 +151,7 @@ namespace FlarentApp.Views.DetailPages
         /// <summary>
         /// 获取讨论信息
         /// </summary>
-        private async void GetDiscussion()
+        public async Task GetDiscussion()
         {
             PostSlider.IsEnabled = false;
             Discussion = await FlarumApiProviders.GetDiscussion(discussionId, 0, Flarent.Settings.Forum,Flarent.Settings.Token);
@@ -164,7 +166,6 @@ namespace FlarentApp.Views.DetailPages
             LastPosts = PostIds.Count % 30;//将post的数量取余30，得到剩余的post数量（29）
             PostScrollViewer = GetScrollViewer(PostsListView);
             PostScrollViewer.ViewChanged += PostScrollViewer_ViewChanged;
-            await TurnToPage(0);
         }
         private async Task GetPost(int min, int range)
         {
@@ -232,7 +233,7 @@ namespace FlarentApp.Views.DetailPages
             await TurnToPage(CurrentPage - 1);
             PostScrollViewer.ChangeView(PostScrollViewer.HorizontalOffset, PostScrollViewer.ExtentHeight, PostScrollViewer.ZoomFactor);//导航到底部
         }
-
+       
         private void ReplyButton_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new ReplyDialog(Discussion).ShowAsync();
@@ -242,6 +243,17 @@ namespace FlarentApp.Views.DetailPages
         {
             var tuple = new Tuple<List<int>, Discussion>(PostIds, Discussion);
             await new DownloadDialog(PostIds, Discussion).ShowAsync();
+        }
+        public async void TurnToLastPage()
+        {
+            await TurnToPage(TotalPages - 1);
+            PostScrollViewer.ChangeView(PostScrollViewer.HorizontalOffset, PostScrollViewer.ExtentHeight, PostScrollViewer.ZoomFactor);//导航到底部
+        }
+
+        private async void RefreshItem_Click(object sender, RoutedEventArgs e)
+        {
+            await GetDiscussion();
+            await TurnToPage(0);
         }
     }
 

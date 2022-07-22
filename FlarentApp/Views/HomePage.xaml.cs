@@ -76,6 +76,7 @@ namespace FlarentApp.Views
                     Filter = filter;
                 else
                     Filter = "";
+                Discussions.Clear();
                 GetDiscussions();
             }       
 
@@ -103,40 +104,54 @@ namespace FlarentApp.Views
 
             if (SortBy == "-frontdate")
                 SortBy = "-frontdate&filter[q]=is:frontpage";
+            Discussions.Clear();
             GetDiscussions();
 
         }
         private async void GetDiscussions()
         {
-            if(DiscussionTag != null)
+            try
             {
-                FavoriteButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                TagNameTextBlock.Text = DiscussionTag.Name;
-                TagDescriptionTextBlock.Text = DiscussionTag.Description;
-                var converter = new FontAwesomeConverter();              
-                FontAwesomeIcon.Icon = (FontAwesome.UWP.FontAwesomeIcon)converter.Convert(DiscussionTag.Icon, null, null, null);
+                ErrorControl.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                if (DiscussionTag != null)
+                {
+                    FavoriteButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    TagNameTextBlock.Text = DiscussionTag.Name;
+                    TagDescriptionTextBlock.Text = DiscussionTag.Description;
+                    var converter = new FontAwesomeConverter();
+                    FontAwesomeIcon.Icon = (FontAwesome.UWP.FontAwesomeIcon)converter.Convert(DiscussionTag.Icon, null, null, null);
+                }
+                else
+                {
+                    FavoriteButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                }
+                LoadMoreButton.IsEnabled = false;
+                DiscussionsListView.IsEnabled = false;
+                string sort = "";
+                string tag = "";
+                if (SortBy != "")
+                    sort = $"&sort={SortBy}";
+                if (DiscussionTag != null)
+                    tag = $"&filter[tag]={DiscussionTag.Slug}";
+                var query = $"{sort}{tag}{Filter}";
+                var data = await FlarumApiProviders.GetDiscussions(query, null, Flarent.Settings.Forum, Flarent.Settings.Token);
+                Discussions = data.Item1;
+                LinkNext = data.Item2;
+                DiscussionsListView.ItemsSource = Discussions;
+                // DiscussionListView.ItemsSource = ViewModel.Discussions;
+                LoadMoreButton.IsEnabled = true;
+
             }
-            else
+            catch
             {
-                FavoriteButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                LoadMoreButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                ErrorControl.Visibility = Windows.UI.Xaml.Visibility.Visible;
             }
-            LoadMoreButton.IsEnabled = false;
-            DiscussionsListView.IsEnabled = false;
-            string sort = "";
-            string tag = "";
-            if (SortBy != "")
-                sort = $"&sort={SortBy}";
-            if (DiscussionTag != null)
-                tag = $"&filter[tag]={DiscussionTag.Slug}";
-            var query = $"{sort}{tag}{Filter}";
-            var data = await FlarumApiProviders.GetDiscussions(query,null, Flarent.Settings.Forum,Flarent.Settings.Token);
-            Discussions = data.Item1;
-            LinkNext = data.Item2;
-            DiscussionsListView.ItemsSource = Discussions;
-            // DiscussionListView.ItemsSource = ViewModel.Discussions;
-            LoadMoreButton.IsEnabled = true;
-            DiscussionsListView.IsEnabled = true;
-            LoadingProgressRing.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            finally
+            {
+                DiscussionsListView.IsEnabled = true;
+                LoadingProgressRing.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            }
         }
 
         private async void LoadMoreButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)

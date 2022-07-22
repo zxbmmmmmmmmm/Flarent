@@ -188,6 +188,9 @@
     <Compile Include="Views\Controls\DiscussionTemplate.xaml.cs">
       <DependentUpon>DiscussionTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\ErrorControl.xaml.cs">
+      <DependentUpon>ErrorControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\PostTemplateWithDiscussion.xaml.cs">
       <DependentUpon>PostTemplateWithDiscussion.xaml</DependentUpon>
     </Compile>
@@ -302,6 +305,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Controls\ErrorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\PostTemplateWithDiscussion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -400,6 +407,7 @@
     <Compile Include="Helpers\ResourceExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\App\InoriAizawa\Error.png" />
     <Content Include="Assets\extensions\wvbdev-tieba-stickers\angry.png" />
     <Content Include="Assets\extensions\wvbdev-tieba-stickers\cry.png" />
     <Content Include="Assets\extensions\wvbdev-tieba-stickers\easteregg.png" />

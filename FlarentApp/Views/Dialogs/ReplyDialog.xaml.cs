@@ -36,7 +36,7 @@ namespace FlarentApp.Views.Dialogs
 
         private void EditZone_TextChanged(object sender, RoutedEventArgs e)
         {
-            
+            LoadingProgressBar.Visibility = Visibility.Collapsed;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -46,15 +46,38 @@ namespace FlarentApp.Views.Dialogs
 
         private async void ReplyButton_Click(object sender, RoutedEventArgs e)
         {
+            LoadingProgressBar.Visibility = Visibility.Visible;
+            LoadingProgressBar.ShowError = false;
             string text = string.Empty;
             EditZone.Document.GetText(Windows.UI.Text.TextGetOptions.UseCrlf,out text);
-            var data = await FlarumApiProviders.ReplyAsync(text, $"https://{Flarent.Settings.Forum}/api/posts", (int)Discussion.Id, Flarent.Settings.Token);
-            var reply = data.Item1;
-            if (data.Item2 == "")
+            ReplyButton.IsEnabled = false;
+            try
             {
-                Hide();
-                var postId = (int)reply["data"]["id"];
-                NavigationService.OpenInRightPane(typeof(PostDetailPage),postId);
+                var data = await FlarumApiProviders.ReplyAsync(text, $"https://{Flarent.Settings.Forum}/api/posts", (int)Discussion.Id, Flarent.Settings.Token);
+                var reply = data.Item1;
+                if (data.Item2 == "")
+                {
+                    Hide();
+                    var postId = (int)reply["data"]["id"];
+                    var shell = Window.Current.Content as ShellPage;//获取当前正在显示的页面
+                    var frame = shell.shellFrame;
+                    if (frame.Content is DiscussionDetailPage page)
+                    {
+                        await page.GetDiscussion();
+                        page.TurnToLastPage();
+                    }
+                    NavigationService.OpenInRightPane(typeof(PostDetailPage), postId);
+                }
+                else
+                {
+                    LoadingProgressBar.ShowError = true;
+                    ReplyButton.IsEnabled = true;
+                }
+            }
+            catch
+            {
+                LoadingProgressBar.ShowError = true;
+                ReplyButton.IsEnabled = true;
             }
 
         }
