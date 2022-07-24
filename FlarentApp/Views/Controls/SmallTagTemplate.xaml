@@ -13,7 +13,7 @@
         <converter:FontAwesomeConverter x:Name="FontAwesomeConverter"/>
     </UserControl.Resources>
     <Grid>
-        <Button x:Name="TagButton" Padding="0" Background="Transparent" BorderBrush="Transparent">
+        <Button x:Name="TagButton" Padding="0" Background="Transparent" BorderBrush="Transparent" >
             <StackPanel Orientation="Horizontal">
                 <fa:FontAwesome Icon="{x:Bind TagData.Icon,Mode=OneWay,Converter={StaticResource FontAwesomeConverter}}" x:Name="FontAwesomeIcon" FontSize="14"/>
                 <TextBlock Text="{x:Bind TagData.Name,Mode=OneWay}" Margin="4,0,0,0" FontSize="14"/>

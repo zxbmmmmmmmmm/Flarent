@@ -7,8 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:views="using:FlarentApp.Views" xmlns:app="using:FlarentApp.Helpers" xmlns:localcontrols="using:FlarentApp.Views.Controls"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
     <ScrollViewer>
         <Grid>
             <Grid.RowDefinitions>

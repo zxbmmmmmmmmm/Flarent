@@ -1,4 +1,5 @@
 ﻿using FlarentApp.Helpers;
+using FlarentApp.Helpers.Converters;
 using FlarentApp.Services;
 using FlarentApp.Views.DetailPages;
 using FlarentApp.Views.Dialogs;
@@ -37,6 +38,24 @@ namespace FlarentApp.Views.Controls
             Window.Current.SizeChanged += WindowSizeChanged;
             ReplyButton.Click -= ReplyButton_Click;
             ReplyButton.Click += ReplyButton_Click;
+            VotesToggleButton.Click -= VotesToggleButton_Click;
+            VotesToggleButton.Click += VotesToggleButton_Click;
+            EditMenuItem.Click -= EditMenuItem_Click;
+            EditMenuItem.Click += EditMenuItem_Click;
+
+        }
+
+        private async void EditMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var converter = new HtmlToMarkdownConverter();
+
+            var text = (string)converter.Convert(Post.ContentHtml, null, null
+                , null);
+            await new ReplyDialog(null, Post, text).ShowAsync();
+        }
+
+        private void VotesToggleButton_Click(object sender, RoutedEventArgs e)
+        {
 
         }
 
@@ -44,7 +63,7 @@ namespace FlarentApp.Views.Controls
         {
             var btn = sender as Button;
             var clicked = btn.DataContext as Post;
-            await new ReplyDialog(Post.Discussion, $"@\"{clicked.User.DisplayName}\"#p{clicked.Id} ").ShowAsync();
+            await new ReplyDialog(Post.Discussion,null, $"@\"{clicked.User.DisplayName}\"#p{clicked.Id} ").ShowAsync();
         }
 
         private void WindowSizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
@@ -147,6 +166,8 @@ namespace FlarentApp.Views.Controls
             ContentMarkdownTextBlock.LinkClicked -= ContentMarkdownTextBlock_LinkClicked;
             Window.Current.SizeChanged -= WindowSizeChanged;
             ReplyButton.Click -= ReplyButton_Click;
+            VotesToggleButton.Click -= VotesToggleButton_Click;
+            EditMenuItem.Click -= EditMenuItem_Click;         
         }
 
     }

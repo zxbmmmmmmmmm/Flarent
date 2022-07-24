@@ -71,7 +71,7 @@
         ItemInvoked="OnItemInvoked"
         IsSettingsVisible="True"
         OpenPaneLength="200"
-        winui:BackdropMaterial.ApplyToRootOrPageBackground="True">
+        winui:BackdropMaterial.ApplyToRootOrPageBackground="True" Background="{StaticResource AcrylicBackgroundFillColorDefaultBrush}">
         <winui:NavigationView.MenuItems>
             <!--
             TODO: Change the symbols for each item as appropriate for your app

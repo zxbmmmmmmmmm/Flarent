@@ -77,6 +77,7 @@ namespace FlarentApp.Views
                 else
                     Filter = "";
                 Discussions.Clear();
+                LoadingProgressRing.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 GetDiscussions();
             }       
 
@@ -104,7 +105,7 @@ namespace FlarentApp.Views
 
             if (SortBy == "-frontdate")
                 SortBy = "-frontdate&filter[q]=is:frontpage";
-            Discussions.Clear();
+            LoadingProgressRing.Visibility = Windows.UI.Xaml.Visibility.Visible;
             GetDiscussions();
 
         }
@@ -140,16 +141,17 @@ namespace FlarentApp.Views
                 DiscussionsListView.ItemsSource = Discussions;
                 // DiscussionListView.ItemsSource = ViewModel.Discussions;
                 LoadMoreButton.IsEnabled = true;
-
+                DiscussionsListView.IsEnabled = true;
             }
             catch
             {
+                Discussions.Clear();
+                DiscussionsListView.IsEnabled = true;
                 LoadMoreButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 ErrorControl.Visibility = Windows.UI.Xaml.Visibility.Visible;
             }
             finally
             {
-                DiscussionsListView.IsEnabled = true;
                 LoadingProgressRing.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             }
         }

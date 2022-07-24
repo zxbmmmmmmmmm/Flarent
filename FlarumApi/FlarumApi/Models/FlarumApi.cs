@@ -79,6 +79,7 @@ namespace FlarumApi.Models
         public string ContentType { get; set; }
         public string ContentHtml { get; set; }
         public int? Votes { get; set; }
+        public bool HasUpvoted { get; set; }
         public object Content { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? EditedAt { get; set; }
@@ -122,9 +123,11 @@ namespace FlarumApi.Models
             post.Content = attributes.Value<object>("content") ?? null;
             post.ContentType = attributes.Value<string>("contentType") ?? null;
             post.Votes = attributes.Value<int?>("votes") ?? null;
+            post.HasUpvoted = attributes.Value<bool>("hasUpvoted");
             post.ContentHtml = attributes.Value<string>("contentHtml") ?? null;
             post.CreatedAt = attributes.Value<DateTime?>("createdAt") ?? null;
             post.EditedAt = attributes.Value<DateTime?>("editedAt") ?? null;
+
             if (post.ContentType != "comment"&&post.ContentHtml == null)
             {
                 post.SpecialContent = new SpecialContent();

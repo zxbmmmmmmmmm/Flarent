@@ -191,19 +191,9 @@
     <comment>First use prompt message primary button text</comment>
   </data>
   <data name="WhatsNew_Body.Text" xml:space="preserve">
-    <value>- 新增 likes(flarum原生点赞插件)支持
-
-  ![](https://wvbimg2-1310561333.cos.ap-tokyo.myqcloud.com/2022-07-21/1658373793-112434-image.png)
-
-- 新增 用户组显示
-
-  ![](https://wvbimg2-1310561333.cos.ap-tokyo.myqcloud.com/2022-07-21/1658373933-765630-image.png)
-
-- 新增 应用图标
-
-- 优化 返回操作(现在从贴文返回到主页时无需重新加载)
-
-- 优化 侧栏(打开相同页面时无需重新加载)</value>
+    <value>- 已经更新至winui2.8 正式版
+- 添加了加载动画
+- 修复了一些已知问题</value>
     <comment>What's new prompt message body</comment>
   </data>
   <data name="WhatsNewDialog.Title" xml:space="preserve">

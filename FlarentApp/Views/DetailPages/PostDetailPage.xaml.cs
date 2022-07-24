@@ -66,5 +66,7 @@ namespace FlarentApp.Views.DetailPages
             LoadingProgressRing.Visibility = Visibility.Collapsed;
 
         }
+
+
     }
 }

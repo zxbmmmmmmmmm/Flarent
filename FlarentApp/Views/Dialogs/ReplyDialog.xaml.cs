@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,11 +26,13 @@ namespace FlarentApp.Views.Dialogs
     public sealed partial class ReplyDialog : ContentDialog
     {
         public Discussion Discussion;
+        public Post Post;
         public string Text;
-        public ReplyDialog(Discussion discussion,string text = "")
+        public ReplyDialog(Discussion discussion, Post post = null, string text = "")
         {
             this.InitializeComponent();
             Discussion = discussion;
+            Post = post;
             if(text!="")
                 EditZone.Document.Selection.TypeText(text);
         }
@@ -53,27 +56,35 @@ namespace FlarentApp.Views.Dialogs
             ReplyButton.IsEnabled = false;
             try
             {
-                var data = await FlarumApiProviders.ReplyAsync(text, $"https://{Flarent.Settings.Forum}/api/posts", (int)Discussion.Id, Flarent.Settings.Token);
-                var reply = data.Item1;
-                if (data.Item2 == "")
+                if(Post==null)
                 {
-                    Hide();
-                    var postId = (int)reply["data"]["id"];
-                    var shell = Window.Current.Content as ShellPage;//获取当前正在显示的页面
-                    var frame = shell.shellFrame;
-                    if (frame.Content is DiscussionDetailPage page)
+                    var data = await FlarumApiProviders.ReplyAsync(text, $"https://{Flarent.Settings.Forum}/api/posts", (int)Discussion.Id, Flarent.Settings.Token);
+                    var reply = data.Item1;
+                    if (data.Item2 == "")
                     {
-                        await page.GetDiscussion();
-                        page.TurnToLastPage();
+                        Hide();
+                        var postId = (int)reply["data"]["id"];
+                        var shell = Window.Current.Content as ShellPage;//获取当前正在显示的页面
+                        var frame = shell.shellFrame;
+                        if (frame.Content is DiscussionDetailPage page)
+                        {
+                            await page.GetDiscussion();
+                            page.TurnToLastPage();
+                        }
+                        NavigationService.OpenInRightPane(typeof(PostDetailPage), postId);
                     }
-                    NavigationService.OpenInRightPane(typeof(PostDetailPage), postId);
+                    else
+                    {
+                        LoadingProgressBar.ShowError = true;
+                        ReplyButton.IsEnabled = true;
+                    }
                 }
                 else
                 {
-                    LoadingProgressBar.ShowError = true;
-                    ReplyButton.IsEnabled = true;
+                    await Edit(text);
                 }
             }
+
             catch
             {
                 LoadingProgressBar.ShowError = true;
@@ -81,5 +92,21 @@ namespace FlarentApp.Views.Dialogs
             }
 
         }
+        public async Task Edit(string text)
+        {
+            var data = await FlarumApiProviders.EditAsync(text, $"https://{Flarent.Settings.Forum}/api/posts/{(int)Post.Id}", (int)Post.Id, Flarent.Settings.Token);
+            var reply = data.Item1;
+            if (data.Item2 == "")
+            {
+                Hide();
+                var postId = (int)reply["data"]["id"];
+            }
+            else
+            {
+                LoadingProgressBar.ShowError = true;
+                ReplyButton.IsEnabled = true;
+            }
+        }
     }
+    
 }

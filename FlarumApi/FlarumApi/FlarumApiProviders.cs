@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FlarumApi
@@ -213,6 +211,45 @@ namespace FlarumApi
             };
             var json = JsonConvert.SerializeObject(contents, Formatting.None);
             var data = await NetworkHelper.PostWithJsonAsync(link,json,token);
+            string error = string.Empty;
+            if (data["errors"] == null)
+            {
+
+            }
+            else
+            {
+                error = data["errors"][0]["code"].ToString();
+            }
+            var tuple = new Tuple<JObject, string>(data, error);
+            return tuple;
+
+        }
+        public async static Task<Tuple<JObject, string>> EditAsync(string text, string link, int postId, string token)
+        {
+
+            //var token = ApplicationData.Current.LocalSettings.Values["token"].ToString();
+            //client.DefaultRequestHeaders.Add("Authorization", "Token " + token);
+            //var datum = new ReplyData { data = new Reply { type = "posts", attributes = new ReplyAttributes { content = text }, relationships = new Relationships { discussion = new Discussion { data = new Data { id = discussionId.ToString() } } } } };
+            //var json = Newtonsoft.Json.JsonConvert.SerializeObject(datum);
+
+            var contents = new Dictionary<string, object>
+            {
+                {"data",new Dictionary<string,object>
+                {
+                    {"type","posts" },
+
+                    {"attributes",new Dictionary<string,string>
+                    {
+                        {"content",text }
+                    }
+                    },
+                    {"id",postId },
+
+                }
+                }
+            };
+            var json = JsonConvert.SerializeObject(contents, Formatting.None);
+            var data = await NetworkHelper.PostWithJsonAsync(link, json, token);
             string error = string.Empty;
             if (data["errors"] == null)
             {

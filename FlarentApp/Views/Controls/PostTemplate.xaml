@@ -49,12 +49,12 @@
         </StackPanel>
         
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" >
-            <Button Visibility="{x:Bind Post.Votes,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}">
+            <ToggleButton x:Name="VotesToggleButton" IsChecked="{x:Bind Post.HasUpvoted}" Visibility="{x:Bind Post.Votes,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}" >
                 <StackPanel Orientation="Horizontal">
                     <FontIcon Glyph="&#xE19F;" FontSize="14"/>
                     <TextBlock Text="{x:Bind Post.Votes,Mode=OneWay}" Margin="{StaticResource SmallLeftMargin}"/>
                 </StackPanel>
-            </Button>
+            </ToggleButton>
             <Button x:Name="ReplyButton">
                 <StackPanel Orientation="Horizontal">
                     <FontIcon Glyph="&#xE97A;" FontSize="14"/>
@@ -63,6 +63,11 @@
             </Button>
             <Button Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
                 <SymbolIcon Symbol="More"/>
+                <Button.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem x:Name="EditMenuItem" Icon="Edit" Text="编辑" IsEnabled="False"/>
+                    </MenuFlyout>
+                </Button.Flyout>
             </Button>
         </StackPanel>
         <StackPanel Grid.Row="4" Margin="0,0,0,16">

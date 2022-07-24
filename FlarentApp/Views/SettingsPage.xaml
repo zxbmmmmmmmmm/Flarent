@@ -23,7 +23,11 @@
                         </StackPanel>
                     </muxc:Expander.Header>
                     <muxc:Expander.Content>
-                        <StackPanel Margin="{StaticResource SmallLeftTopRightBottomMargin}">
+                        <Grid Margin="{StaticResource SmallLeftTopRightBottomMargin}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
                             <StackPanel Spacing="4">
                                 <RadioButton
                                 x:Uid="Settings_Theme_Light"
@@ -56,7 +60,14 @@
                                     </RadioButton.CommandParameter>
                                 </RadioButton>
                             </StackPanel>
-                        </StackPanel>
+                            <Grid Grid.Row="1" Margin="{StaticResource SmallTopMargin}">
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="亚克力" />
+                                    <TextBlock Text="Win11下将覆盖Mica，可能会增加占用" Style="{StaticResource DetailBodyBaseMediumStyle}" FontSize="12"/>
+                                </StackPanel>
+                                <ToggleSwitch HorizontalAlignment="Right" MinWidth="10"/>
+                            </Grid>
+                        </Grid>
 
                     </muxc:Expander.Content>
                 </muxc:Expander>

@@ -71,7 +71,7 @@
                     <Button x:Name="ReplyButton" Click="ReplyButton_Click" Content="回复" Width="162" Style="{StaticResource AccentButtonStyle}"/>
                     <StackPanel Orientation="Horizontal" Spacing="4">
                         <ToggleButton x:Name="FavoriteButton" Content="关注" Width="126" IsEnabled="False"/>
-                        <Button Padding="8" Background="Transparent" BorderBrush="Transparent">
+                        <Button Padding="8">
                             <FontIcon Glyph="&#xE10C;" FontSize="14"/>
                             <Button.Flyout>
                                 <MenuFlyout Placement="BottomEdgeAlignedRight">

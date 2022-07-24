@@ -14,9 +14,10 @@
                     <muxc:NavigationView PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" MaxWidth="1224" ItemInvoked="NavigationView_ItemInvoked">
                         <muxc:NavigationView.MenuItems>
                             <muxc:NavigationViewItem Content="最近登录" IsSelected="True" Tag="-lastSeenAt"/>
-                            <muxc:NavigationViewItem Content="最近注册" Tag="-joinTime" IsEnabled="False"/>
                             <muxc:NavigationViewItem Content="最多回复" Tag="-commentCount"/>
                             <muxc:NavigationViewItem Content="最晚登录" Tag="lastSeenAt"/>
+                            <muxc:NavigationViewItem Content="最近注册" Tag="-joinedAt"/>
+                            <muxc:NavigationViewItem Content="最早注册" Tag="joinedAt"/>
 
                         </muxc:NavigationView.MenuItems>
                         <muxc:NavigationView.FooterMenuItems>
