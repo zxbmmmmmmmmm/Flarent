@@ -14,8 +14,19 @@
         <Grid Margin="24,18,24,0">
             <StackPanel
             x:Name="ContentArea" >
-                <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" >
+                    <TextBlock.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </TextBlock.Transitions>
+                </TextBlock>
                 <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
+                    <muxc:Expander.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition />
+                        </TransitionCollection>
+                    </muxc:Expander.Transitions>
                     <muxc:Expander.Header>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <FontIcon Glyph="&#xE793;" />
@@ -72,6 +83,11 @@
                     </muxc:Expander.Content>
                 </muxc:Expander>
                 <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
+                    <muxc:Expander.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition />
+                        </TransitionCollection>
+                    </muxc:Expander.Transitions>
                     <muxc:Expander.Header >
                         <Grid>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -108,8 +124,19 @@
                     </muxc:Expander.Content>
                 </muxc:Expander>
 
-                <TextBlock Text="论坛" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}"/>
+                <TextBlock Text="论坛" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}">
+                    <TextBlock.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </TextBlock.Transitions>
+                </TextBlock>
                 <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
+                    <muxc:Expander.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition />
+                        </TransitionCollection>
+                    </muxc:Expander.Transitions>
                     <muxc:Expander.Header>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <FontIcon Glyph="&#xE206;"/>
@@ -124,9 +151,20 @@
                     </muxc:Expander.Content>
                 </muxc:Expander>
 
-                <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}"/>
+                <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}">
+                    <TextBlock.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </TextBlock.Transitions>
+                </TextBlock>
 
                 <muxc:Expander HorizontalAlignment="Stretch"  Margin="{StaticResource SmallTopMargin}">
+                    <muxc:Expander.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition />
+                        </TransitionCollection>
+                    </muxc:Expander.Transitions>
                     <muxc:Expander.Header>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <FontIcon Glyph="&#xE946;" />
@@ -147,7 +185,6 @@
                                 x:Uid="Settings_AboutDescription"
                                 Style="{ThemeResource BodyTextBlockStyle}"  VerticalAlignment="Center"/>
                                 <HyperlinkButton x:Uid="Settings_PrivacyTermsLink"  HorizontalAlignment="Center" Style="{StaticResource TextBlockButtonStyle}"/>
-
                             </StackPanel>
 
                         </StackPanel>
