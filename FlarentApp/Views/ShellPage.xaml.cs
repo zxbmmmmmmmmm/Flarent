@@ -14,6 +14,7 @@ using FlarumApi;
 using Microsoft.UI.Xaml.Media;
 using Newtonsoft.Json;
 using Windows.System;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -71,6 +72,7 @@ namespace FlarentApp.Views
             NavigationService.NavigationFailed += Frame_NavigationFailed;
             NavigationService.Navigated += Frame_Navigated;
             navigationView.BackRequested += OnBackRequested;
+            SetTitleBar();
 
             if (Flarent.Settings.IsAcrylicEnabled)
             {
@@ -97,6 +99,19 @@ namespace FlarentApp.Views
                 UpdateUserInfo();//更新用户数据
             else
                 User = Default.NotLoginedUser;//未登录用户
+
+        }
+        public void SetTitleBar()
+        {
+            var coreTitleBar = Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().TitleBar;
+            var appTitleBar = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TitleBar;
+            var color = new Color { A =25,R=128,G=128,B=128};
+            coreTitleBar.ExtendViewIntoTitleBar = true;
+            appTitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            appTitleBar.ButtonBackgroundColor = Colors.Transparent;
+            appTitleBar.ButtonHoverBackgroundColor = color;
+
+            Window.Current.SetTitleBar(AppTitleBar);
 
         }
         /// <summary>
@@ -285,6 +300,27 @@ namespace FlarentApp.Views
             Flarent.Settings.UserInfo = JsonConvert.SerializeObject(user);
             User = user;
             NotificationsInfoBadge.Visibility = Visibility.Collapsed;
+        }
+
+        private void navigationView_DisplayModeChanged(WinUI.NavigationView sender, WinUI.NavigationViewDisplayModeChangedEventArgs args)
+        {
+            if(args.DisplayMode == WinUI.NavigationViewDisplayMode.Minimal)
+                TitieBarContent.Margin = new Thickness(24, 0, 0, 0);
+        }
+
+        private void navigationView_PaneClosing(WinUI.NavigationView sender, WinUI.NavigationViewPaneClosingEventArgs args)
+        {
+            TitieBarContent.Margin = new Thickness(24, 0, 0, 0);
+
+        }
+
+        private void navigationView_PaneOpening(WinUI.NavigationView sender, object args)
+        {
+            if (sender.DisplayMode == WinUI.NavigationViewDisplayMode.Minimal)
+                TitieBarContent.Margin = new Thickness(24, 0, 0, 0);
+            else
+                TitieBarContent.Margin = new Thickness(0);
+
         }
     }
 }
