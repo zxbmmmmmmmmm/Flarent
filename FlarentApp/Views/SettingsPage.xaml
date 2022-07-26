@@ -30,31 +30,31 @@
                             </Grid.RowDefinitions>
                             <StackPanel Spacing="4">
                                 <RadioButton
-                                x:Uid="Settings_Theme_Light"
-                                Checked="ThemeChanged_CheckedAsync"
-                                IsChecked="{x:Bind ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}"
-                                FontSize="15"
-                                GroupName="AppTheme">
+                                    x:Uid="Settings_Theme_Light"
+                                    Checked="ThemeChanged_CheckedAsync"
+                                    IsChecked="{x:Bind ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}"
+                                    FontSize="15"
+                                    GroupName="AppTheme">
                                     <RadioButton.CommandParameter>
                                         <xaml:ElementTheme>Light</xaml:ElementTheme>
                                     </RadioButton.CommandParameter>
                                 </RadioButton>
                                 <RadioButton
-                                x:Uid="Settings_Theme_Dark"
-                                Checked="ThemeChanged_CheckedAsync"
-                                IsChecked="{x:Bind ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
-                                FontSize="15"
-                                GroupName="AppTheme">
+                                    x:Uid="Settings_Theme_Dark"
+                                    Checked="ThemeChanged_CheckedAsync"
+                                    IsChecked="{x:Bind ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
+                                    FontSize="15"
+                                    GroupName="AppTheme">
                                     <RadioButton.CommandParameter>
                                         <xaml:ElementTheme>Dark</xaml:ElementTheme>
                                     </RadioButton.CommandParameter>
                                 </RadioButton>
                                 <RadioButton
-                                x:Uid="Settings_Theme_Default"
-                                Checked="ThemeChanged_CheckedAsync"
-                                IsChecked="{x:Bind ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
-                                FontSize="15"
-                                GroupName="AppTheme">
+                                    x:Uid="Settings_Theme_Default"
+                                    Checked="ThemeChanged_CheckedAsync"
+                                    IsChecked="{x:Bind ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
+                                    FontSize="15"
+                                    GroupName="AppTheme">
                                     <RadioButton.CommandParameter>
                                         <xaml:ElementTheme>Default</xaml:ElementTheme>
                                     </RadioButton.CommandParameter>
@@ -65,7 +65,7 @@
                                     <TextBlock Text="亚克力" />
                                     <TextBlock Text="Win11下将覆盖Mica，可能会增加占用" Style="{StaticResource DetailBodyBaseMediumStyle}" FontSize="12"/>
                                 </StackPanel>
-                                <ToggleSwitch HorizontalAlignment="Right" MinWidth="10"/>
+                                <ToggleSwitch x:Name="AcrylicToggleSwitch" IsOn="{x:Bind app:Flarent.Settings.IsAcrylicEnabled,Mode=TwoWay}" Toggled="AcrylicToggleSwitch_Toggled" HorizontalAlignment="Right" MinWidth="10"/>
                             </Grid>
                         </Grid>
 
@@ -109,15 +109,18 @@
                 </muxc:Expander>
 
                 <TextBlock Text="论坛" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}"/>
-                <muxc:Expander HorizontalAlignment="Stretch"  Margin="{StaticResource SmallTopMargin}">
+                <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
                     <muxc:Expander.Header>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <FontIcon Glyph="&#xE206;" />
-                            <TextBlock Text="选择论坛" Margin="{StaticResource SmallLeftMargin}"/>
+                            <FontIcon Glyph="&#xE206;"/>
+                            <TextBlock Text="更改论坛" Margin="{StaticResource SmallLeftMargin}"/>
                         </StackPanel>
                     </muxc:Expander.Header>
                     <muxc:Expander.Content>
-                        <TextBox Text="{x:Bind app:Flarent.Settings.Forum,Mode=TwoWay}" PlaceholderText="像这样:discuss.flarum.org" Width="256" TextChanged="TextBox_TextChanged"/>
+                        <Grid>
+                            <TextBlock Text="输入网址" VerticalAlignment="Center"/>
+                            <TextBox Text="{x:Bind app:Flarent.Settings.Forum,Mode=TwoWay}" PlaceholderText="像这样:discuss.flarum.org" Width="256" TextChanged="TextBox_TextChanged" HorizontalAlignment="Right"/>
+                        </Grid>
                     </muxc:Expander.Content>
                 </muxc:Expander>
 

@@ -76,7 +76,15 @@ namespace FlarentApp.Helpers
                 OnPropertyChanged();
             }
         }
-
+        public bool IsAcrylicEnabled
+        {
+            get => GetSettings("IsAcrylicEnabled",false);
+            set
+            {
+                ApplicationData.Current.LocalSettings.Values["IsAcrylicEnabled"] = value;
+                OnPropertyChanged();
+            }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public async void OnPropertyChanged([CallerMemberName] string propertyName = "")

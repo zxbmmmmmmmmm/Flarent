@@ -10,6 +10,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace FlarentApp.Views
@@ -101,6 +102,21 @@ namespace FlarentApp.Views
         private async void ViewUpdateButton_Click(object sender, RoutedEventArgs e)
         {
             await new WhatsNewDialog().ShowAsync();
+        }
+
+        private void AcrylicToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            var shell = Window.Current.Content as ShellPage;//获取当前正在显示的页面
+            if (AcrylicToggleSwitch.IsOn == true)
+            {
+                var color = App.Current.Resources["AcrylicBackgroundFillColorDefaultBrush"] as AcrylicBrush;
+                shell.navigationView.Background = color;
+            }
+            else
+            {
+                var color = App.Current.Resources["NavigationViewDefaultPaneBackground"] as Brush;
+                shell.navigationView.Background = color;
+            }
         }
     }
 }

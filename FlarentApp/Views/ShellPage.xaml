@@ -65,13 +65,14 @@
     </Page.Resources>
     <winui:NavigationView
         x:Name="navigationView"
+        x:FieldModifier="Public"
         IsBackButtonVisible="Visible"
         IsBackEnabled="{x:Bind IsBackEnabled, Mode=OneWay}"
         SelectedItem="{x:Bind Selected, Mode=OneWay}"
         ItemInvoked="OnItemInvoked"
         IsSettingsVisible="True"
         OpenPaneLength="200"
-        winui:BackdropMaterial.ApplyToRootOrPageBackground="True" Background="{StaticResource AcrylicBackgroundFillColorDefaultBrush}">
+        winui:BackdropMaterial.ApplyToRootOrPageBackground="True" >
         <winui:NavigationView.MenuItems>
             <!--
             TODO: Change the symbols for each item as appropriate for your app

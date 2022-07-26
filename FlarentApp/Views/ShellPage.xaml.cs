@@ -11,12 +11,14 @@ using FlarentApp.Services;
 using FlarentApp.Views.DetailPages;
 using FlarentApp.Views.Dialogs;
 using FlarumApi;
+using Microsoft.UI.Xaml.Media;
 using Newtonsoft.Json;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 using WinUI = Microsoft.UI.Xaml.Controls;
@@ -69,6 +71,18 @@ namespace FlarentApp.Views
             NavigationService.NavigationFailed += Frame_NavigationFailed;
             NavigationService.Navigated += Frame_Navigated;
             navigationView.BackRequested += OnBackRequested;
+
+            if (Flarent.Settings.IsAcrylicEnabled)
+            {
+                var color = App.Current.Resources["AcrylicBackgroundFillColorDefaultBrush"] as Windows.UI.Xaml.Media.AcrylicBrush;
+                navigationView.Background = color;
+            }
+            else
+            {
+                var color = App.Current.Resources["NavigationViewDefaultPaneBackground"] as Brush;
+                navigationView.Background = color;
+            }
+
         }
 
         private async void OnLoaded(object sender, RoutedEventArgs e)
