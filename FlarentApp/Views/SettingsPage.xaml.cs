@@ -89,11 +89,6 @@ namespace FlarentApp.Views
 
         private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var shell = Window.Current.Content as ShellPage;//获取当前正在显示的页面
-            shell.Logout();//退出登录
-        }
 
         private void OpenPaneButton_Click(object sender, RoutedEventArgs e)
         {
@@ -125,11 +120,47 @@ namespace FlarentApp.Views
             }
         }
 
-        private async void UpdateForumInfo_Click(object sender, RoutedEventArgs e)
+        private async void UpdateForumInfoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateForumInfoBtn.IsEnabled = false;
+            try
+            {
+                await UpdateForumInfo();
+            }
+            finally
+            {
+                UpdateForumInfoBtn.IsEnabled = true;
+            }
+        }
+
+        private async void ChangeForumBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            sender.IsEnabled = false;
+            try
+            {
+                Flarent.Settings.Forum = sender.Text;
+                var shell = Window.Current.Content as ShellPage;//获取当前正在显示的页面
+                shell.Logout();//退出登录
+                await UpdateForumInfo();
+            }
+            finally
+            {
+                sender.IsEnabled = true;
+
+            }
+
+        }
+        public async Task UpdateForumInfo()
         {
             var link = $"https://{Flarent.Settings.Forum}/api";
             var forum = await FlarumApiProviders.GetForumInfo(link, Flarent.Settings.Token);
             Flarent.Settings.ForumInfo = forum;
+        }
+
+
+        private void ChangeForumBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ChangeForumBox.Text = Flarent.Settings.Forum;
         }
     }
 }

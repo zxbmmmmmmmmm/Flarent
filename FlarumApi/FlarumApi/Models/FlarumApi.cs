@@ -14,6 +14,7 @@ namespace FlarumApi.Models
         public string FavIcon { get; set; }
         public string Logo { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public string Website { get; set; }
         public string BaseUrl { get; set; }
         public static Forum CreateFromJson(JToken token)
@@ -26,6 +27,8 @@ namespace FlarumApi.Models
                 Logo = attributes.Value<string>("logoUrl")?? "ms-appx:///Assets/StoreLogo.png",
                 FavIcon = attributes.Value<string>("faviconUrl") ?? "ms-appx:///Assets/StoreLogo.png",
                 Name = attributes.Value<string>("title"),
+                Description = attributes.Value<string>("description"),
+
             };
             return forum;
         }

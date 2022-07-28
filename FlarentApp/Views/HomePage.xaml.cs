@@ -8,7 +8,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -59,12 +59,9 @@ namespace FlarentApp.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+
             base.OnNavigatedTo(e);
-            if (e.NavigationMode == NavigationMode.Back&&ClearData == false)
-            {
-                return;
-            }
-            else
+            if (e.NavigationMode != NavigationMode.Back || ClearData != false)
             {
                 ClearData = false;
                 DiscussionTag = null;
@@ -79,7 +76,21 @@ namespace FlarentApp.Views
                 Discussions.Clear();
                 LoadingProgressRing.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 GetDiscussions();
-            }       
+            }
+            var shell = Window.Current.Content as ShellPage;//获取当前正在显示的页面
+            if(DiscussionTag!=null)
+            {
+                shell.PageNameTextBlock.Text = DiscussionTag.Name;
+            }
+            else if(Filter == "&filter[subscription]=following")
+            {
+                shell.PageNameTextBlock.Text = "我的收藏";
+            }
+            else
+            {
+                shell.PageNameTextBlock.Text = "主页";
+
+            }
 
         }
         protected override void OnNavigatedFrom(NavigationEventArgs e)

@@ -10,7 +10,7 @@
   <Identity
     Name="08079F2B-BB8F-4580-976D-E7FA346D90F7"
     Publisher="CN=Betta_Fish"
-    Version="0.3.1.0" />
+    Version="0.4.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="08079F2B-BB8F-4580-976D-E7FA346D90F7" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

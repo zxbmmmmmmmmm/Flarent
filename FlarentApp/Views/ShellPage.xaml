@@ -167,7 +167,7 @@
                     </Grid>
                 </SplitView>
                 <Frame x:Name="shellFrame" x:FieldModifier="Public"/>
-                <TextBlock x:Name="PageNameTextBlock" Text="{x:Bind Selected.Content,Mode=OneWay}" FontWeight="SemiBold" Margin="96,-26,0,0" FontSize="14" Canvas.ZIndex="-1"/>
+                <TextBlock x:Name="PageNameTextBlock" Text="{x:Bind Selected.Content,Mode=OneWay}" FontWeight="SemiBold" Margin="96,-26,0,0" FontSize="14" Canvas.ZIndex="-1" x:FieldModifier="Public"/>
 
             </Grid>
 

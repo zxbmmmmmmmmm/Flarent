@@ -14,6 +14,9 @@ namespace FlarentApp.Helpers
     {
         public static LayoutValues Values = new LayoutValues();
     }
+    /// <summary>
+    /// 用于存放一些布局值
+    /// </summary>
     public class LayoutValues : INotifyPropertyChanged
     {
         public int TitleTextBlockMaxWidth

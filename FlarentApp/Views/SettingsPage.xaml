@@ -11,7 +11,7 @@
 
     mc:Ignorable="d">
     <ScrollViewer>
-        <Grid Margin="24,18,24,0">
+        <Grid Margin="24,18,24,24">
             <StackPanel
                 x:Name="ContentArea" >
                 <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" >
@@ -203,18 +203,45 @@
                     <muxc:Expander.Header>
                         <Grid>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <FontIcon Glyph="&#xE206;"/>
-                                <TextBlock Text="更改论坛" Margin="{StaticResource SmallLeftMargin}"/>
+                                <Image Source="{x:Bind app:Flarent.Settings.ForumInfo.FavIcon,Mode=OneWay}" Height="18" Width="18"/>
+                                <TextBlock Text="{x:Bind app:Flarent.Settings.ForumInfo.Name,Mode=OneWay}" Margin="{StaticResource SmallLeftMargin}"/>
                             </StackPanel>
-                            <Button x:Name="UpdateForumInfo" Click="UpdateForumInfo_Click" Content="更新论坛信息" HorizontalAlignment="Right"/>
+                            <Button x:Name="UpdateForumInfoBtn" Click="UpdateForumInfoBtn_Click" Content="更新论坛信息" HorizontalAlignment="Right"/>
 
                         </Grid>
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <Grid RowSpacing="24">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="网址" VerticalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind app:Flarent.Settings.ForumInfo.BaseUrl,Mode=OneWay}" HorizontalAlignment="Right" Style="{StaticResource DetailBodyBaseMediumStyle}" IsTextSelectionEnabled="True"/>
+                            <TextBlock Text="{x:Bind app:Flarent.Settings.ForumInfo.Description,Mode=OneWay}" Grid.Row="1" Margin="{StaticResource SmallLeftMargin}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Stretch" IsTextSelectionEnabled="True"/>
 
+                        </Grid>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
+
+                <muxc:Expander IsExpanded="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
+                    <muxc:Expander.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition />
+                        </TransitionCollection>
+                    </muxc:Expander.Transitions>
+                    <muxc:Expander.Header>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <FontIcon Glyph="&#xE104;"/>
+                                <TextBlock Text="更改论坛" Margin="{StaticResource SmallLeftMargin}"/>
+                            </StackPanel>
+                        </Grid>
                     </muxc:Expander.Header>
                     <muxc:Expander.Content>
                         <Grid>
                             <TextBlock Text="输入网址" VerticalAlignment="Center"/>
-                            <TextBox Text="{x:Bind app:Flarent.Settings.Forum,Mode=TwoWay}" PlaceholderText="像这样:discuss.flarum.org" Width="256" TextChanged="TextBox_TextChanged" HorizontalAlignment="Right"/>
+                            <AutoSuggestBox x:Name="ChangeForumBox" QuerySubmitted="ChangeForumBox_QuerySubmitted" Text="{x:Bind app:Flarent.Settings.Forum,Mode=OneWay}" Width="256" PlaceholderText="像这样:discuss.flarum.org" HorizontalAlignment="Right" QueryIcon="Accept" LostFocus="ChangeForumBox_LostFocus"/>
                         </Grid>
                     </muxc:Expander.Content>
                 </muxc:Expander>
