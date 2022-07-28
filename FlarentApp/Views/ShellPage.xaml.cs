@@ -78,11 +78,14 @@ namespace FlarentApp.Views
             {
                 var color = App.Current.Resources["AcrylicBackgroundFillColorDefaultBrush"] as Windows.UI.Xaml.Media.AcrylicBrush;
                 navigationView.Background = color;
+                rightFrame.Background = color;
             }
             else
             {
                 var color = App.Current.Resources["NavigationViewDefaultPaneBackground"] as Brush;
                 navigationView.Background = color;
+                var split = App.Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush;
+                rightFrame.Background = color;
             }
 
         }
@@ -305,21 +308,29 @@ namespace FlarentApp.Views
         private void navigationView_DisplayModeChanged(WinUI.NavigationView sender, WinUI.NavigationViewDisplayModeChangedEventArgs args)
         {
             if(args.DisplayMode == WinUI.NavigationViewDisplayMode.Minimal)
-                TitieBarContent.Margin = new Thickness(24, 0, 0, 0);
+            {
+                TitieBarContent.Margin = new Thickness(25, 0, 0, 0);
+            }
         }
 
         private void navigationView_PaneClosing(WinUI.NavigationView sender, WinUI.NavigationViewPaneClosingEventArgs args)
         {
-            TitieBarContent.Margin = new Thickness(24, 0, 0, 0);
+            TitieBarContent.Margin = new Thickness(25, 0, 0, 0);
+            AppTitle.MaxWidth = 256;
 
         }
 
         private void navigationView_PaneOpening(WinUI.NavigationView sender, object args)
         {
             if (sender.DisplayMode == WinUI.NavigationViewDisplayMode.Minimal)
-                TitieBarContent.Margin = new Thickness(24, 0, 0, 0);
+            {
+                TitieBarContent.Margin = new Thickness(25, 0, 0, 0);
+            }
             else
+            {
                 TitieBarContent.Margin = new Thickness(0);
+            }
+            AppTitle.MaxWidth = LayoutHelper.Values.TitleTextBlockMaxWidth;
 
         }
     }

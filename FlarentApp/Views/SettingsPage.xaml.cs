@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FlarentApp.Helpers;
 using FlarentApp.Services;
 using FlarentApp.Views.Dialogs;
+using FlarumApi;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
@@ -111,12 +112,24 @@ namespace FlarentApp.Views
             {
                 var color = App.Current.Resources["AcrylicBackgroundFillColorDefaultBrush"] as AcrylicBrush;
                 shell.navigationView.Background = color;
+                shell.rightFrame.Background = color;
+
             }
             else
             {
                 var color = App.Current.Resources["NavigationViewDefaultPaneBackground"] as Brush;
                 shell.navigationView.Background = color;
+                var split = App.Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush;
+                shell.rightFrame.Background = split;
+
             }
+        }
+
+        private async void UpdateForumInfo_Click(object sender, RoutedEventArgs e)
+        {
+            var link = $"https://{Flarent.Settings.Forum}/api";
+            var forum = await FlarumApiProviders.GetForumInfo(link, Flarent.Settings.Token);
+            Flarent.Settings.ForumInfo = forum;
         }
     }
 }

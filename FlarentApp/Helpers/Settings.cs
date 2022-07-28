@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
+using FlarumApi.Helpers;
 
 namespace FlarentApp.Helpers
 {
@@ -31,12 +32,40 @@ namespace FlarentApp.Helpers
                 OnPropertyChanged();
             }
         }
+
+        public Forum ForumInfo
+        {
+            get => GetSettingsWithClass("ForumInfo", Default.DefaultForum);
+            set
+            {
+                ApplicationData.Current.LocalSettings.Values["ForumInfo"] = JsonHelper.GetJsonByObject(value);
+                OnPropertyChanged();
+            }
+        }
+        public bool ShowForumLogo
+        {
+            get => GetSettings("ShowForumLogo", true);
+            set
+            {
+                ApplicationData.Current.LocalSettings.Values["ShowForumLogo"] = value;
+                OnPropertyChanged();
+            }
+        }
         public int UserId
         {
             get => GetSettings("UserId", 0);
             set
             {
                 ApplicationData.Current.LocalSettings.Values["UserId"] = value;
+                OnPropertyChanged();
+            }
+        }
+        public int OpenPaneLegnth
+        {
+            get => GetSettings("OpenPaneLegnth", 160);
+            set
+            {
+                ApplicationData.Current.LocalSettings.Values["OpenPaneLegnth"] = value;
                 OnPropertyChanged();
             }
         }
@@ -105,7 +134,6 @@ namespace FlarentApp.Helpers
                         return (T)(object)bool.Parse(ApplicationData.Current.LocalSettings.Values[propertyName]
                             .ToString());
 
-                    //超长的IF
                     return (T)ApplicationData.Current.LocalSettings.Values[propertyName];
                 }
                 else
@@ -119,7 +147,38 @@ namespace FlarentApp.Helpers
                 return defaultValue;
             }
         }
-
+        /// <summary>
+        /// 将设置转换为Json后保存
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="propertyName"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static T GetSettingsWithClass<T>(string propertyName, T defaultValue)//使用default value中的T
+        {
+            try
+            {
+                if (ApplicationData.Current.LocalSettings.Values.ContainsKey(propertyName) &&
+                    ApplicationData.Current.LocalSettings.Values[propertyName] != null &&
+                    !string.IsNullOrEmpty(ApplicationData.Current.LocalSettings.Values[propertyName].ToString()))
+                {
+                    if (typeof(T).ToString() == "System.Boolean")
+                        return (T)(object)bool.Parse(ApplicationData.Current.LocalSettings.Values[propertyName]
+                            .ToString());
+                    var str = (string)ApplicationData.Current.LocalSettings.Values[propertyName];//获取字符串
+                    return (T)JsonHelper.GetObjectByJson<T>(str);
+                }
+                else
+                {
+                    ApplicationData.Current.LocalSettings.Values[propertyName] = JsonHelper.GetJsonByObject(defaultValue);
+                }
+                return defaultValue;
+            }
+            catch
+            {
+                return defaultValue;
+            }
+        }
     }
 
 }

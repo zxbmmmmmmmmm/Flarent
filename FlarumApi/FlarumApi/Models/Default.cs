@@ -7,6 +7,21 @@ namespace FlarumApi
 { 
     public class Default
     {
+        public static Forum DefaultForum
+        {
+            get
+            {
+                return new Forum
+                {
+                    Name = "Flarum Community",
+                    Website="discuss.flarum.org",
+                    BaseUrl = "https://discuss.flarum.org",
+                    FavIcon = "https://discuss.flarum.org/assets/favicon-hppi83fd.png",
+                    Logo = "https://discuss.flarum.org/assets/logo-9yg6hfqg.png"
+                };
+
+            }
+        }
         public static User DefaultUser
         {
             get

@@ -170,6 +170,7 @@
     <Compile Include="Helpers\Converters\HtmlToMarkdownConverter.cs" />
     <Compile Include="Helpers\Converters\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Helpers\LayoutHelper.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />

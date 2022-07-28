@@ -174,6 +174,12 @@ namespace FlarumApi
             return tuple;
 
         }
+        public async static Task<Forum> GetForumInfo(string link, string token)
+        {
+            var data = await NetworkHelper.GetAsync(link, token);
+            var forum = Forum.CreateFromJson(data["data"]);
+            return forum;
+        }
         public async static Task<Tuple<JObject, string>> ReplyAsync(string text,string link,int discussionId,string token)
         {
 

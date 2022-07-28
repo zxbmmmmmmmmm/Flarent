@@ -13,7 +13,7 @@
     <ScrollViewer>
         <Grid Margin="24,18,24,0">
             <StackPanel
-            x:Name="ContentArea" >
+                x:Name="ContentArea" >
                 <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" >
                     <TextBlock.Transitions>
                         <TransitionCollection>
@@ -79,9 +79,9 @@
                                 <ToggleSwitch x:Name="AcrylicToggleSwitch" IsOn="{x:Bind app:Flarent.Settings.IsAcrylicEnabled,Mode=TwoWay}" Toggled="AcrylicToggleSwitch_Toggled" HorizontalAlignment="Right" MinWidth="10"/>
                             </Grid>
                         </Grid>
-
                     </muxc:Expander.Content>
                 </muxc:Expander>
+                
                 <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
                     <muxc:Expander.Transitions>
                         <TransitionCollection>
@@ -92,7 +92,7 @@
                         <Grid>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <FontIcon Glyph="&#xE8A0;" />
-                                <TextBlock Text="侧栏设置" Margin="{StaticResource SmallLeftMargin}"/>
+                                <TextBlock Text="侧栏" Margin="{StaticResource SmallLeftMargin}"/>
                             </StackPanel>
                             <Button x:Name="OpenPaneButton" Click="OpenPaneButton_Click" Content="打开侧栏" HorizontalAlignment="Right"/>
                         </Grid>
@@ -124,6 +124,69 @@
                     </muxc:Expander.Content>
                 </muxc:Expander>
 
+                <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
+                    <muxc:Expander.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition />
+                        </TransitionCollection>
+                    </muxc:Expander.Transitions>
+                    <muxc:Expander.Header >
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <FontIcon Glyph="&#xE17C;" />
+                                <TextBlock Text="标题栏" Margin="{StaticResource SmallLeftMargin}"/>
+                            </StackPanel>
+                        </Grid>
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="1">
+                                <Grid>
+                                    <TextBlock Text="在标题栏显示论坛Logo" VerticalAlignment="Center"/>
+                                    <ToggleSwitch IsOn="{x:Bind app:Flarent.Settings.ShowForumLogo,Mode=TwoWay}" HorizontalAlignment="Right" MinWidth="10"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
+                <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
+                    <muxc:Expander.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition />
+                        </TransitionCollection>
+                    </muxc:Expander.Transitions>
+                    <muxc:Expander.Header >
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <FontIcon Glyph="&#xE145;" />
+                                <TextBlock Text="导航栏" Margin="{StaticResource SmallLeftMargin}"/>
+                            </StackPanel>
+                        </Grid>
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="1">
+                                <Grid>
+                                    <TextBlock Text="导航栏大小" VerticalAlignment="Center"/>
+                                    <muxc:NumberBox Value="{x:Bind app:Flarent.Settings.OpenPaneLegnth,Mode=TwoWay}"
+                                                    SpinButtonPlacementMode="Inline"
+                                                    Maximum="500"
+                                                    Minimum="140"
+                                                    SmallChange="5"
+                                                    LargeChange="100" HorizontalAlignment="Right"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
                 <TextBlock Text="论坛" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}">
                     <TextBlock.Transitions>
                         <TransitionCollection>
@@ -138,10 +201,15 @@
                         </TransitionCollection>
                     </muxc:Expander.Transitions>
                     <muxc:Expander.Header>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <FontIcon Glyph="&#xE206;"/>
-                            <TextBlock Text="更改论坛" Margin="{StaticResource SmallLeftMargin}"/>
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <FontIcon Glyph="&#xE206;"/>
+                                <TextBlock Text="更改论坛" Margin="{StaticResource SmallLeftMargin}"/>
+                            </StackPanel>
+                            <Button x:Name="UpdateForumInfo" Click="UpdateForumInfo_Click" Content="更新论坛信息" HorizontalAlignment="Right"/>
+
+                        </Grid>
+
                     </muxc:Expander.Header>
                     <muxc:Expander.Content>
                         <Grid>

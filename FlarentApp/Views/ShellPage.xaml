@@ -74,26 +74,33 @@
             Background="Transparent"
             Canvas.ZIndex="1"
             IsHitTestVisible="True">
-            <StackPanel x:Name="TitieBarContent" VerticalAlignment="Center" Orientation="Horizontal" Margin="16,0,0,0">
+            <StackPanel x:Name="TitieBarContent" VerticalAlignment="Center" Orientation="Horizontal" Margin="14,0,0,0">
                 <StackPanel.Transitions>
                     <TransitionCollection>
                         <RepositionThemeTransition/>
                     </TransitionCollection>
                 </StackPanel.Transitions>
                 <Image
-                    x:Name="AppFontIcon"
-                    Width="16"
                     Height="16"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Source="ms-appx:///Assets/StoreLogo.png"
-                    Stretch="Fill" />
-                <TextBlock                 
+                    VerticalAlignment="Center"
+                    Source="{x:Bind app:Flarent.Settings.ForumInfo.Logo,Mode=OneWay}"
+                    Stretch="Fill" Visibility="{x:Bind app:Flarent.Settings.ShowForumLogo,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                <Image
+                    x:Name="AppFontIcon"
+                    Width="20"
+                    Height="20"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Source="{x:Bind app:Flarent.Settings.ForumInfo.FavIcon,Mode=OneWay}"
+                    Stretch="Fill" Visibility="{x:Bind app:Flarent.Settings.ShowForumLogo,Converter={StaticResource BooleanVisibilityInversionConverter},Mode=OneWay}"/>
+                <TextBlock
                     x:Name="AppTitle"
                     VerticalAlignment="Center"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Margin="{StaticResource SmallLeftMargin}"
-                    Text="Flarent" />
+                    Margin="8,0,0,0"
+                    TextWrapping="NoWrap"
+                    Text="{x:Bind app:Flarent.Settings.ForumInfo.Name,Mode=OneWay}" Visibility="{x:Bind app:Flarent.Settings.ShowForumLogo,Converter={StaticResource BooleanVisibilityInversionConverter},Mode=OneWay}"/>
             </StackPanel>
         </Border>
         <winui:NavigationView
@@ -105,10 +112,11 @@
             ItemInvoked="OnItemInvoked"
             IsSettingsVisible="True"
             IsTitleBarAutoPaddingEnabled="True"
+            PaneDisplayMode="Auto"
             DisplayModeChanged="navigationView_DisplayModeChanged"
             PaneOpening="navigationView_PaneOpening"
             PaneClosing="navigationView_PaneClosing"
-            OpenPaneLength="200"
+            OpenPaneLength="{x:Bind app:Flarent.Settings.OpenPaneLegnth,Mode=OneWay}"
             winui:BackdropMaterial.ApplyToRootOrPageBackground="True" >
             <winui:NavigationView.MenuItems>
                 <!--
@@ -144,11 +152,12 @@
                     OpenPaneLength="{x:Bind app:Flarent.Settings.PaneWidth,Mode=OneWay}" Canvas.ZIndex="1" >
                     <SplitView.Pane>
                         <Frame
-                        x:Name="rightFrame"
-                        BorderThickness="1,0,0,0"
-                        
-                        BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}"
-                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Stretch"/>
+                            x:Name="rightFrame"
+                            x:FieldModifier="Public"
+                            BorderThickness="1,0,0,0"                     
+                            BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}"
+                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                            HorizontalAlignment="Stretch"/>
                     </SplitView.Pane>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -174,7 +183,6 @@
                         <Setter Target="shellFrame.Margin" Value="0"/>
                         <Setter Target="AppTitleBar.Margin" Value="48,0,0,0"/>
                         <Setter Target="navigationView.IsTitleBarAutoPaddingEnabled" Value="False"/>
-
                         <Setter Target="PageNameTextBlock.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>

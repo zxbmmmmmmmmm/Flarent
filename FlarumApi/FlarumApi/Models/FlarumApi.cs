@@ -9,6 +9,28 @@ using Newtonsoft.Json.Linq;
 
 namespace FlarumApi.Models
 {
+    public class Forum 
+    {
+        public string FavIcon { get; set; }
+        public string Logo { get; set; }
+        public string Name { get; set; }
+        public string Website { get; set; }
+        public string BaseUrl { get; set; }
+        public static Forum CreateFromJson(JToken token)
+        {
+            var attributes = token.Value<JToken>("attributes");
+            var forum = new Forum
+            { 
+                BaseUrl = attributes.Value<string>("baseUrl"),
+                Website = attributes.Value<string>("baseUrl").Replace("https://",""),
+                Logo = attributes.Value<string>("logoUrl")?? "ms-appx:///Assets/StoreLogo.png",
+                FavIcon = attributes.Value<string>("faviconUrl") ?? "ms-appx:///Assets/StoreLogo.png",
+                Name = attributes.Value<string>("title"),
+            };
+            return forum;
+        }
+    }
+
     public class Discussion
     {
         public int? Id { get; set; }
@@ -71,7 +93,6 @@ namespace FlarumApi.Models
             return discussion;
         }
     }
-
     public class Post
     {
         public int? Id { get; set; }
@@ -174,7 +195,6 @@ namespace FlarumApi.Models
         public string Description { get; set; }
 
     }
-
     public class User
     {
         public int? Id { get; set; }

@@ -8,7 +8,7 @@
     <Grid x:Name="ContentArea">
         <muxc:ProgressRing x:Name="LoadingProgressRing" Height="64" Width="64" HorizontalAlignment="Center"  VerticalAlignment="Center" />
         <localcontrols:ErrorControl x:Name="ErrorControl" VerticalAlignment="Center" Visibility="Collapsed"/>
-        <ListView x:Name="UsersListView" ItemsSource="{x:Bind Users,Mode=OneWay}" IsItemClickEnabled="True" SelectionMode="None" ItemClick="UsersListView_ItemClick">
+        <ListView x:Name="UsersListView" ItemsSource="{x:Bind Users,Mode=OneWay}" IsItemClickEnabled="True" SelectionMode="None" ItemClick="UsersListView_ItemClick" >
             <ListView.Header>
                 <Grid>
                     <muxc:NavigationView PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" MaxWidth="1224" ItemInvoked="NavigationView_ItemInvoked">

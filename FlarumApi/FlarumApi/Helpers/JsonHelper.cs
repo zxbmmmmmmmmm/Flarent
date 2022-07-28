@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FlarumApi.Helpers
 {
-    internal class JsonHelper
+    public class JsonHelper
     {
         public static string GetJsonByObject(Object obj)
         {
@@ -25,6 +25,13 @@ namespace FlarumApi.Helpers
             stream.Read(dataBytes, 0, (int)stream.Length);
             //通过UTF8格式转换为字符串
             return Encoding.UTF8.GetString(dataBytes);
+        }
+        public static object GetObjectByJson<T> (string str)
+        {
+            var serializer = new DataContractJsonSerializer(typeof(T));
+            var ms = new MemoryStream(Encoding.UTF8.GetBytes(str));
+            var data = (T)serializer.ReadObject(ms);
+            return data;
         }
     }
 }
