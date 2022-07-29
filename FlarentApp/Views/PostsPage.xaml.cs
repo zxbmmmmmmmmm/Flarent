@@ -43,6 +43,7 @@ namespace FlarentApp.Views
             DependencyProperty.Register("User", typeof(int), typeof(PostsPage), new PropertyMetadata(0));
         public PostsPage()
         {
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
             InitializeComponent();
         }
         /*
@@ -58,23 +59,27 @@ namespace FlarentApp.Views
         
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
-            LoadingProgressRing.Visibility = Visibility.Visible;
-
-            if (e.Parameter != null)
+            if(e.NavigationMode != NavigationMode.Back)
             {
-                if (e.Parameter is string username)
+                base.OnNavigatedTo(e);
+                LoadingProgressRing.Visibility = Visibility.Visible;
+
+                if (e.Parameter != null)
                 {
-                    //LinkNext = $"https://{Flarent.Settings.Forum}/api/posts?sort=-createdAt&filter[type]=comment&page[limit]=10&filter[author]={username}";
-                    LinkNext = $"https://{Flarent.Settings.Forum}/api/posts?sort=-createdAt&page[limit]=10&filter[author]={username}";
-                    Posts.Clear();
-                    GetPosts();
+                    if (e.Parameter is string username)
+                    {
+                        //LinkNext = $"https://{Flarent.Settings.Forum}/api/posts?sort=-createdAt&filter[type]=comment&page[limit]=10&filter[author]={username}";
+                        LinkNext = $"https://{Flarent.Settings.Forum}/api/posts?sort=-createdAt&page[limit]=10&filter[author]={username}";
+                        Posts.Clear();
+                        GetPosts();
+                        return;
+                    }
                     return;
                 }
-                return;
+                Posts.Clear();
+                GetPosts();
             }
-            Posts.Clear();
-            GetPosts();
+
 
         }
         private async void GetPosts()

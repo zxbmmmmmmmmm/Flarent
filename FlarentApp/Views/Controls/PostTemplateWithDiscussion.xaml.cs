@@ -46,7 +46,7 @@ namespace FlarentApp.Views.Controls
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            DiscussionButton.Click -= DiscussionButton_Click;
+            //DiscussionButton.Click -= DiscussionButton_Click;
         }
     }
 }

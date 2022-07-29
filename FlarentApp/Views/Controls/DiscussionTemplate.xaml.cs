@@ -29,6 +29,8 @@ namespace FlarentApp.Views.Controls
             this.InitializeComponent();
             this.DataContextChanged += (s, e) => Bindings.Update();
         }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public bool IsFirstPost

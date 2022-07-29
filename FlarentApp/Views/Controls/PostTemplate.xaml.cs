@@ -35,14 +35,8 @@ namespace FlarentApp.Views.Controls
             DescriptionTextBlock.Background = new SolidColorBrush(Colors.Transparent);
 
             this.DataContextChanged += (s, e) => Bindings.Update();
-            Window.Current.SizeChanged += WindowSizeChanged;
-            ReplyButton.Click -= ReplyButton_Click;
-            ReplyButton.Click += ReplyButton_Click;
-            VotesToggleButton.Click -= VotesToggleButton_Click;
-            VotesToggleButton.Click += VotesToggleButton_Click;
-            EditMenuItem.Click -= EditMenuItem_Click;
-            EditMenuItem.Click += EditMenuItem_Click;
-
+            Loaded += UserControl_Loaded;
+            Unloaded += UserControl_Unloaded;
         }
 
         private async void EditMenuItem_Click(object sender, RoutedEventArgs e)
@@ -145,7 +139,13 @@ namespace FlarentApp.Views.Controls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
-
+            Window.Current.SizeChanged += WindowSizeChanged;
+            ReplyButton.Click -= ReplyButton_Click;
+            ReplyButton.Click += ReplyButton_Click;
+            VotesToggleButton.Click -= VotesToggleButton_Click;
+            VotesToggleButton.Click += VotesToggleButton_Click;
+            EditMenuItem.Click -= EditMenuItem_Click;
+            EditMenuItem.Click += EditMenuItem_Click;
             if (Window.Current.Bounds.Width >= 865 && Window.Current.Bounds.Width >= 550 && CanAdaptive)
             {
                 PostArea.Margin = new Thickness(32, 4, 200, 0);
@@ -162,12 +162,12 @@ namespace FlarentApp.Views.Controls
         /// <param name="e"></param>
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            UserButton.Click -= UserButton_Click;
-            ContentMarkdownTextBlock.LinkClicked -= ContentMarkdownTextBlock_LinkClicked;
+           // UserButton.Click -= UserButton_Click;
+            //ContentMarkdownTextBlock.LinkClicked -= ContentMarkdownTextBlock_LinkClicked;
             Window.Current.SizeChanged -= WindowSizeChanged;
-            ReplyButton.Click -= ReplyButton_Click;
-            VotesToggleButton.Click -= VotesToggleButton_Click;
-            EditMenuItem.Click -= EditMenuItem_Click;         
+            //ReplyButton.Click -= ReplyButton_Click;
+            //VotesToggleButton.Click -= VotesToggleButton_Click;
+            //EditMenuItem.Click -= EditMenuItem_Click;         
         }
 
     }

@@ -61,7 +61,7 @@ namespace FlarentApp.Views
             var packageId = package.Id;
             var version = packageId.Version;
 
-            return $"{appName} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+            return $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
         }
 
         private async void ThemeChanged_CheckedAsync(object sender, RoutedEventArgs e)
