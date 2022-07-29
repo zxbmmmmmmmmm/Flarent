@@ -28,7 +28,11 @@ namespace FlarentApp.Views
                 }
             }
         }
+
+
+        //private string _linkNext = $"https://{Flarent.Settings.Forum}/api/posts?sort=-createdAt&filter[type]=discussionRenamed";
         private string _linkNext = $"https://{Flarent.Settings.Forum}/api/posts?sort=-createdAt";
+
         public int User
         {
             get { return (int)GetValue(ShowTextProperty); }
@@ -61,7 +65,8 @@ namespace FlarentApp.Views
             {
                 if (e.Parameter is string username)
                 {
-                    LinkNext = $"https://{Flarent.Settings.Forum}/api/posts?sort=-createdAt&filter[type]=comment&page[limit]=10&filter[author]={username}";
+                    //LinkNext = $"https://{Flarent.Settings.Forum}/api/posts?sort=-createdAt&filter[type]=comment&page[limit]=10&filter[author]={username}";
+                    LinkNext = $"https://{Flarent.Settings.Forum}/api/posts?sort=-createdAt&page[limit]=10&filter[author]={username}";
                     Posts.Clear();
                     GetPosts();
                     return;
@@ -123,6 +128,13 @@ namespace FlarentApp.Views
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             LoadMoreButton.Click -= LoadMoreButton_Click;
+        }
+
+        private void LinkTextBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            Posts.Clear();
+            LinkNext = sender.Text;
+            GetPosts();
         }
     }
 }

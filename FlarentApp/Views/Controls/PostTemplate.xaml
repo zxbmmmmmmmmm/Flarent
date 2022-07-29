@@ -43,10 +43,14 @@
                                     Margin="{StaticResource SmallTopMargin}"
                                     Text="{x:Bind Post.ContentHtml,Mode=OneWay,Converter={StaticResource HtmlToMarkdownConverter}}"
                                     LinkClicked="ContentMarkdownTextBlock_LinkClicked"/>
-        <StackPanel x:Name="SpecialPostPanel" Grid.Row="2" Orientation="Horizontal"  Visibility="{x:Bind Post.SpecialContent,Converter={StaticResource NullToVisibilityConverter}}">
-            <FontIcon x:Name="PostIcon" Glyph="{x:Bind Post.SpecialContent.Icon}"/>
-            <controls:MarkdownTextBlock x:Name="DescriptionTextBlock" Background="Transparent" Text="{x:Bind Post.SpecialContent.Description}" muxc:BackdropMaterial.ApplyToRootOrPageBackground="True" Margin="4,0,0,0" />
-        </StackPanel>
+        <Grid x:Name="SpecialPostPanel" Grid.Row="2"  Visibility="{x:Bind Post.SpecialContent,Converter={StaticResource NullToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <FontIcon x:Name="PostIcon" Glyph="{x:Bind Post.SpecialContent.Icon}" VerticalAlignment="Top" />
+            <controls:MarkdownTextBlock x:Name="DescriptionTextBlock" Background="Transparent" Text="{x:Bind Post.SpecialContent.Description}" muxc:BackdropMaterial.ApplyToRootOrPageBackground="True" Margin="8,0,0,0" Grid.Column="1"/>
+        </Grid>
         
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" >
             <ToggleButton x:Name="VotesToggleButton" IsChecked="{x:Bind Post.HasUpvoted}" Visibility="{x:Bind Post.Votes,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}" >

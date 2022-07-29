@@ -9,14 +9,29 @@
     mc:Ignorable="d" >
     <Grid x:Name="ContentArea" >
         <Grid>
+            <CommandBar x:Name="ActionCommandBar" VerticalAlignment="Bottom" Canvas.ZIndex="1" Background="{StaticResource AcrylicInAppFillColorDefaultBrush}" DefaultLabelPosition="Right" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Visibility="Visible">
+                <CommandBar.Content>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal" Margin="8,0,0,0" Visibility="{x:Bind FavoriteButton.Visibility,Mode=OneWay}" ToolTipService.ToolTip="{x:Bind TagDescriptionTextBlock.Text,Mode=OneWay}">
+                            <fa:FontAwesome Icon="{x:Bind FontAwesomeIcon.Icon,Mode=OneWay}" FontSize="16"/>
+                            <TextBlock Text="{x:Bind TagNameTextBlock.Text,Mode=OneWay}" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                </CommandBar.Content>
+                <CommandBar.PrimaryCommands>
+                    <AppBarButton Label="发布" Icon="Add" />
+                </CommandBar.PrimaryCommands>
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton x:Name="RefreshButton" Icon="Refresh" Label="刷新" Click="RefreshButton_Click" />
+                </CommandBar.SecondaryCommands>
+            </CommandBar>
             <localcontrols:ErrorControl x:Name="ErrorControl" VerticalAlignment="Center" Visibility="Collapsed"/>
             <muxc:ProgressRing x:Name="LoadingProgressRing" Height="64" Width="64" HorizontalAlignment="Center"  VerticalAlignment="Center" />
             <ListView x:Name="DiscussionsListView"
                       ItemsSource="{x:Bind Discussions,Mode=OneWay}"
                       IsItemClickEnabled="True"
                       SelectionMode="None"
-                      ItemClick="DiscussionsListView_ItemClick"
-                      >
+                      ItemClick="DiscussionsListView_ItemClick">
                 <ListView.Header>
                     <Grid>
                         <muxc:NavigationView PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" MaxWidth="1224" ItemInvoked="NavigationView_ItemInvoked">
@@ -36,7 +51,7 @@
                     </Grid>
                 </ListView.Header>
                 <ListView.Footer>
-                    <Grid Margin="0,24">
+                    <Grid Margin="0,24,0,64">
                         <Button x:Name="LoadMoreButton" Content="加载更多" Click="LoadMoreButton_Click" FontSize="16" Padding="160,8" HorizontalAlignment="Center" Visibility="{x:Bind LinkNext,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}"/>
                     </Grid>
                 </ListView.Footer>
@@ -89,7 +104,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ActionPanel.Visibility" Value="Visible"/>
-
+                        <Setter Target="ActionCommandBar.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

@@ -176,5 +176,11 @@ namespace FlarentApp.Views
                 Discussions.Add(discussion);
             LoadMoreButton.IsEnabled = true;
         }
+
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoadingProgressRing.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            GetDiscussions();
+        }
     }
 }

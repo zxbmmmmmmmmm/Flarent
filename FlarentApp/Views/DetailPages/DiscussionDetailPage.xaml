@@ -12,7 +12,38 @@
     mc:Ignorable="d">
 
     <Grid>
+        <CommandBar x:Name="ActionCommandBar" VerticalAlignment="Bottom" Canvas.ZIndex="1" Background="{StaticResource AcrylicInAppFillColorDefaultBrush}" DefaultLabelPosition="Right" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Visibility="Visible">
+            <CommandBar.Content>
+                <Grid>
+                    <StackPanel Orientation="Horizontal" Margin="8,0,0,0">
+                        <TextBlock Text="{x:Bind PageTextBlock.Text,Mode=OneWay}" VerticalAlignment="Center"/>
+                        <TextBlock Text="{x:Bind PagePostsTextBlock.Text,Mode=OneWay}" VerticalAlignment="Center" Margin="8,0,0,0" Style="{StaticResource DetailBodyBaseMediumStyle}" FontSize="14"/>
+                    </StackPanel>
+                </Grid>
+            </CommandBar.Content>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton LabelPosition="Collapsed" Click="PreviousPageButton_Click" Visibility="{x:Bind PreviousPageButton.Visibility,Mode=OneWay}">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xE014;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton LabelPosition="Collapsed"  Click="NextPageButton_Click" Visibility="{x:Bind NextPageButton.Visibility,Mode=OneWay}">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xE015;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
 
+                <AppBarButton Label="回复" Click="ReplyButton_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xE97A;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Icon="Refresh" Label="刷新" Click="RefreshItem_Click"/>
+                <AppBarButton Icon="Download" Label="下载" Click="DownloadItem_Click"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
         <ListView x:Name="PostsListView" Grid.Row="1" SelectionMode="None" IsItemClickEnabled="False" IsEnabled="{x:Bind PostSlider.IsEnabled,Mode=OneWay}" >
             <ListView.Header>
                 <StackPanel>
@@ -47,7 +78,7 @@
 
             </ListView.Header>
             <ListView.Footer>
-                <Grid Margin="0,24">
+                <Grid Margin="0,24,0,64">
                     <Button x:Name="NextPageButton" Content="下一页" Click="NextPageButton_Click" FontSize="16" Padding="160,8" HorizontalAlignment="Center" Visibility="{x:Bind IsLastPage,Mode=OneWay,Converter={StaticResource BooleanVisibilityInversionConverter}}"/>
                 </Grid>
             </ListView.Footer>
@@ -105,6 +136,7 @@
                         <Setter Target="Title.Margin" Value="48,24,180,12"/>
                         <Setter Target="NextPageButton.Margin" Value="0,0,164,0"/>
                         <Setter Target="PreviousPageButton.Margin" Value="0,0,164,0"/>
+                        <Setter Target="ActionCommandBar.Visibility" Value="Collapsed"/>
 
                     </VisualState.Setters>
                 </VisualState>

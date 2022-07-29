@@ -169,6 +169,18 @@ namespace FlarumApi.Models
                             post.SpecialContent.Description = "取消置顶此贴";
                         }
                         break;
+                    case "discussionLocked":
+                        if (post.Content.ToString().Contains("true"))
+                        {
+                            post.SpecialContent.Icon = "\uE72E";
+                            post.SpecialContent.Description = "锁定了此贴";
+                        }
+                        else
+                        {
+                            post.SpecialContent.Icon = "\uE785";
+                            post.SpecialContent.Description = "解锁了此贴";
+                        }
+                        break;
                     case "discussionTagged":
                         post.SpecialContent.Icon = "\uE1CB";
                         post.SpecialContent.Description = "更改了标签";
@@ -184,7 +196,7 @@ namespace FlarumApi.Models
                         break;
                     default:
                         post.SpecialContent.Icon = "\uF142";
-                        post.SpecialContent.Description = "未知操作";
+                        post.SpecialContent.Description = $"未知操作:{post.ContentType}";
                         break;
                 }
             }

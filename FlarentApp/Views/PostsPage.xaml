@@ -9,6 +9,11 @@
         <muxc:ProgressRing x:Name="LoadingProgressRing" Height="64" Width="64" HorizontalAlignment="Center"  VerticalAlignment="Center" />
         <localcontrols:ErrorControl x:Name="ErrorControl" VerticalAlignment="Center" Visibility="Collapsed"/>
         <ListView x:Name="PostsListView" Grid.Row="1" SelectionMode="None" IsItemClickEnabled="False">
+            <ListView.Header>
+                <Grid>
+                    <AutoSuggestBox x:Name="LinkTextBox" Text="{x:Bind LinkNext,Mode=TwoWay}" QueryIcon="Refresh" QuerySubmitted="LinkTextBox_QuerySubmitted" Margin="32,24,32,0" MaxWidth="1256"/>
+                </Grid>
+            </ListView.Header>
             <ListView.Footer>
                 <Grid Margin="0,24">
                     <Button x:Name="LoadMoreButton" Content="加载更多" Click="LoadMoreButton_Click" FontSize="16" Padding="160,8" HorizontalAlignment="Center" Visibility="{x:Bind LinkNext,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}"/>
