@@ -317,7 +317,7 @@ namespace FlarentApp.Views
         {
             TitieBarContent.Margin = new Thickness(25, 0, 0, 0);
             AppTitle.MaxWidth = 256;
-
+            PageNameTextBlock.Visibility = Visibility.Visible;
         }
 
         private void navigationView_PaneOpening(WinUI.NavigationView sender, object args)
@@ -325,6 +325,7 @@ namespace FlarentApp.Views
             if (sender.DisplayMode == WinUI.NavigationViewDisplayMode.Minimal)
             {
                 TitieBarContent.Margin = new Thickness(25, 0, 0, 0);
+                PageNameTextBlock.Visibility = Visibility.Collapsed;
             }
             else
             {

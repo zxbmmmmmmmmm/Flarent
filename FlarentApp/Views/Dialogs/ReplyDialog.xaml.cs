@@ -28,11 +28,13 @@ namespace FlarentApp.Views.Dialogs
         public Discussion Discussion;
         public Post Post;
         public string Text;
-        public ReplyDialog(Discussion discussion, Post post = null, string text = "")
+        public string Referer;
+        public ReplyDialog(Discussion discussion, Post post = null, string text = "",string referer = null)
         {
             this.InitializeComponent();
             Discussion = discussion;
             Post = post;
+            Referer = referer;
             if(text!="")
                 EditZone.Document.Selection.TypeText(text);
         }
@@ -56,7 +58,7 @@ namespace FlarentApp.Views.Dialogs
             ReplyButton.IsEnabled = false;
             try
             {
-                if(Post==null)
+                if(Post==null)//发帖
                 {
                     var data = await FlarumApiProviders.ReplyAsync(text, $"https://{Flarent.Settings.Forum}/api/posts", (int)Discussion.Id, Flarent.Settings.Token);
                     var reply = data.Item1;
@@ -94,7 +96,7 @@ namespace FlarentApp.Views.Dialogs
         }
         public async Task Edit(string text)
         {
-            var data = await FlarumApiProviders.EditAsync(text, $"https://{Flarent.Settings.Forum}/api/posts/{(int)Post.Id}", (int)Post.Id, Flarent.Settings.Token);
+            var data = await FlarumApiProviders.EditAsync(text, $"https://{Flarent.Settings.Forum}/api/posts/{(int)Post.Id}", (int)Post.Id, Flarent.Settings.Token,Referer);
             var reply = data.Item1;
             if (data.Item2 == "")
             {

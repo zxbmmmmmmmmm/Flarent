@@ -51,7 +51,7 @@ namespace FlarentApp.Views.Controls
 
             var text = (string)converter.Convert(Post.ContentHtml, null, null
                 , null);
-            await new ReplyDialog(null, Post, text).ShowAsync();
+            await new ReplyDialog(null, Post, text,$"https://{Flarent.Settings.Forum}/d/{Post.Discussion.Id}/{Post.Number}").ShowAsync();
         }
 
         private void VotesToggleButton_Click(object sender, RoutedEventArgs e)

@@ -69,7 +69,7 @@
                 <SymbolIcon Symbol="More"/>
                 <Button.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Name="EditMenuItem" Icon="Edit" Text="编辑" IsEnabled="False"/>
+                        <MenuFlyoutItem x:Name="EditMenuItem" Icon="Edit" Text="编辑"/>
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>
@@ -98,6 +98,11 @@
                         <Setter Property="MinWidth" Value="30" />
                     </Style>
                 </ListView.ItemContainerStyle>
+                <ListView.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Icon="Favorite" Text="关注"/>
+                    </MenuFlyout>
+                </ListView.ContextFlyout>
             </ListView>
 
         </StackPanel>

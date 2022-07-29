@@ -67,41 +67,45 @@
         <Border
             x:Name="AppTitleBar"
             Height="40"
-            Margin="0,0,0,0"
+            Margin="98,0,0,0"
             Padding="0,8,0,0"
             VerticalAlignment="Top"
             x:FieldModifier="public"
             Background="Transparent"
             Canvas.ZIndex="1"
-            IsHitTestVisible="True">
-            <StackPanel x:Name="TitieBarContent" VerticalAlignment="Center" Orientation="Horizontal" Margin="14,0,0,0">
-                <StackPanel.Transitions>
-                    <TransitionCollection>
-                        <RepositionThemeTransition/>
-                    </TransitionCollection>
-                </StackPanel.Transitions>
-                <Image
-                    Height="16"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Source="{x:Bind app:Flarent.Settings.ForumInfo.Logo,Mode=OneWay}"
-                    Stretch="Fill" Visibility="{x:Bind app:Flarent.Settings.ShowForumLogo,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
-                <Image
-                    x:Name="AppFontIcon"
-                    Width="20"
-                    Height="20"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Source="{x:Bind app:Flarent.Settings.ForumInfo.FavIcon,Mode=OneWay}"
-                    Stretch="Fill" Visibility="{x:Bind app:Flarent.Settings.ShowForumLogo,Converter={StaticResource BooleanVisibilityInversionConverter},Mode=OneWay}"/>
-                <TextBlock
-                    x:Name="AppTitle"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Margin="8,0,0,0"
-                    TextWrapping="NoWrap"
-                    Text="{x:Bind app:Flarent.Settings.ForumInfo.Name,Mode=OneWay}" Visibility="{x:Bind app:Flarent.Settings.ShowForumLogo,Converter={StaticResource BooleanVisibilityInversionConverter},Mode=OneWay}"/>
-            </StackPanel>
+            IsHitTestVisible="True" Visibility="Visible">
+            <Grid>
+                <TextBlock x:Name="PageNameTextBlock" Text="{x:Bind Selected.Content,Mode=OneWay}" FontWeight="SemiBold" Margin="0,6,0,0" FontSize="14" Canvas.ZIndex="-1" x:FieldModifier="Public" HorizontalAlignment="Left" />
+                <StackPanel x:Name="TitieBarContent" VerticalAlignment="Center" Orientation="Horizontal" Margin="14,0,0,0" Visibility="Collapsed">
+                    <StackPanel.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </StackPanel.Transitions>
+                    <Image
+                        Height="16"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Source="{x:Bind app:Flarent.Settings.ForumInfo.Logo,Mode=OneWay}"
+                        Stretch="Fill" Visibility="{x:Bind app:Flarent.Settings.ShowForumLogo,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
+                    <Image
+                        x:Name="AppFontIcon"
+                        Width="20"
+                        Height="20"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Source="{x:Bind app:Flarent.Settings.ForumInfo.FavIcon,Mode=OneWay}"
+                        Stretch="Fill" Visibility="{x:Bind app:Flarent.Settings.ShowForumLogo,Converter={StaticResource BooleanVisibilityInversionConverter},Mode=OneWay}"/>
+                    <TextBlock
+                        x:Name="AppTitle"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Margin="8,0,0,0"
+                        TextWrapping="NoWrap"
+                        Text="{x:Bind app:Flarent.Settings.ForumInfo.Name,Mode=OneWay}" Visibility="{x:Bind app:Flarent.Settings.ShowForumLogo,Converter={StaticResource BooleanVisibilityInversionConverter},Mode=OneWay}"/>
+                </StackPanel>
+            </Grid>
+
         </Border>
         <winui:NavigationView
             x:Name="navigationView"
@@ -111,7 +115,7 @@
             SelectedItem="{x:Bind Selected, Mode=OneWay}"
             ItemInvoked="OnItemInvoked"
             IsSettingsVisible="True"
-            IsTitleBarAutoPaddingEnabled="True"
+            IsTitleBarAutoPaddingEnabled="False"
             PaneDisplayMode="Auto"
             DisplayModeChanged="navigationView_DisplayModeChanged"
             PaneOpening="navigationView_PaneOpening"
@@ -167,7 +171,6 @@
                     </Grid>
                 </SplitView>
                 <Frame x:Name="shellFrame" x:FieldModifier="Public"/>
-                <TextBlock x:Name="PageNameTextBlock" Text="{x:Bind Selected.Content,Mode=OneWay}" FontWeight="SemiBold" Margin="96,-26,0,0" FontSize="14" Canvas.ZIndex="-1" x:FieldModifier="Public"/>
 
             </Grid>
 
@@ -182,8 +185,10 @@
                     <VisualState.Setters>
                         <Setter Target="shellFrame.Margin" Value="0"/>
                         <Setter Target="AppTitleBar.Margin" Value="48,0,0,0"/>
-                        <Setter Target="navigationView.IsTitleBarAutoPaddingEnabled" Value="False"/>
                         <Setter Target="PageNameTextBlock.Visibility" Value="Collapsed"/>
+
+                        <Setter Target="TitieBarContent.Visibility" Value="Visible"/>
+
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

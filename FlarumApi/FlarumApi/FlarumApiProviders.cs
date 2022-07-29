@@ -230,7 +230,7 @@ namespace FlarumApi
             return tuple;
 
         }
-        public async static Task<Tuple<JObject, string>> EditAsync(string text, string link, int postId, string token)
+        public async static Task<Tuple<JObject, string>> EditAsync(string text, string link, int postId, string token,string referer)
         {
 
             //var token = ApplicationData.Current.LocalSettings.Values["token"].ToString();
@@ -255,7 +255,7 @@ namespace FlarumApi
                 }
             };
             var json = JsonConvert.SerializeObject(contents, Formatting.None);
-            var data = await NetworkHelper.PostWithJsonAsync(link, json, token);
+            var data = await NetworkHelper.PostWithJsonAsync(link, json, token,referer);
             string error = string.Empty;
             if (data["errors"] == null)
             {
