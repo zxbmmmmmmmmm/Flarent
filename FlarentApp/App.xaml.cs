@@ -10,6 +10,7 @@ namespace FlarentApp
     public sealed partial class App : Application
     {
         private Lazy<ActivationService> _activationService;
+        private ElementTheme _elementTheme = ThemeSelectorService.Theme;
 
         private ActivationService ActivationService
         {
@@ -19,6 +20,10 @@ namespace FlarentApp
         public App()
         {
             InitializeComponent();
+            if (_elementTheme == ElementTheme.Light)
+                RequestedTheme = ApplicationTheme.Light;
+            else if(_elementTheme == ElementTheme.Dark)
+                RequestedTheme = ApplicationTheme.Dark;
             UnhandledException += OnAppUnhandledException;
 
             // Deferred execution until used. Check https://docs.microsoft.com/dotnet/api/system.lazy-1 for further info on Lazy<T> class.

@@ -75,6 +75,8 @@
                                 <StackPanel VerticalAlignment="Center">
                                     <TextBlock Text="亚克力" />
                                     <TextBlock Text="Win11下将覆盖Mica，可能会增加占用" Style="{StaticResource DetailBodyBaseMediumStyle}" FontSize="12"/>
+                                    <TextBlock Text="注意:仅在当前主题与系统一致时才有正常效果" Style="{StaticResource DetailBodyBaseMediumStyle}" FontSize="12"/>
+
                                 </StackPanel>
                                 <ToggleSwitch x:Name="AcrylicToggleSwitch" IsOn="{x:Bind app:Flarent.Settings.IsAcrylicEnabled,Mode=TwoWay}" Toggled="AcrylicToggleSwitch_Toggled" HorizontalAlignment="Right" MinWidth="10"/>
                             </Grid>

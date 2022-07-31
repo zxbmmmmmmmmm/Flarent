@@ -98,6 +98,8 @@ namespace FlarentApp.Views.DetailPages
         public DiscussionDetailPage()
         {
             this.InitializeComponent();
+            RequestedTheme = (Window.Current.Content as FrameworkElement).RequestedTheme;
+
             PostSlider.AddHandler(UIElement.PointerReleasedEvent /*哪个事件*/, new PointerEventHandler(PostSlider_PointerReleased) /*使用哪个函数处理*/, true /*如果在之前处理，是否还使用函数*/);
 
         }

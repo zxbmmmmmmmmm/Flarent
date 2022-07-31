@@ -5,11 +5,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FlarumApi.Models"
-    xmlns:localcontrols="using:FlarentApp.Views.Controls" xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:fa="using:FontAwesome.UWP"
+    xmlns:localcontrols="using:FlarentApp.Views.Controls" xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:fa="using:FontAwesome.UWP" xmlns:app="using:FlarentApp.Helpers"
     mc:Ignorable="d" >
     <Grid x:Name="ContentArea" >
         <Grid>
-            <CommandBar x:Name="ActionCommandBar" VerticalAlignment="Bottom" Canvas.ZIndex="1" Background="{StaticResource AcrylicInAppFillColorDefaultBrush}" DefaultLabelPosition="Right" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Visibility="Visible">
+            <CommandBar x:Name="ActionCommandBar" VerticalAlignment="Bottom" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Canvas.ZIndex="1" DefaultLabelPosition="Right" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Visibility="Visible">
                 <CommandBar.Content>
                     <Grid>
                         <StackPanel Orientation="Horizontal" Margin="8,0,0,0" Visibility="{x:Bind FavoriteButton.Visibility,Mode=OneWay}" ToolTipService.ToolTip="{x:Bind TagDescriptionTextBlock.Text,Mode=OneWay}">
@@ -19,7 +19,7 @@
                     </Grid>
                 </CommandBar.Content>
                 <CommandBar.PrimaryCommands>
-                    <AppBarButton Label="发布" Icon="Add" />
+                    <AppBarButton Label="发布" Icon="Add" IsEnabled="False" Visibility="{x:Bind app:Flarent.Settings.Token,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}"/>
                 </CommandBar.PrimaryCommands>
                 <CommandBar.SecondaryCommands>
                     <AppBarButton x:Name="RefreshButton" Icon="Refresh" Label="刷新" Click="RefreshButton_Click" />
@@ -64,7 +64,6 @@
                     <Style TargetType="ListViewItem" >
                         <Setter Property="Padding" Value="0"/>
                         <Setter Property="VerticalAlignment" Value="Stretch"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         <Setter Property="MinHeight" Value="20" />
                         <Setter Property="MinWidth" Value="30" />
                         <Setter Property="MaxWidth"  Value="1224"/>

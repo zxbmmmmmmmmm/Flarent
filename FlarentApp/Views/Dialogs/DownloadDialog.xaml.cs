@@ -28,6 +28,7 @@ namespace FlarentApp.Views.Dialogs
         public Discussion Discussion = new Discussion();
         public DownloadDialog(List<int> postIds,Discussion discussion)
         {
+            RequestedTheme = (Window.Current.Content as FrameworkElement).RequestedTheme;
             this.InitializeComponent();
             PostIds = postIds;
             Discussion = discussion;

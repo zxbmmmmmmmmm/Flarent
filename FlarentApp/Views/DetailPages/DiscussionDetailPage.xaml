@@ -7,8 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FlarumApi.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:localcontrols="using:FlarentApp.Views.Controls" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    
+    xmlns:localcontrols="using:FlarentApp.Views.Controls" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:app="using:FlarentApp.Helpers"
     mc:Ignorable="d">
 
     <Grid>
@@ -33,7 +32,7 @@
                     </AppBarButton.Icon>
                 </AppBarButton>
 
-                <AppBarButton Label="回复" Click="ReplyButton_Click">
+                <AppBarButton Label="回复" Click="ReplyButton_Click" Visibility="{x:Bind app:Flarent.Settings.Token,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xE97A;"/>
                     </AppBarButton.Icon>

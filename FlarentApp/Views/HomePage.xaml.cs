@@ -20,6 +20,7 @@ namespace FlarentApp.Views
         public HomePage()
         {
             InitializeComponent();
+            RequestedTheme = (Window.Current.Content as FrameworkElement).RequestedTheme;
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 

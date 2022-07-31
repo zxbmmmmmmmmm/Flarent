@@ -11,6 +11,8 @@
     d:DesignWidth="400">
 
     <Grid x:Name="ContentArea" HorizontalAlignment="Stretch" MaxWidth="1200" Margin="{StaticResource SmallLeftTopRightBottomMargin}">
+        <Grid Width="1200"/>
+
         <StackPanel Orientation="Horizontal">
             <Border CornerRadius="80" Width="42" Height="42" VerticalAlignment="Top" Margin="0,4,0,0">
                 <Button Style="{StaticResource DateTimePickerFlyoutButtonStyle}" x:Name="PosterButton" Background="#0000" BorderBrush="#0000" Click="PosterButton_Click" Padding="0" Height="52" Width="52" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTipService.ToolTip="{x:Bind Discussion.User.DisplayName}">
@@ -18,7 +20,7 @@
                 </Button>
             </Border>
             <StackPanel Margin="{StaticResource SmallLeftMargin}">
-                <TextBlock Text="{x:Bind Discussion.Title,Mode=OneWay}" FontSize="20"/>
+                <TextBlock Text="{x:Bind Discussion.Title,Mode=OneWay}" FontSize="20" TextTrimming="WordEllipsis"/>
                 <StackPanel Orientation="Horizontal">
                     <ListView ItemsSource="{x:Bind Discussion.Tags,Mode=OneWay}" SelectionMode="None" Margin="0,6,0,0" ItemContainerStyle="{StaticResource ListViewItemNoPaddingStyle}">
                         <ListView.ItemTemplate>
