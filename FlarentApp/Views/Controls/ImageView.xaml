@@ -11,13 +11,13 @@
     d:DesignWidth="400">
 
     <Grid Name="ControlGrid" Background="{StaticResource AcrylicInAppFillColorDefaultBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Button x:Name="CloseButton"
+        <Button x:Name="CloseBtn"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 BorderThickness="0"
                 Background="Transparent"
                 Canvas.ZIndex="1"
-                Click="CloseButton_Click"
+                Click="CloseBtn_Click"
                 Margin="64">
             <FontIcon Glyph="&#xE106;" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"/>
         </Button>

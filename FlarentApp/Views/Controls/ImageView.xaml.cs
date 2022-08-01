@@ -28,8 +28,8 @@ namespace FlarentApp.Views.Controls
     public sealed partial class ImageView : UserControl
     {
         private Popup Popup;
-        public double WindowWidth;
-        public double WindowHeight;
+        private double WindowWidth;
+        private double WindowHeight;
         public ImageView()
         {
             this.InitializeComponent();
@@ -51,7 +51,7 @@ namespace FlarentApp.Views.Controls
             this.Popup.IsOpen = true;
         }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             MainImage.Visibility = Visibility.Collapsed;
             Window.Current.SizeChanged -= WindowSizeChanged;
@@ -87,8 +87,8 @@ namespace FlarentApp.Views.Controls
 
             var saveFile = new FileSavePicker();
             saveFile.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            saveFile.FileTypeChoices.Add("JPEG files", new List<string>() { ".jpg" });
-            saveFile.SuggestedFileName = "111";
+            saveFile.FileTypeChoices.Add("JPEG文件", new List<string>() { ".jpg" });
+            saveFile.SuggestedFileName = "image";
             StorageFile sFile = await saveFile.PickSaveFileAsync();
             if (sFile == null)
                 return;
@@ -113,12 +113,12 @@ namespace FlarentApp.Views.Controls
 
         private async void CopyBtn_Click(object sender, RoutedEventArgs e)
         {
-            //use RenderTargetBitmap to render UIElement to image byte data array
+            //获取图片
             RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap();
-            await renderTargetBitmap.RenderAsync(MainImage);//any xmal element
+            await renderTargetBitmap.RenderAsync(MainImage);
             var pixelBuffer = await renderTargetBitmap.GetPixelsAsync();
             var pixels = pixelBuffer.ToArray();
-            //Create MemoryStream to write image byte data to
+            //创建一个MemoryStream以写入图片数据
             var stream = new InMemoryRandomAccessStream();
             var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
             encoder.SetPixelData(BitmapPixelFormat.Bgra8,
@@ -129,10 +129,10 @@ namespace FlarentApp.Views.Controls
                         DisplayInformation.GetForCurrentView().RawDpiY,
                         pixels);
             await encoder.FlushAsync();
-            //Set stream data into DataPackage object
+            //将Stream内的数据存入DataPackage
             DataPackage dataPackage = new DataPackage();
             dataPackage.SetBitmap(RandomAccessStreamReference.CreateFromStream(stream));
-            //Set DataPackage object into Clipboard
+            //复制到剪贴板
             Clipboard.SetContent(dataPackage);
         }
 
