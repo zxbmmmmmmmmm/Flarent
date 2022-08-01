@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 //https://go.microsoft.com/fwlink/?LinkId=234236 上介绍了“用户控件”项模板
@@ -170,5 +171,12 @@ namespace FlarentApp.Views.Controls
             //EditMenuItem.Click -= EditMenuItem_Click;         
         }
 
+        private void ContentMarkdownTextBlock_ImageClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
+        {
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", ContentMarkdownTextBlock);
+            new ImageView().Show(e.Link);
+            //var shell = Window.Current.Content as ShellPage;
+            //shell.ShowImage(e.Link);            
+        }
     }
 }

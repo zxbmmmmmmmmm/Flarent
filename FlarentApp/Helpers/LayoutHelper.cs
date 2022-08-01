@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace FlarentApp.Helpers
 {
@@ -32,6 +33,7 @@ namespace FlarentApp.Helpers
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () => { PropertyChanged(this, new PropertyChangedEventArgs(propertyName)); });
         }
+
     }
 
 }

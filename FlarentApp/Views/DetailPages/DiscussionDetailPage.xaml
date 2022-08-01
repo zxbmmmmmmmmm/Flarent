@@ -11,6 +11,7 @@
     mc:Ignorable="d">
 
     <Grid>
+   
         <CommandBar x:Name="ActionCommandBar" VerticalAlignment="Bottom" Canvas.ZIndex="1" Background="{StaticResource AcrylicInAppFillColorDefaultBrush}" DefaultLabelPosition="Right" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Visibility="Visible">
             <CommandBar.Content>
                 <Grid>

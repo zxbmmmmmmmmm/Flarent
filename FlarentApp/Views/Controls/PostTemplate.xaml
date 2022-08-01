@@ -40,7 +40,8 @@
                                     SchemeList="companyportal,randomscheme"
                                     Margin="{StaticResource SmallTopMargin}"
                                     Text="{x:Bind Post.ContentHtml,Mode=OneWay,Converter={StaticResource HtmlToMarkdownConverter}}"
-                                    LinkClicked="ContentMarkdownTextBlock_LinkClicked"/>
+                                    LinkClicked="ContentMarkdownTextBlock_LinkClicked"
+                                    ImageClicked="ContentMarkdownTextBlock_ImageClicked"/>
         <Grid x:Name="SpecialPostPanel" Grid.Row="2"  Visibility="{x:Bind Post.SpecialContent,Converter={StaticResource NullToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
