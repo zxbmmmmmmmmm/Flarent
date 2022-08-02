@@ -10,6 +10,6 @@
     d:DesignWidth="400" Unloaded="UserControl_Unloaded">
 
     <Grid>
-        <HyperlinkButton x:Name="UserHyperLinkBtn" Content="{x:Bind UserData.DisplayName,Mode=OneWay}" Style="{StaticResource TextBlockButtonStyle}" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"/>
+        <HyperlinkButton x:Name="UserHyperLinkBtn" Content="{x:Bind UserData.DisplayName,Mode=OneWay}" Style="{ThemeResource TextBlockButtonStyle}" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
     </Grid>
 </UserControl>

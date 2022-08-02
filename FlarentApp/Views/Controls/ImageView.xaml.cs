@@ -44,6 +44,7 @@ namespace FlarentApp.Views.Controls
             {
                 anim.TryStart(MainImage);
             }
+            RequestedTheme = (Window.Current.Content as FrameworkElement).RequestedTheme;
             MainImage.Source = new BitmapImage(new Uri(image));
             LinkTextBlock.Text = image;
             Width = Window.Current.Bounds.Width;
@@ -53,7 +54,6 @@ namespace FlarentApp.Views.Controls
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            MainImage.Visibility = Visibility.Collapsed;
             Window.Current.SizeChanged -= WindowSizeChanged;
             this.Popup.IsOpen = false;
             UnloadObject(this);

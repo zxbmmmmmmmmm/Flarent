@@ -34,7 +34,7 @@ namespace FlarentApp.Views.Controls
             this.InitializeComponent();
             ContentMarkdownTextBlock.Background = new SolidColorBrush(Colors.Transparent);
             DescriptionTextBlock.Background = new SolidColorBrush(Colors.Transparent);
-
+            RequestedTheme = (Window.Current.Content as FrameworkElement).RequestedTheme;
             this.DataContextChanged += (s, e) => Bindings.Update();
             Loaded += UserControl_Loaded;
             Unloaded += UserControl_Unloaded;

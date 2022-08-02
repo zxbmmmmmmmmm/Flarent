@@ -64,7 +64,7 @@
                     <TextBlock Text="回复" Margin="{StaticResource SmallLeftMargin}"/>
                 </StackPanel>
             </Button>
-            <Button Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
+            <Button Style="{ThemeResource CommandBarFlyoutEllipsisButtonStyle}">
                 <SymbolIcon Symbol="More"/>
                 <Button.Flyout>
                     <MenuFlyout>
@@ -76,7 +76,7 @@
         <StackPanel Grid.Row="4" Margin="0,0,0,16">
             <ListView ItemsSource="{x:Bind Post.Likes}" SelectionMode="None" VerticalAlignment="Center" >
                 <ListView.Header>
-                    <FontIcon Glyph="&#xE19F;" FontSize="14"  Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" Visibility="{x:Bind Post.ShowLikeIcon,Converter={StaticResource BoolToVisibilityConverter}}" VerticalAlignment="Top" Margin="0,10,4,0"/>
+                    <FontIcon Glyph="&#xE19F;" FontSize="14"  Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" Visibility="{x:Bind Post.ShowLikeIcon,Converter={StaticResource BoolToVisibilityConverter}}" VerticalAlignment="Top" Margin="0,10,4,0"/>
                 </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="models:User">

@@ -10,7 +10,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid Name="ControlGrid" Background="{StaticResource AcrylicInAppFillColorDefaultBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid Name="ControlGrid" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Button x:Name="CloseBtn"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
@@ -19,7 +19,7 @@
                 Canvas.ZIndex="1"
                 Click="CloseBtn_Click"
                 Margin="64">
-            <FontIcon Glyph="&#xE106;" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"/>
+            <FontIcon Glyph="&#xE106;" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
         </Button>
         <ScrollViewer HorizontalAlignment="Stretch"
                       Name="MainScrollViewer"
