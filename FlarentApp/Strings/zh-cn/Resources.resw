@@ -191,13 +191,10 @@
     <comment>First use prompt message primary button text</comment>
   </data>
   <data name="WhatsNew_Body.Text" xml:space="preserve">
-    <value>**注意：需手动到`设置-论坛`处点击`更新论坛信息`来更新标题栏**
-
-- 现在标题栏可以显示论坛Logo/图标+名称
-- 可以自定义导航栏大小
-- 优化了页面名称显示
-- 为设置页添加了动画
-- 修复了一些已知问题</value>
+    <value>- 添加 查看大图
+- 优化 窄屏下的体验
+- 优化 主题切换
+- 修复 帖子页面返回时重新加载的问题</value>
     <comment>What's new prompt message body</comment>
   </data>
   <data name="WhatsNewDialog.Title" xml:space="preserve">

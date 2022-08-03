@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace FlarentApp.Views
@@ -60,7 +61,6 @@ namespace FlarentApp.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-
             base.OnNavigatedTo(e);
             if (e.NavigationMode != NavigationMode.Back || ClearData != false)
             {
@@ -105,6 +105,8 @@ namespace FlarentApp.Views
 
         private void DiscussionsListView_ItemClick(object sender, ItemClickEventArgs e)
         {
+            //var item = (ListViewItem)DiscussionsListView.ContainerFromItem(e.ClickedItem);
+            //ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", item);
             var clicked = e.ClickedItem as Discussion;
             var id = clicked.Id;
             NavigationService.Navigate<DiscussionDetailPage>(id);

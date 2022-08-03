@@ -10,7 +10,7 @@
         <localcontrols:ErrorControl x:Name="ErrorControl" VerticalAlignment="Center" Visibility="Collapsed"/>
         <ListView x:Name="PostsListView" Grid.Row="1" SelectionMode="None" IsItemClickEnabled="False">
             <ListView.Header>
-                <Grid Visibility="Collapsed">
+                <Grid>
                     <AutoSuggestBox x:Name="LinkTextBox" Text="{x:Bind LinkNext,Mode=TwoWay}" QueryIcon="Refresh" QuerySubmitted="LinkTextBox_QuerySubmitted" Margin="32,24,32,0" MaxWidth="1256"/>
                 </Grid>
             </ListView.Header>

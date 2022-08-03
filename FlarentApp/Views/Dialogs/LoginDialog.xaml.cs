@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -66,6 +67,17 @@ namespace FlarentApp.Views.Dialogs
         private void MyPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             ErrorTextBlock.Visibility = Visibility.Collapsed;
+        }
+
+        private void UserNameTextBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter) MyPasswordBox.Focus(FocusState.Keyboard);
+
+        }
+
+        private void MyPasswordBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter) LoginButton_Click(null, null);
         }
     }
 }
