@@ -101,7 +101,7 @@ namespace FlarentApp.Views
             if (Flarent.Settings.Token != "")//已登录
                 UpdateUserInfo();//更新用户数据
             else
-                User = Default.NotLoginedUser;//未登录用户
+                User = Preset.NotLoginedUser;//未登录用户
 
         }
         public void SetTitleBar()
@@ -298,7 +298,7 @@ namespace FlarentApp.Views
         {
             Flarent.Settings.UserId = 0;
             Flarent.Settings.Token = "";
-            var user = Default.NotLoginedUser;
+            var user = Preset.NotLoginedUser;
             //var user = new FlarumApi.Models.User { DisplayName = "未登录" };
             Flarent.Settings.UserInfo = JsonConvert.SerializeObject(user);
             User = user;

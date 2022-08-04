@@ -161,6 +161,7 @@
     <Compile Include="Activation\ActivationHandler.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Helpers\Converters\BooleanInversionConverter.cs" />
     <Compile Include="Helpers\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\ColorConverters.cs" />
@@ -415,6 +416,7 @@
     <Compile Include="Helpers\ResourceExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\App\Flarent\Logo.png" />
     <Content Include="Assets\App\InoriAizawa\Error.png" />
     <Content Include="Assets\extensions\wvbdev-tieba-stickers\angry.png" />
     <Content Include="Assets\extensions\wvbdev-tieba-stickers\cry.png" />

@@ -49,6 +49,6 @@ namespace FlarentApp.Views.Controls
         }
 
         public static readonly DependencyProperty UserDataProperty =
-            DependencyProperty.Register("UserData", typeof(User), typeof(UserTemplate), new PropertyMetadata(Default.DefaultUser));
+            DependencyProperty.Register("UserData", typeof(User), typeof(UserTemplate), new PropertyMetadata(Preset.DefaultUser));
     }
 }

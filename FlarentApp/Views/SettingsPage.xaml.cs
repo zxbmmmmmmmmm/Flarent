@@ -162,5 +162,6 @@ namespace FlarentApp.Views
         {
             ChangeForumBox.Text = Flarent.Settings.Forum;
         }
+
     }
 }

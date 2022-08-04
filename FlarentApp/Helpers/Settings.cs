@@ -23,9 +23,12 @@ namespace FlarentApp.Helpers
 
     public class Settings : INotifyPropertyChanged
     {
+        /// <summary>
+        /// 默认论坛。你可以将discuss.flarum.org换为其他论坛以便制作专属客户端
+        /// </summary>
         public string Forum
         {
-            get => GetSettings("Forum", "discuss.flarum.org");
+            get => GetSettings("Forum", Config.Forum);
             set
             {
                 ApplicationData.Current.LocalSettings.Values["Forum"] = value;
@@ -180,5 +183,23 @@ namespace FlarentApp.Helpers
             }
         }
     }
+    public class Default
+    {
+        public static Forum DefaultForum
+        {
+            get
+            {
+                return new Forum
+                {
+                    Name = Flarent.Settings.Forum,
+                    Website = Flarent.Settings.Forum,
+                    BaseUrl = $"https://{Flarent.Settings.Forum}",
+                    FavIcon = "ms-appx:///Assets/StoreLogo.png",
+                    Logo = "ms-appx:///Assets/StoreLogo.png"
+                };
 
+            }
+        }
+
+    }
 }

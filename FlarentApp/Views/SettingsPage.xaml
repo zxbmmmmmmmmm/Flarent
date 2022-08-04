@@ -7,8 +7,7 @@
     xmlns:xaml="using:Windows.UI.Xaml"
     xmlns:app="using:FlarentApp.Helpers"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:exp="using:Richasy.ExpanderEx.Uwp"
-
+    xmlns:exp="using:Richasy.ExpanderEx.Uwp" xmlns:config="using:FlarentApp"
     mc:Ignorable="d">
     <ScrollViewer>
         <Grid Margin="24,18,24,24">
@@ -108,7 +107,7 @@
                             <Border Grid.Row="0">
                                 <Grid Margin="{StaticResource MediumBottomMargin}">
                                     <TextBlock Text="侧栏大小" VerticalAlignment="Center"/>
-                                    <muxc:NumberBox     Value="{x:Bind app:Flarent.Settings.PaneWidth,Mode=TwoWay}"
+                                    <muxc:NumberBox Value="{x:Bind app:Flarent.Settings.PaneWidth,Mode=TwoWay}"
                                                     SpinButtonPlacementMode="Inline"
                                                     Maximum="500"
                                                     Minimum="300"
@@ -189,14 +188,14 @@
                         </Grid>
                     </muxc:Expander.Content>
                 </muxc:Expander>
-                <TextBlock Text="论坛" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}">
+                <TextBlock Text="论坛" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}" Visibility="{x:Bind config:Config.IsClientModeEnabled,Converter={StaticResource BooleanVisibilityInversionConverter}}">
                     <TextBlock.Transitions>
                         <TransitionCollection>
                             <RepositionThemeTransition/>
                         </TransitionCollection>
                     </TextBlock.Transitions>
                 </TextBlock>
-                <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
+                <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}" Visibility="{x:Bind config:Config.IsClientModeEnabled,Converter={StaticResource BooleanVisibilityInversionConverter}}">
                     <muxc:Expander.Transitions>
                         <TransitionCollection>
                             <RepositionThemeTransition />
@@ -226,7 +225,7 @@
                     </muxc:Expander.Content>
                 </muxc:Expander>
 
-                <muxc:Expander IsExpanded="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
+                <muxc:Expander IsExpanded="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}" Visibility="{x:Bind config:Config.IsClientModeEnabled,Converter={StaticResource BooleanVisibilityInversionConverter}}" >
                     <muxc:Expander.Transitions>
                         <TransitionCollection>
                             <RepositionThemeTransition />
@@ -256,7 +255,7 @@
                     </TextBlock.Transitions>
                 </TextBlock>
 
-                <muxc:Expander HorizontalAlignment="Stretch"  Margin="{StaticResource SmallTopMargin}">
+                <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
                     <muxc:Expander.Transitions>
                         <TransitionCollection>
                             <RepositionThemeTransition />
@@ -274,30 +273,52 @@
                     </muxc:Expander.Header>
                     <muxc:Expander.Content>
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Image Source="ms-appx:///Assets/StoreLogo.png" Height="48" VerticalAlignment="Center"/>
-                                <TextBlock Text="Flarent" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" Foreground="#398498" Margin="16,0,0,0"/>
-                                <TextBlock Text="Beta" Foreground="#92CCDC" Margin="0,10,0,0" VerticalAlignment="Center"/>
-                            </StackPanel>
-                            
-                            <StackPanel Margin="{StaticResource XSmallTopMargin}" HorizontalAlignment="Center" Grid.Row="1">
-
-                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="8">
-                                    <TextBlock
-                                    x:Uid="Settings_AboutDescription"
-                                    Style="{ThemeResource BodyTextBlockStyle}"  VerticalAlignment="Center"/>
-                                    <HyperlinkButton x:Uid="Settings_PrivacyTermsLink"  HorizontalAlignment="Center" Style="{StaticResource TextBlockButtonStyle}" Visibility="Collapsed"/>
-                                    <HyperlinkButton Content="作者主页" NavigateUri="https://discuss.flarum.org.cn/u/Betta_Fish" />
-                                    <HyperlinkButton Content="检查更新" NavigateUri="https://discuss.flarum.org.cn/d/3829" />
-
-                                    <HyperlinkButton Content="更新内容" x:Name="ViewUpdateButton" Click="ViewUpdateButton_Click"/>
+                            <Grid Visibility="{x:Bind config:Config.IsClientModeEnabled,Converter={StaticResource BooleanVisibilityInversionConverter}}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Image Source="ms-appx:///Assets/StoreLogo.png" Height="48" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Flarent" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" Foreground="#398498" Margin="16,0,0,0"/>
+                                    <TextBlock Text="Beta" Foreground="#92CCDC" Margin="0,10,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
+                                <StackPanel Margin="{StaticResource XSmallTopMargin}" HorizontalAlignment="Center" Grid.Row="1">
+                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="8">
+                                        <TextBlock
+                                        x:Uid="Settings_AboutDescription"
+                                        Style="{ThemeResource BodyTextBlockStyle}"  VerticalAlignment="Center"/>
+                                        <HyperlinkButton x:Uid="Settings_PrivacyTermsLink"  HorizontalAlignment="Center" Style="{StaticResource TextBlockButtonStyle}" Visibility="Collapsed"/>
+                                        <HyperlinkButton Content="作者主页" NavigateUri="https://discuss.flarum.org.cn/u/Betta_Fish" />
+                                        <HyperlinkButton Content="检查更新" NavigateUri="https://discuss.flarum.org.cn/d/3829" />
+                                        <HyperlinkButton Content="更新内容" x:Name="ViewUpdateButton" Click="ViewUpdateButton_Click"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Visibility="{x:Bind config:Config.IsClientModeEnabled,Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <StackPanel Orientation="Horizontal" Spacing="12">
+                                        <Image Source="ms-appx:///Assets/StoreLogo.png" Height="24" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="{x:Bind app:Flarent.Settings.ForumInfo.Name,Mode=OneWay}" VerticalAlignment="Center"/>
+                                    </StackPanel>
 
-                            </StackPanel>
+                                    <HyperlinkButton Content="访问主页" HorizontalAlignment="Right" NavigateUri="{x:Bind app:Flarent.Settings.ForumInfo.BaseUrl}"/>
+                                </Grid>
+                                <TextBlock Text="{x:Bind app:Flarent.Settings.ForumInfo.Description,Mode=OneWay}" Grid.Row="1" Margin="{StaticResource SmallLeftTopRightBottomMargin}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Stretch" IsTextSelectionEnabled="True"/>
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
+                                    <Image Source="ms-appx:///Assets/App/Flarent/Logo.png" Height="16" Margin="0,2,0,0"/>
+                                    <TextBlock Text="此应用基于" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                                    <HyperlinkButton Content="Flarent" NavigateUri="https://github.com/zxbmmmmmmmmm/Flarent" Style="{StaticResource TextBlockButtonStyle}" Margin="2,2,2,0"/>
+                                    <TextBlock Text="制作" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" VerticalAlignment="Center" />
+
+                                </StackPanel>
+                            </Grid>
                         </Grid>
 
                     </muxc:Expander.Content>
