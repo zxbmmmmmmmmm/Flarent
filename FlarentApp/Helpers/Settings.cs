@@ -24,7 +24,7 @@ namespace FlarentApp.Helpers
     public class Settings : INotifyPropertyChanged
     {
         /// <summary>
-        /// 默认论坛。你可以将discuss.flarum.org换为其他论坛以便制作专属客户端
+        /// 论坛信息，默认论坛请到Config.cs内更改
         /// </summary>
         public string Forum
         {
@@ -45,6 +45,9 @@ namespace FlarentApp.Helpers
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// 是否在标题栏展示论坛的Logo，若论坛无Logo则使用应用图标
+        /// </summary>
         public bool ShowForumLogo
         {
             get => GetSettings("ShowForumLogo", true);
