@@ -14,10 +14,10 @@ namespace FlarentApp
         /// <summary>
         /// 默认论坛
         /// </summary>
-        public static string Forum = "discuss.flarum.org";
+        public static string Forum = "discuss.flarum.org.cn";
         /// <summary>
         /// 专属客户端模式。开启后“切换论坛”将被自动隐藏，同时会更改一些内容
         /// </summary>
-        public static bool IsClientModeEnabled = false;
+        public static bool IsClientModeEnabled = true;
     }
 }

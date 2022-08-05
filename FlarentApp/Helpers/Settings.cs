@@ -24,7 +24,8 @@ namespace FlarentApp.Helpers
     public class Settings : INotifyPropertyChanged
     {
         /// <summary>
-        /// 论坛信息，默认论坛请到Config.cs内更改
+        /// 论坛网址
+        /// 默认论坛请到Config.cs内更改
         /// </summary>
         public string Forum
         {
@@ -35,7 +36,11 @@ namespace FlarentApp.Helpers
                 OnPropertyChanged();
             }
         }
-
+        /// <summary>
+        /// 论坛信息
+        /// 此内容将会在首次开启时根据论坛网址更新
+        /// 请勿随意更改
+        /// </summary>
         public Forum ForumInfo
         {
             get => GetSettingsWithClass("ForumInfo", Default.DefaultForum);
@@ -57,6 +62,10 @@ namespace FlarentApp.Helpers
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// 当前已登录的用户ID
+        /// 请勿随意更改
+        /// </summary>
         public int UserId
         {
             get => GetSettings("UserId", 0);
@@ -66,6 +75,9 @@ namespace FlarentApp.Helpers
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// 导航栏大小
+        /// </summary>
         public int OpenPaneLegnth
         {
             get => GetSettings("OpenPaneLegnth", 160);
@@ -75,6 +87,9 @@ namespace FlarentApp.Helpers
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// 侧栏大小
+        /// </summary>
         public int PaneWidth
         {
             get => GetSettings("PaneWidth", 420);
@@ -84,6 +99,9 @@ namespace FlarentApp.Helpers
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// 是否在侧栏查看用户
+        /// </summary>
         public bool ViewUsersInPane
         {
             get => GetSettings("ViewUsersInPane", true);
@@ -93,6 +111,10 @@ namespace FlarentApp.Helpers
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// token，用于身份验证
+        /// 请勿随意更改
+        /// </summary>
         public string Token
         {
             get => GetSettings("Token", "");
@@ -102,6 +124,10 @@ namespace FlarentApp.Helpers
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// 当前已登录的用户信息，将在启动和登录时更新
+        /// 请勿随意更改
+        /// </summary>
         public string UserInfo
         {
             get => GetSettings("UserInfo", JsonConvert.SerializeObject(new User { DisplayName = "未登录" }));
@@ -111,6 +137,9 @@ namespace FlarentApp.Helpers
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// 是否打开亚克力
+        /// </summary>
         public bool IsAcrylicEnabled
         {
             get => GetSettings("IsAcrylicEnabled",false);
@@ -128,6 +157,13 @@ namespace FlarentApp.Helpers
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () => { PropertyChanged(this, new PropertyChangedEventArgs(propertyName)); });
         }
+        /// <summary>
+        /// 获取设置
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="propertyName"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
         public static T GetSettings<T>(string propertyName, T defaultValue)
         {
             try

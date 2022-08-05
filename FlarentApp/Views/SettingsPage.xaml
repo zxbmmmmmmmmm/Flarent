@@ -310,7 +310,7 @@
                                     <HyperlinkButton Content="访问主页" HorizontalAlignment="Right" NavigateUri="{x:Bind app:Flarent.Settings.ForumInfo.BaseUrl}"/>
                                 </Grid>
                                 <TextBlock Text="{x:Bind app:Flarent.Settings.ForumInfo.Description,Mode=OneWay}" Grid.Row="1" Margin="{StaticResource SmallLeftTopRightBottomMargin}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Stretch" IsTextSelectionEnabled="True"/>
-
+                                <!--Flarent的内容。要删掉的话也没事，不过要遵守协议啊！！-->
                                 <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
                                     <Image Source="ms-appx:///Assets/App/Flarent/Logo.png" Height="16" Margin="0,2,0,0"/>
                                     <TextBlock Text="此应用基于" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" VerticalAlignment="Center" Margin="8,0,0,0"/>
