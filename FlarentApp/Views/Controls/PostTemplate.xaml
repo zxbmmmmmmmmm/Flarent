@@ -22,9 +22,11 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-            <Border Height="32" Width="32" CornerRadius="8" HorizontalAlignment="Left">
-                <Image Source="{x:Bind Post.User.AvatarUrl,Mode=OneWay}"/>
-            </Border>
+            <Ellipse Height="32" Width="32" HorizontalAlignment="Left" Tapped="Ellipse_Tapped">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{x:Bind Post.User.AvatarUrl,Mode=OneWay}"/>
+                </Ellipse.Fill>
+            </Ellipse>
             <StackPanel Orientation="Horizontal" Margin="{StaticResource SmallLeftMargin}">
                 <HyperlinkButton x:Name="UserButton" Click="UserButton_Click" Content="{x:Bind Post.User.DisplayName,Mode=OneWay}" Style="{StaticResource TextBlockButtonStyle}"/>
                 <TextBlock Text="{x:Bind Post.CreatedAt,Converter={StaticResource DateConverter}}" VerticalAlignment="Center" Margin="{StaticResource SmallLeftMargin}" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
@@ -42,6 +44,15 @@
                                     Text="{x:Bind Post.ContentHtml,Mode=OneWay,Converter={StaticResource HtmlToMarkdownConverter}}"
                                     LinkClicked="ContentMarkdownTextBlock_LinkClicked"
                                     ImageClicked="ContentMarkdownTextBlock_ImageClicked"/>
+        <!--<WebView x:Name="ContentWebView"
+            NavigationCompleted="ContentWebView_NavigationCompleted"
+                 NavigationStarting="ContentWebView_NavigationStarting"
+                 ScriptNotify="ContentWebView_ScriptNotify"
+                 Visibility="Collapsed"
+            app:WebViewExtensions.HtmlSource="{x:Bind Post.ContentHtml,Mode=OneWay}"
+            Grid.Row="1"
+            DefaultBackgroundColor="Transparent"
+            ScrollViewer.IsVerticalRailEnabled="False"/>-->
         <Grid x:Name="SpecialPostPanel" Grid.Row="2"  Visibility="{x:Bind Post.SpecialContent,Converter={StaticResource NullToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

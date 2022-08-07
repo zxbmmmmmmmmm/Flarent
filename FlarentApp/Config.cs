@@ -18,6 +18,6 @@ namespace FlarentApp
         /// <summary>
         /// 专属客户端模式。开启后“切换论坛”将被自动隐藏，同时会更改一些内容
         /// </summary>
-        public static bool IsClientModeEnabled = true;
+        public static bool IsClientModeEnabled = false;
     }
 }

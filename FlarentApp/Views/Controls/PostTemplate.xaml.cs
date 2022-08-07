@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
 
 //https://go.microsoft.com/fwlink/?LinkId=234236 上介绍了“用户控件”项模板
 
@@ -177,6 +178,50 @@ namespace FlarentApp.Views.Controls
             new ImageView().Show(e.Link);
             //var shell = Window.Current.Content as ShellPage;
             //shell.ShowImage(e.Link);            
+        }
+
+        private async void ContentWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+
+        }
+
+        private void ContentWebView_ScriptNotify(object sender, NotifyEventArgs e)
+        {
+            try
+            {
+                if (e.Value.Contains("height"))
+                {
+                    WebView wv = (WebView)sender;
+                    double h = 0;
+                    var height = e.Value.Split(':');
+                    if (height != null && height.Length > 1)
+                    {
+                        if (double.TryParse(height[1], out h))
+                        {
+                            wv.Height = h;
+                        }
+                    }
+                }
+            }
+            catch (Exception er)
+            {
+                
+            }
+        }
+
+        private void ContentWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
+            sender.AddWebAllowedObject("getHeight", "getHeight");
+        }
+
+        private void Ellipse_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var btn = (Ellipse)sender;
+            var post = (Post)btn.DataContext;
+            if (Flarent.Settings.ViewUsersInPane)
+                NavigationService.OpenInRightPane(typeof(UserDetailPage), post.User.Id);
+            else
+                NavigationService.Navigate<UserDetailPage>(post.User.Id);
         }
     }
 }
