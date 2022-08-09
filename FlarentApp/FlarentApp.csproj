@@ -175,7 +175,9 @@
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Helpers\WebViewExtensions.cs" />
+    <Compile Include="HTMLParser\HtmlProperties.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
     <Compile Include="Services\FirstRunDisplayService.cs" />

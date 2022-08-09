@@ -5,7 +5,7 @@
     xmlns:local="using:FlarentApp.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:layout="using:FlarentApp.Helpers"
+    xmlns:layout="using:FlarentApp.Helpers" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -29,7 +29,7 @@
                       VerticalScrollBarVisibility="Visible"
                       HorizontalScrollMode="Enabled"
                       HorizontalScrollBarVisibility="Visible" Margin="100">
-            <Image x:Name="MainImage" MaxWidth="{x:Bind MainScrollViewer.ViewportWidth,Mode=OneWay}" MaxHeight="{x:Bind MainScrollViewer.ViewportHeight,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <controls:ImageEx x:Name="MainImage" MaxWidth="{x:Bind MainScrollViewer.ViewportWidth,Mode=OneWay}" MaxHeight="{x:Bind MainScrollViewer.ViewportHeight,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </ScrollViewer>
         <StackPanel  Margin="24"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Spacing="2">
             <CommandBar DefaultLabelPosition="Collapsed">

@@ -1,4 +1,5 @@
 ﻿using FlarentApp.Helpers;
+using FlarentApp.Views.Controls;
 using FlarumApi;
 using FlarumApi.Models;
 using System;
@@ -15,6 +16,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
@@ -76,6 +78,12 @@ namespace FlarentApp.Views.DetailPages
                     UserContentFrame.Navigate(typeof(DiscussionsPage), User.UserName);
                     break;
             }
+        }
+
+        private void AvatarEllipse_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", (UIElement)sender);
+            new ImageView().Show(User.AvatarUrl);
         }
     }
 }

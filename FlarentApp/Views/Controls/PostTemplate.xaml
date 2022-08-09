@@ -6,7 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:models="using:FlarumApi.Models" xmlns:app="using:FlarentApp.Helpers"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:models="using:FlarumApi.Models"
+    xmlns:app="using:FlarentApp.Helpers"
+    xmlns:html="using:FlarentApp.HTMLParser"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -43,7 +46,10 @@
                                     Margin="{StaticResource SmallTopMargin}"
                                     Text="{x:Bind Post.ContentHtml,Mode=OneWay,Converter={StaticResource HtmlToMarkdownConverter}}"
                                     LinkClicked="ContentMarkdownTextBlock_LinkClicked"
-                                    ImageClicked="ContentMarkdownTextBlock_ImageClicked"/>
+                                    ImageClicked="ContentMarkdownTextBlock_ImageClicked" Visibility="Collapsed"/>
+        <RichTextBlock html:HtmlProperties.Html="{x:Bind Post.ContentHtml,Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalTextAlignment="Start">
+
+        </RichTextBlock>
         <!--<WebView x:Name="ContentWebView"
             NavigationCompleted="ContentWebView_NavigationCompleted"
                  NavigationStarting="ContentWebView_NavigationStarting"

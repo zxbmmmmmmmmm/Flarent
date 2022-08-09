@@ -149,6 +149,18 @@ namespace FlarentApp.Helpers
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// 开发者模式
+        /// </summary>
+        public bool DeveloperMode
+        {
+            get => GetSettings("DeveloperMode", false);
+            set
+            {
+                ApplicationData.Current.LocalSettings.Values["DeveloperMode"] = value;
+                OnPropertyChanged();
+            }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public async void OnPropertyChanged([CallerMemberName] string propertyName = "")

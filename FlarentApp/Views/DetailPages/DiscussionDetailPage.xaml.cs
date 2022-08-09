@@ -118,7 +118,7 @@ namespace FlarentApp.Views.DetailPages
             }
             await GetDiscussion();
             await TurnToPage(0);
-
+            
         }
         private void PostScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
@@ -161,6 +161,9 @@ namespace FlarentApp.Views.DetailPages
         /// </summary>
         public async Task GetDiscussion()
         {
+            PostsListView.Visibility = Visibility.Collapsed;
+            LoadingProgressRing.Visibility = Visibility.Visible;
+            ReplyButton.IsEnabled = false;
             PostSlider.IsEnabled = false;
             Discussion = await FlarumApiProviders.GetDiscussion(discussionId, 0, Flarent.Settings.Forum,Flarent.Settings.Token);
             PostSlider.Maximum = Discussion.Posts.Count;
@@ -174,6 +177,9 @@ namespace FlarentApp.Views.DetailPages
             LastPosts = PostIds.Count % 30;//将post的数量取余30，得到剩余的post数量（29）
             PostScrollViewer = GetScrollViewer(PostsListView);
             PostScrollViewer.ViewChanged += PostScrollViewer_ViewChanged;
+            ReplyButton.IsEnabled = true;
+            PostsListView.Visibility = Visibility.Visible;
+            LoadingProgressRing.Visibility = Visibility.Collapsed;
         }
         private async Task GetPost(int min, int range)
         {

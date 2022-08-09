@@ -283,7 +283,7 @@
                                     <TextBlock Text="Flarent" Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center" Foreground="#398498" Margin="16,0,0,0"/>
                                     <TextBlock Text="Beta" Foreground="#92CCDC" Margin="0,10,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
-                                <StackPanel Margin="{StaticResource XSmallTopMargin}" HorizontalAlignment="Center" Grid.Row="1">
+                                <StackPanel Margin="{StaticResource XSmallTopMargin}" HorizontalAlignment="Center" Grid.Row="1" Spacing="8">
                                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="8">
                                         <TextBlock
                                         x:Uid="Settings_AboutDescription"
@@ -291,7 +291,11 @@
                                         <HyperlinkButton x:Uid="Settings_PrivacyTermsLink"  HorizontalAlignment="Center" Style="{StaticResource TextBlockButtonStyle}" Visibility="Collapsed"/>
                                         <HyperlinkButton Content="作者主页" NavigateUri="https://discuss.flarum.org.cn/u/Betta_Fish" />
                                         <HyperlinkButton Content="检查更新" NavigateUri="https://discuss.flarum.org.cn/d/3829" />
-                                        <HyperlinkButton Content="更新内容" x:Name="ViewUpdateButton" Click="ViewUpdateButton_Click"/>
+                                    </StackPanel>
+                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="8">
+                                        <Button Content="更新内容" x:Name="ViewUpdateButton" Click="ViewUpdateButton_Click"/>
+                                        <ToggleButton IsChecked="{x:Bind app:Flarent.Settings.DeveloperMode,Mode=TwoWay}" Content="开发者模式"/>
+
                                     </StackPanel>
                                 </StackPanel>
                             </Grid>

@@ -179,41 +179,6 @@ namespace FlarentApp.Views.Controls
             //var shell = Window.Current.Content as ShellPage;
             //shell.ShowImage(e.Link);            
         }
-
-        private async void ContentWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
-        {
-
-        }
-
-        private void ContentWebView_ScriptNotify(object sender, NotifyEventArgs e)
-        {
-            try
-            {
-                if (e.Value.Contains("height"))
-                {
-                    WebView wv = (WebView)sender;
-                    double h = 0;
-                    var height = e.Value.Split(':');
-                    if (height != null && height.Length > 1)
-                    {
-                        if (double.TryParse(height[1], out h))
-                        {
-                            wv.Height = h;
-                        }
-                    }
-                }
-            }
-            catch (Exception er)
-            {
-                
-            }
-        }
-
-        private void ContentWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
-        {
-            sender.AddWebAllowedObject("getHeight", "getHeight");
-        }
-
         private void Ellipse_Tapped(object sender, TappedRoutedEventArgs e)
         {
             var btn = (Ellipse)sender;

@@ -23,9 +23,11 @@
 
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Margin="24,24,0,0" >
-                    <Border Height="70" Width="70" CornerRadius="16" HorizontalAlignment="Left">
-                        <Image Source="{x:Bind User.AvatarUrl,Mode=OneWay}"/>
-                    </Border>
+                    <Ellipse x:Name="AvatarEllipse" Height="70" Width="70" HorizontalAlignment="Left" Tapped="AvatarEllipse_Tapped" >
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{x:Bind User.AvatarUrl,Mode=OneWay}" />
+                        </Ellipse.Fill>
+                    </Ellipse>
                     <StackPanel Margin="{StaticResource MediumLeftMargin}" Spacing="6" VerticalAlignment="Center">
                         <StackPanel Orientation="Horizontal">
                             <localcontrols:UserGroupControl UserGroups="{x:Bind User.UserGroups,Mode=OneWay}" VerticalAlignment="Center" Margin="0,6,4,0"/>

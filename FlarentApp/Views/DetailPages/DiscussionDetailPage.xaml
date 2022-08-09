@@ -11,8 +11,16 @@
     mc:Ignorable="d">
 
     <Grid>
-   
-        <CommandBar x:Name="ActionCommandBar" VerticalAlignment="Bottom" Canvas.ZIndex="1" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" DefaultLabelPosition="Right" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Visibility="Visible">
+        <muxc:ProgressRing x:Name="LoadingProgressRing" Height="64" Width="64" HorizontalAlignment="Center"  VerticalAlignment="Center" />
+        <CommandBar x:Name="ActionCommandBar"
+                    VerticalAlignment="Bottom"
+                    Canvas.ZIndex="1"
+                    Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                    DefaultLabelPosition="Right"
+                    VerticalContentAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    Visibility="Visible"
+                    IsEnabled="{x:Bind ReplyButton.IsEnabled,Mode=OneWay}">
             <CommandBar.Content>
                 <Grid>
                     <StackPanel Orientation="Horizontal" Margin="8,0,0,0">
@@ -22,12 +30,12 @@
                 </Grid>
             </CommandBar.Content>
             <CommandBar.PrimaryCommands>
-                <AppBarButton LabelPosition="Collapsed" Click="PreviousPageButton_Click" Visibility="{x:Bind PreviousPageButton.Visibility,Mode=OneWay}">
+                <AppBarButton LabelPosition="Collapsed" Click="PreviousPageButton_Click" Visibility="{x:Bind PreviousPageButton.Visibility,Mode=OneWay}" IsEnabled="{x:Bind PostSlider.IsEnabled,Mode=OneWay}">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xE014;"/>
                     </AppBarButton.Icon>
                 </AppBarButton>
-                <AppBarButton LabelPosition="Collapsed"  Click="NextPageButton_Click" Visibility="{x:Bind NextPageButton.Visibility,Mode=OneWay}">
+                <AppBarButton LabelPosition="Collapsed"  Click="NextPageButton_Click" Visibility="{x:Bind NextPageButton.Visibility,Mode=OneWay}" IsEnabled="{x:Bind PostSlider.IsEnabled,Mode=OneWay}">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xE015;"/>
                     </AppBarButton.Icon>
@@ -97,12 +105,12 @@
             </ListView.ItemContainerStyle>
         </ListView>
         <Grid>
-            <StackPanel x:Name="ActionPanel" Visibility="Collapsed"  VerticalAlignment="Top" Margin="36,24,36,0" MaxWidth="1450">
+            <StackPanel x:Name="ActionPanel" Visibility="Collapsed" VerticalAlignment="Top" Margin="36,24,36,0" MaxWidth="1450" >
                 <StackPanel Spacing="12" HorizontalAlignment="Right">
-                    <Button x:Name="ReplyButton" Click="ReplyButton_Click" Content="回复" Width="162" Style="{StaticResource AccentButtonStyle}"/>
+                    <Button x:Name="ReplyButton" Click="ReplyButton_Click" Content="回复" Width="162" Style="{StaticResource AccentButtonStyle}" IsEnabled="{x:Bind PostSlider.IsEnabled,Mode=OneWay}"/>
                     <StackPanel Orientation="Horizontal" Spacing="4">
                         <ToggleButton x:Name="FavoriteButton" Content="关注" Width="126" IsEnabled="False"/>
-                        <Button Padding="8">
+                        <Button Padding="8" IsEnabled="{x:Bind ReplyButton.IsEnabled,Mode=OneWay}">
                             <FontIcon Glyph="&#xE10C;" FontSize="14"/>
                             <Button.Flyout>
                                 <MenuFlyout Placement="BottomEdgeAlignedRight">
