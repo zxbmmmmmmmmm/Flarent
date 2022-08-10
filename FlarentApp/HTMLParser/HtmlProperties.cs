@@ -1,4 +1,5 @@
-﻿using FlarentApp.Helpers;
+﻿using ColorCode;
+using FlarentApp.Helpers;
 using FlarentApp.Services;
 using FlarentApp.Views.Controls;
 using FlarentApp.Views.DetailPages;
@@ -193,7 +194,7 @@ namespace FlarentApp.HTMLParser
                     return GenerateIFrame(node);
                 case "video":
                 case "Video":
-                    return GenterateVideo(node);
+                    return GenerateVideo(node);
                 case "#text":
                     if (!string.IsNullOrWhiteSpace(node.InnerText))
                         //return new Run { Text = CleanText(node.InnerText) }; // CleanText is removing white spaces in this case
@@ -214,12 +215,80 @@ namespace FlarentApp.HTMLParser
                 case "hr":
                 case "HR":
                     return GenerateHr(node);
+                case "blockquote":
+                case "Blockquote":
+                    return GenerateQuote(node);
+                case "code":
+                case "Code":
+                    return GenerateCode(node);
                 default:
                     return GenerateSpanWNewLine(node);
             }
             return null;
         }
 
+        private static Inline GenerateQuote(HtmlNode node)
+        {
+            var span = new Span();
+            span.Inlines.Add(new LineBreak());
+            var inlineUiContainer = new InlineUIContainer();
+            var border = new Border
+            {
+                BorderThickness = new Thickness(2,0,0,0),
+                BorderBrush = new SolidColorBrush(Color.FromArgb(50, 128, 128, 128)),
+                //Background = new SolidColorBrush(Color.FromArgb(50, 128, 128, 128)),
+            };
+            var richtext = new RichTextBlock { Margin = new Thickness(12,0,16,0)};
+
+            richtext.SetValue(HtmlProperty, node.InnerHtml);
+            border.Child = richtext;
+            inlineUiContainer.Child = border;
+
+            span.Inlines.Add(inlineUiContainer);
+            span.Inlines.Add(new LineBreak());
+            //AddChildren(span, node);
+            return span;
+
+        }
+        private static Inline GenerateCode(HtmlNode node)
+        {
+            var span = new Span();
+            //span.Inlines.Add(new LineBreak());
+            var inlineUiContainer = new InlineUIContainer();
+
+            var border = new Border
+            {
+                Margin = new Thickness(0,0,0,-8),
+                BorderBrush = new SolidColorBrush(Color.FromArgb(20, 128, 128, 128)),
+                Background = new SolidColorBrush(Color.FromArgb(20, 128, 128, 128)),
+                CornerRadius = new CornerRadius(4)
+            };
+            var richtext = new RichTextBlock { Margin = new Thickness(8, 4, 8, 4) };
+            var code = node.InnerText;
+            code = code.Replace("&lt;", "<");
+            code = code.Replace("&gt;", ">");
+            var formatter = new RichTextBlockFormatter();
+            if (node.Attributes["class"] != null)
+            {
+                var language = ColorCode.Languages.FindById(node.Attributes["class"].Value.Replace("language-",string.Empty));
+                formatter.FormatRichTextBlock(code, language, richtext);
+            }
+            else
+            {
+                formatter.FormatRichTextBlock(code, Languages.CSharp, richtext);
+            }
+
+
+           // richtext.SetValue(HtmlProperty, node.InnerHtml);
+            border.Child = richtext;
+            inlineUiContainer.Child = border;
+
+            span.Inlines.Add(inlineUiContainer);
+            //span.Inlines.Add(new LineBreak());
+            //AddChildren(span, node);
+            return span;
+
+        }
         private static Inline GenerateHr(HtmlNode node)
         {
             var span = new Span();
@@ -420,7 +489,7 @@ namespace FlarentApp.HTMLParser
                 ToolTipService.SetToolTip(btn, link);
                 btn.Click += DiscussionViewBtn_Click; ;
                 var content = btn.Content as StackPanel;
-                content.Children.Add(new FontIcon { Glyph = "\uE130", FontSize = 14 });
+                content.Children.Add(new FontIcon { Glyph = "\uE206", FontSize = 14 });
                 content.Children.Add(new TextBlock { Text = CleanText(node.InnerText) });
                 inlineUiContainer.Child = btn;
                 span.Inlines.Add(inlineUiContainer);
@@ -490,7 +559,7 @@ namespace FlarentApp.HTMLParser
             NavigationService.OpenInRightPane(typeof(PostDetailPage), int.Parse(btn.Tag.ToString()));
         }
 
-        private static Inline GenterateVideo(HtmlNode node)
+        private static Inline GenerateVideo(HtmlNode node)
         {
             var span = new Span();
             span.Inlines.Add(new LineBreak());

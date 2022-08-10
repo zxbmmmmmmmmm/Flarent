@@ -64,7 +64,6 @@ namespace FlarentApp.Views.DetailPages
             //Posts = posts.Item1;
             PostsListView.ItemsSource = Posts;
             LoadingProgressRing.Visibility = Visibility.Collapsed;
-
         }
 
 

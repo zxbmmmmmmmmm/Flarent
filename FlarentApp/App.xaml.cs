@@ -1,7 +1,7 @@
 ﻿using System;
 
 using FlarentApp.Services;
-
+using FlarentApp.Views.Controls;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -46,6 +46,7 @@ namespace FlarentApp
         private void OnAppUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             e.Handled = true;
+            new Toast(e.Message,TimeSpan.FromSeconds(2)).Show();
             // TODO: Please log and handle the exception as appropriate to your scenario
             // For more info see https://docs.microsoft.com/uwp/api/windows.ui.xaml.application.unhandledexception
         }

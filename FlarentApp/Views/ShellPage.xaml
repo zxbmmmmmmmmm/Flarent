@@ -160,7 +160,6 @@
                             x:FieldModifier="Public"
                             BorderThickness="1,0,0,0"                     
                             BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}"
-                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                             HorizontalAlignment="Stretch"/>
                     </SplitView.Pane>
                     <Grid>

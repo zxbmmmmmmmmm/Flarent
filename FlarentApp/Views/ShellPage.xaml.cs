@@ -80,13 +80,7 @@ namespace FlarentApp.Views
                 navigationView.Background = color;
                 rightFrame.Background = color;
             }
-            else
-            {
-                var color = App.Current.Resources["NavigationViewDefaultPaneBackground"] as Brush;
-                navigationView.Background = color;
-                var split = App.Current.Resources["ApplicationPageBackgroundThemeBrush"] as Brush;
-                rightFrame.Background = color;
-            }
+
 
         }
 

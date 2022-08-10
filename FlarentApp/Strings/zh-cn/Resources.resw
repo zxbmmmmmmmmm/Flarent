@@ -191,10 +191,50 @@
     <comment>First use prompt message primary button text</comment>
   </data>
   <data name="WhatsNew_Body.Text" xml:space="preserve">
-    <value>- 添加 查看大图
-- 优化 窄屏下的体验
-- 优化 主题切换
-- 修复 帖子页面返回时重新加载的问题</value>
+    <value># Flarent 0.5.0
+
+## 更新内容
+
+### 帖子显示
+
+![Image description](https://flarum.csur.fun/2022-08-09/1660057093-995312-image.png)
+
+![Image description](https://flarum.csur.fun/2022-08-09/1660057316-462248-image.png)
+
+完全重写了帖子显示控件，现在可正常显示帖子内的iFrame与视频了
+
+![Image description](https://flarum.csur.fun/2022-08-10/1660110149-515725-image.png)
+
+支持代码着色
+
+![Image description](https://flarum.csur.fun/2022-08-09/1660058067-30819-image.png)
+
+此外，链接的显示方式也有所改变
+
+以后可能会添加更多控件支持...
+
+***
+
+### 专属客户端
+
+![Image description](https://flarum.csur.fun/2022-08-09/1660058723-98373-image.png)
+
+在此模式下，论坛将锁定为配置文件中的网址，同时切换论坛选项将被隐藏
+
+你可以自行适配一些论坛插件并分发应用包
+
+教程请参考[此处](https://discuss.flarum.org.cn/d/3853)
+
+***
+
+### 其他内容
+
+- 新增 错误提示
+- 新增 开发者模式(没事别点)
+- 修复 win11下mica效果可能不生效的问题
+- 修复 部分主题错误
+- 优化 加载动画
+- 头像换为圆形样式</value>
     <comment>本次更新中新增的内容，将在用户更新版本后显示</comment>
   </data>
   <data name="WhatsNewDialog.Title" xml:space="preserve">

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using FlarentApp.Helpers;
 using FlarentApp.Services;
+using FlarentApp.Views.Controls;
 using FlarentApp.Views.Dialogs;
 using FlarumApi;
 using Windows.ApplicationModel;
@@ -142,11 +143,11 @@ namespace FlarentApp.Views
                 var shell = Window.Current.Content as ShellPage;//获取当前正在显示的页面
                 shell.Logout();//退出登录
                 await UpdateForumInfo();
+                new Toast("切换成功",TimeSpan.FromSeconds(2)).Show();
             }
             finally
             {
                 sender.IsEnabled = true;
-
             }
 
         }
