@@ -314,7 +314,6 @@ namespace FlarentApp.HTMLParser
             var inlineUiContainer = new InlineUIContainer();
             var ellipse = new Ellipse
             {
-                Fill = _currentObject.Foreground ?? new SolidColorBrush(Colors.Black),
                 Width = 6,
                 Height = 6,
                 Margin = new Thickness(-30, 0, 0, 1)
@@ -479,21 +478,44 @@ namespace FlarentApp.HTMLParser
 
             if (link.Contains($"{Flarent.Settings.Forum.ToLower()}/d/"))
             {
-                var btn = new HyperlinkButton
+                var split = link.Split("/");
+                if(split.Count() > 5)
                 {
-                    Margin = new Thickness(0, 0, 0, -10),
-                    Content = new StackPanel { Spacing = 8, Orientation = Orientation.Horizontal },
-                    Tag = link
-                    //Content = CleanText(node.InnerText)
-                };
-                ToolTipService.SetToolTip(btn, link);
-                btn.Click += DiscussionViewBtn_Click; ;
-                var content = btn.Content as StackPanel;
-                content.Children.Add(new FontIcon { Glyph = "\uE206", FontSize = 14 });
-                content.Children.Add(new TextBlock { Text = CleanText(node.InnerText) });
-                inlineUiContainer.Child = btn;
-                span.Inlines.Add(inlineUiContainer);
-                return span;
+                    var btn = new HyperlinkButton
+                    {
+                        Margin = new Thickness(0, 0, 0, -10),
+                        Content = new StackPanel { Spacing = 8, Orientation = Orientation.Horizontal },
+                        Tag = link
+                        //Content = CleanText(node.InnerText)
+                    };
+                    ToolTipService.SetToolTip(btn, link);
+                    btn.Click += PostViewBtn_Click;
+                    var content = btn.Content as StackPanel;
+                    content.Children.Add(new FontIcon { Glyph = "\uE206", FontSize = 14 });
+                    content.Children.Add(new TextBlock { Text = CleanText(node.InnerText) });
+                    inlineUiContainer.Child = btn;
+                    span.Inlines.Add(inlineUiContainer);
+                    return span;
+                }
+                else
+                {
+                    var btn = new HyperlinkButton
+                    {
+                        Margin = new Thickness(0, 0, 0, -10),
+                        Content = new StackPanel { Spacing = 8, Orientation = Orientation.Horizontal },
+                        Tag = link
+                        //Content = CleanText(node.InnerText)
+                    };
+                    ToolTipService.SetToolTip(btn, link);
+                    btn.Click += DiscussionViewBtn_Click; ;
+                    var content = btn.Content as StackPanel;
+                    content.Children.Add(new FontIcon { Glyph = "\uE8F2", FontSize = 14 });
+                    content.Children.Add(new TextBlock { Text = CleanText(node.InnerText) });
+                    inlineUiContainer.Child = btn;
+                    span.Inlines.Add(inlineUiContainer);
+                    return span;
+                }
+
             }
 
             var hyperlinkButton = new HyperlinkButton
@@ -510,23 +532,26 @@ namespace FlarentApp.HTMLParser
             return span;
         }
 
+        private static void PostViewBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as HyperlinkButton;
+            var link = btn.Tag.ToString();
+            NavigationService.OpenInRightPane(typeof(PostDetailPage), link);
+
+        }
+
         private static void DiscussionViewBtn_Click(object sender, RoutedEventArgs e)
         {
             var btn = sender as HyperlinkButton;
             var link = btn.Tag.ToString();
             var split = link.Split("/");
             var id = split[split.Count() - 1];
-            if (split.Count() > 5)
-                NavigationService.OpenInRightPane(typeof(PostDetailPage), link);
-            else
+            if (id.Contains("-"))//防止链接后面有字符存在
             {
-                if (id.Contains("-"))//防止链接后面有字符存在
-                {
-                    var index = id.IndexOf('-');
-                    id = id.Remove(index);
-                }
-                NavigationService.Navigate<DiscussionDetailPage>(int.Parse(id));
+                var index = id.IndexOf('-');
+                id = id.Remove(index);
             }
+            NavigationService.Navigate<DiscussionDetailPage>(int.Parse(id));
         }
 
         private static void UserMentionBtn_Click(object sender, RoutedEventArgs e)

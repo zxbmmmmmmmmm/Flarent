@@ -52,7 +52,12 @@
                 <AppBarButton Icon="Download" Label="下载" Click="DownloadItem_Click"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
-        <ListView x:Name="PostsListView" Grid.Row="1" SelectionMode="None" IsItemClickEnabled="False" IsEnabled="{x:Bind PostSlider.IsEnabled,Mode=OneWay}" >
+        <ListView x:Name="PostsListView"
+                  Grid.Row="1"
+                  SelectionMode="None"
+                  IsItemClickEnabled="False"
+                  IsEnabled="{x:Bind PostSlider.IsEnabled,Mode=OneWay}"
+                  Loaded="PostsListView_Loaded">
             <ListView.Header>
                 <StackPanel>
 

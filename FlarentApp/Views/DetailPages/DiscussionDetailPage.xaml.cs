@@ -236,6 +236,12 @@ namespace FlarentApp.Views.DetailPages
                 range = LastPosts;
             }
             await GetPost(min, range);
+            if (PostScrollViewer == null)
+            {
+                PostScrollViewer = GetScrollViewer(PostsListView);
+                PostScrollViewer.ViewChanged -= PostScrollViewer_ViewChanged;
+                PostScrollViewer.ViewChanged += PostScrollViewer_ViewChanged;
+            }
 
 
         }
@@ -266,6 +272,20 @@ namespace FlarentApp.Views.DetailPages
         {
             await GetDiscussion();
             await TurnToPage(0);
+        }
+
+        private void PostsListView_Loaded(object sender, RoutedEventArgs e)
+        {
+            //PostScrollViewer = (VisualTreeHelper.GetChild(/*ListView控件*/, 0) as Border).Child as ScrollViewer;
+            //Border border = VisualTreeHelper.GetChild(PostsListView, 0) as Border;
+            //ScrollViewer scrollViewer = VisualTreeHelper.GetChild(border, 0) as ScrollViewer;
+            PostScrollViewer = GetScrollViewer(PostsListView);
+            if(PostScrollViewer!= null)
+            {
+                PostScrollViewer.ViewChanged -= PostScrollViewer_ViewChanged;
+                PostScrollViewer.ViewChanged += PostScrollViewer_ViewChanged;
+            }
+
         }
     }
 
