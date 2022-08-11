@@ -175,10 +175,8 @@ namespace FlarentApp.Views.DetailPages
             CurrentPage = 0;
             TotalPages = (int)Math.Ceiling((double)Discussion.Posts.Count / 30);
             LastPosts = PostIds.Count % 30;//将post的数量取余30，得到剩余的post数量（29）
-            PostScrollViewer = GetScrollViewer(PostsListView);
-            PostScrollViewer.ViewChanged += PostScrollViewer_ViewChanged;
-            ReplyButton.IsEnabled = true;
             PostsListView.Visibility = Visibility.Visible;
+            ReplyButton.IsEnabled = true;
             LoadingProgressRing.Visibility = Visibility.Collapsed;
         }
         private async Task GetPost(int min, int range)

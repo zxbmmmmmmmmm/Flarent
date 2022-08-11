@@ -299,17 +299,10 @@ namespace FlarentApp.Views
             NotificationsInfoBadge.Visibility = Visibility.Collapsed;
         }
 
-        private void navigationView_DisplayModeChanged(WinUI.NavigationView sender, WinUI.NavigationViewDisplayModeChangedEventArgs args)
-        {
-            if(args.DisplayMode == WinUI.NavigationViewDisplayMode.Minimal)
-            {
-                TitieBarContent.Margin = new Thickness(25, 0, 0, 0);
-            }
-        }
+
 
         private void navigationView_PaneClosing(WinUI.NavigationView sender, WinUI.NavigationViewPaneClosingEventArgs args)
         {
-            TitieBarContent.Margin = new Thickness(25, 0, 0, 0);
             AppTitle.MaxWidth = 256;
             if(sender.DisplayMode == WinUI.NavigationViewDisplayMode.Minimal)
                 PageNameTextBlock.Visibility = Visibility.Visible;
@@ -319,7 +312,6 @@ namespace FlarentApp.Views
         {
             if (sender.DisplayMode == WinUI.NavigationViewDisplayMode.Minimal)
             {
-                TitieBarContent.Margin = new Thickness(25, 0, 0, 0);
                 PageNameTextBlock.Visibility = Visibility.Collapsed;
             }
             else

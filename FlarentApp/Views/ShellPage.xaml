@@ -76,7 +76,7 @@
             IsHitTestVisible="True" Visibility="Visible">
             <Grid>
                 <TextBlock x:Name="PageNameTextBlock" Text="{x:Bind Selected.Content,Mode=OneWay}" FontWeight="SemiBold" Margin="0,6,0,0" FontSize="14" Canvas.ZIndex="-1" x:FieldModifier="Public" HorizontalAlignment="Left" />
-                <StackPanel x:Name="TitieBarContent" VerticalAlignment="Center" Orientation="Horizontal" Margin="14,0,0,0" Visibility="Collapsed">
+                <StackPanel x:Name="TitieBarContent" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,0,0,0" Visibility="Collapsed">
                     <StackPanel.Transitions>
                         <TransitionCollection>
                             <RepositionThemeTransition/>
@@ -84,12 +84,13 @@
                     </StackPanel.Transitions>
                     <Image
                         Height="16"
+                        Margin="2,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Source="{x:Bind app:Flarent.Settings.ForumInfo.Logo,Mode=OneWay}"
                         Stretch="Fill" Visibility="{x:Bind app:Flarent.Settings.ShowForumLogo,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}"/>
                     <Image
-                        x:Name="AppFontIcon"
+                        x:Name="AppFavIcon"
                         Width="20"
                         Height="20"
                         HorizontalAlignment="Left"
@@ -100,7 +101,7 @@
                         x:Name="AppTitle"
                         VerticalAlignment="Center"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Margin="8,0,0,0"
+                        Margin="8,0,0,2"
                         TextWrapping="NoWrap"
                         Text="{x:Bind app:Flarent.Settings.ForumInfo.Name,Mode=OneWay}" Visibility="{x:Bind app:Flarent.Settings.ShowForumLogo,Converter={StaticResource BooleanVisibilityInversionConverter},Mode=OneWay}"/>
                 </StackPanel>
@@ -117,7 +118,6 @@
             IsSettingsVisible="True"
             IsTitleBarAutoPaddingEnabled="False"
             PaneDisplayMode="Auto"
-            DisplayModeChanged="navigationView_DisplayModeChanged"
             PaneOpening="navigationView_PaneOpening"
             PaneClosing="navigationView_PaneClosing"
             OpenPaneLength="{x:Bind app:Flarent.Settings.OpenPaneLegnth,Mode=OneWay}"
@@ -148,7 +148,7 @@
                 </winui:NavigationViewItem>
                 <winui:NavigationViewItem x:Name="UserMenuItem" Content="{x:Bind User.DisplayName,Mode=OneWay}" Icon="Contact" SelectsOnInvoked="False" Tag="User" FlyoutBase.AttachedFlyout="{StaticResource UserInfoFlyout}"/>
             </winui:NavigationView.FooterMenuItems>
-            <Grid Margin="0,40,0,0">
+            <Grid>
                 <SplitView
                     x:Name="splitView"
                     PanePlacement="Right"
@@ -169,7 +169,7 @@
                         </Grid.RowDefinitions>
                     </Grid>
                 </SplitView>
-                <Frame x:Name="shellFrame" x:FieldModifier="Public"/>
+                <Frame x:Name="shellFrame" x:FieldModifier="Public" Margin="0,40,0,0"/>
 
             </Grid>
 

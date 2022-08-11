@@ -17,7 +17,7 @@
                 <ResourceDictionary Source="/Styles/Converters.xaml"/>
                 <ResourceDictionary Source="/Styles/Controls.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
+            <Thickness x:Key="NavigationViewContentMargin">0,40,0,0</Thickness>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
