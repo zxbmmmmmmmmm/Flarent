@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace FlarumApi.Models
 {
-    public class Forum 
+    public class Forum
     {
         public string FavIcon { get; set; }
         public string Logo { get; set; }
@@ -21,10 +21,10 @@ namespace FlarumApi.Models
         {
             var attributes = token.Value<JToken>("attributes");
             var forum = new Forum
-            { 
+            {
                 BaseUrl = attributes.Value<string>("baseUrl"),
-                Website = attributes.Value<string>("baseUrl").Replace("https://",""),
-                Logo = attributes.Value<string>("logoUrl")?? "ms-appx:///Assets/StoreLogo.png",
+                Website = attributes.Value<string>("baseUrl").Replace("https://", ""),
+                Logo = attributes.Value<string>("logoUrl") ?? "ms-appx:///Assets/StoreLogo.png",
                 FavIcon = attributes.Value<string>("faviconUrl") ?? "ms-appx:///Assets/StoreLogo.png",
                 Name = attributes.Value<string>("title"),
                 Description = attributes.Value<string>("description"),
@@ -124,6 +124,8 @@ namespace FlarumApi.Models
         public List<int> LikeIds { get; set; }
         public List<User> Likes { get; set; }
         public bool ShowLikeIcon { get; set; }
+        public bool IsHidden { get; set; }
+        public DateTime? HiddenAt { get; set; }
 
         public static Post CreateFromJson(JToken token)
         {
@@ -157,11 +159,13 @@ namespace FlarumApi.Models
             post.ContentType = attributes.Value<string>("contentType") ?? null;
             post.Votes = attributes.Value<int?>("votes") ?? null;
             post.HasUpvoted = attributes.Value<bool>("hasUpvoted");
+            post.IsHidden = attributes.Value<bool>("isHidden");
             post.ContentHtml = attributes.Value<string>("contentHtml") ?? null;
             post.CreatedAt = attributes.Value<DateTime?>("createdAt") ?? null;
             post.EditedAt = attributes.Value<DateTime?>("editedAt") ?? null;
+            post.HiddenAt = attributes.Value<DateTime?>("hiddenAt") ?? null;
 
-            if (post.ContentType != "comment"&&post.ContentHtml == null)
+            if (post.ContentType != "comment" && post.ContentHtml == null)
             {
                 post.SpecialContent = new SpecialContent();
                 switch (post.ContentType)
@@ -200,7 +204,7 @@ namespace FlarumApi.Models
                         break;
                     case "discussionRenamed":
                         post.SpecialContent.Icon = "\uE13E";
-                        var jobj = JArray.Parse(post.Content.ToString());                        
+                        var jobj = JArray.Parse(post.Content.ToString());
                         post.SpecialContent.Description = $"将标题由`{jobj[0]}`更改为`{jobj[1]}`";
                         break;
                     default:
@@ -232,7 +236,7 @@ namespace FlarumApi.Models
         public int DiscussionCount { get; set; }
         public int CommentCount { get; set; }
         public ObservableCollection<UserGroup> UserGroups { get; set; }
-        public List<int> GroupIds{ get; set; }
+        public List<int> GroupIds { get; set; }
         public static User CreateFromJson(JToken token)
         {
             var attributes = token.Value<JToken>("attributes");
@@ -243,7 +247,7 @@ namespace FlarumApi.Models
                 UserName = attributes.Value<string>("username"),
                 DisplayName = attributes.Value<string>("displayName"),
                 Slug = attributes.Value<string>("slug"),
-                AvatarUrl = attributes.Value<string>("avatarUrl")?? "https://img.moegirl.org.cn/common/thumb/b/b7/Transparent_Akkarin.jpg/280px-Transparent_Akkarin.jpg",
+                AvatarUrl = attributes.Value<string>("avatarUrl") ?? "https://img.moegirl.org.cn/common/thumb/b/b7/Transparent_Akkarin.jpg/280px-Transparent_Akkarin.jpg",
                 Bio = attributes.Value<string>("bio"),
                 DiscussionCount = attributes.Value<int>("discussionCount"),
                 CommentCount = attributes.Value<int>("commentCount"),
@@ -286,26 +290,26 @@ namespace FlarumApi.Models
         }
     }
 
-        /*
-        /// <summary>
-        /// 对应api内relationships
-        /// <para>所有内容有为int，对应(内容)->data->id</para>
-        /// </summary>
-        public class RelationShips
+    /*
+    /// <summary>
+    /// 对应api内relationships
+    /// <para>所有内容有为int，对应(内容)->data->id</para>
+    /// </summary>
+    public class RelationShips
+    {
+        public int FirstPost { get; set; }
+        public int LastPost { get; set; }
+        public int User { get; set; }
+        public int LastPostedUser { get; set; }
+        public static RelationShips CreateFromJson(JToken token)
         {
-            public int FirstPost { get; set; }
-            public int LastPost { get; set; }
-            public int User { get; set; }
-            public int LastPostedUser { get; set; }
-            public static RelationShips CreateFromJson(JToken token)
+            var relationships = new RelationShips
             {
-                var relationships = new RelationShips
-                {
-                    FirstPost = token.Value<JToken>("firstPost").Value<int>("data");
-                };
+                FirstPost = token.Value<JToken>("firstPost").Value<int>("data");
+            };
 
-            }
-        }*/
+        }
+    }*/
 
     public class Tag
     {
