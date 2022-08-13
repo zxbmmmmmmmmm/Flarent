@@ -5,6 +5,7 @@
     xmlns:local="using:FlarentApp.Views.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:app="using:FlarentApp.Helpers"
     mc:Ignorable="d"
     Title="登录">
     <ContentDialog.TitleTemplate>

@@ -5,7 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FlarumApi.Models"
-    xmlns:localcontrols="using:FlarentApp.Views.Controls" xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:fa="using:FontAwesome.UWP" xmlns:app="using:FlarentApp.Helpers"
+    xmlns:localcontrols="using:FlarentApp.Views.Controls" xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:fa="using:FontAwesome.UWP"     xmlns:app="using:FlarentApp.Helpers"
+
     mc:Ignorable="d" >
     <Grid x:Name="ContentArea" >
         <Grid>
@@ -26,7 +27,7 @@
                 </CommandBar.SecondaryCommands>
             </CommandBar>
             <localcontrols:ErrorControl x:Name="ErrorControl" VerticalAlignment="Center" Visibility="Collapsed"/>
-            <muxc:ProgressRing x:Name="LoadingProgressRing" Height="64" Width="64" HorizontalAlignment="Center"  VerticalAlignment="Center" />
+            <muxc:ProgressRing x:Name="LoadingProgressRing" Height="64" Width="64" HorizontalAlignment="Center"  VerticalAlignment="Center" IsActive="True"/>
             <ListView x:Name="DiscussionsListView"
                       ItemsSource="{x:Bind Discussions,Mode=OneWay}"
                       IsItemClickEnabled="True"

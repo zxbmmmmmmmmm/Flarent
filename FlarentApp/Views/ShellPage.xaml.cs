@@ -303,6 +303,7 @@ namespace FlarentApp.Views
 
         private void navigationView_PaneClosing(WinUI.NavigationView sender, WinUI.NavigationViewPaneClosingEventArgs args)
         {
+            UserPanel.Margin = new Thickness(4, 0, 0, 0);
             AppTitle.MaxWidth = 256;
             if(sender.DisplayMode == WinUI.NavigationViewDisplayMode.Minimal)
                 PageNameTextBlock.Visibility = Visibility.Visible;
@@ -310,6 +311,7 @@ namespace FlarentApp.Views
 
         private void navigationView_PaneOpening(WinUI.NavigationView sender, object args)
         {
+            UserPanel.Margin = new Thickness(0, 0, 0, 0);
             if (sender.DisplayMode == WinUI.NavigationViewDisplayMode.Minimal)
             {
                 PageNameTextBlock.Visibility = Visibility.Collapsed;

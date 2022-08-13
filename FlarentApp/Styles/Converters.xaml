@@ -7,6 +7,8 @@
     <converters:BooleanVisibilityInversionConverter x:Name="BooleanVisibilityInversionConverter"/>
     <converters:DateConverter x:Name="DateConverter"/>
     <converters:BoolToVisibilityConverter x:Name="BoolToVisibilityConverter"/>
+    <converters:VisibilityToBoolConverter x:Key="VisibilityToBoolConverter"/>
+
     <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
     <converters:NullToVisibilityConverter x:Name="NullToVisibilityConverter"/>
     <converters:FontAwesomeConverter x:Name="FontAwesomeConverter"/>

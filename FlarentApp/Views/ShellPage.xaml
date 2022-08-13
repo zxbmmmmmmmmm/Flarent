@@ -146,7 +146,13 @@
                         <FontIcon Glyph="&#xEA8F;"/>
                     </winui:NavigationViewItem.Icon>
                 </winui:NavigationViewItem>
-                <winui:NavigationViewItem x:Name="UserMenuItem" Content="{x:Bind User.DisplayName,Mode=OneWay}" Icon="Contact" SelectsOnInvoked="False" Tag="User" FlyoutBase.AttachedFlyout="{StaticResource UserInfoFlyout}"/>
+                <winui:NavigationViewItem x:Name="UserMenuItem" SelectsOnInvoked="False" Tag="User" FlyoutBase.AttachedFlyout="{StaticResource UserInfoFlyout}">
+                    <StackPanel x:Name="UserPanel" Orientation="Horizontal" Spacing="14" HorizontalAlignment="Stretch" Margin="3,0,0,0" >
+                        <PersonPicture ProfilePicture="{x:Bind User.AvatarUrl,Mode=OneWay}" Height="18" Margin="0,0,0,0"/>
+                        <TextBlock Text="{x:Bind User.DisplayName,Mode=OneWay}" TextTrimming="WordEllipsis"/>
+                    </StackPanel>
+                </winui:NavigationViewItem>
+
             </winui:NavigationView.FooterMenuItems>
             <Grid>
                 <SplitView

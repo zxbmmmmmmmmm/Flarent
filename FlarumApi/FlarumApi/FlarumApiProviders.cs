@@ -438,7 +438,7 @@ namespace FlarumApi
                     Bio = "未登录",
                     DiscussionCount = 0,
                     CommentCount = 0,
-                    AvatarUrl = "https://img.moegirl.org.cn/common/thumb/b/b7/Transparent_Akkarin.jpg/280px-Transparent_Akkarin.jpg",
+                    AvatarUrl = "ms-appx:///Assets/App/guest.png",
 
                 };
 

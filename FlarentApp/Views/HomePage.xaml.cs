@@ -76,6 +76,7 @@ namespace FlarentApp.Views
                     Filter = "";
                 Discussions.Clear();
                 LoadingProgressRing.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                
                 GetDiscussions();
             }
             var shell = Window.Current.Content as ShellPage;//获取当前正在显示的页面

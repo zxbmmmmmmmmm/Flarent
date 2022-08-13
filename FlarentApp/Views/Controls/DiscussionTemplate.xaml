@@ -36,7 +36,7 @@
                     </ListView>
                     <FontIcon x:Name="RelpyIcon" Glyph="&#xE97A;" FontSize="14" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" Visibility="{x:Bind IsFirstPost,Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <HyperlinkButton x:Name="LastPostedUserButton" Click="LastPostedUserButton_Click" Content="{x:Bind Discussion.LastPostedUser.DisplayName}" Style="{StaticResource TextBlockButtonStyle}" Margin="4,1,0,0"/>
-                    <TextBlock Text="{x:Bind Discussion.LastPostedAt,Converter={StaticResource DateConverter},Mode=OneWay}" Margin="6,7,0,0" Style="{StaticResource  DetailBodyBaseMediumStyle}"/>
+                    <TextBlock Text="{x:Bind Discussion.LastPostedAt,Converter={StaticResource DateConverter},Mode=OneWay}" Margin="6,7,0,0" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
                     
                 </StackPanel>
                 <TextBlock x:Name="FirstPostTextBlock" Text="{x:Bind Discussion.FirstPost.ContentHtml,Mode=OneWay,Converter={StaticResource DecodeHtmlConverter}}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxHeight="50" TextWrapping="Wrap" MaxWidth="1080" FontSize="14" Visibility="Collapsed"/>
