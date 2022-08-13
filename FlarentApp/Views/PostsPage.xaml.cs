@@ -74,8 +74,9 @@ namespace FlarentApp.Views
                         GetPosts();
                         return;
                     }
-                    return;
+
                 }
+                LinkNext = $"https://{Flarent.Settings.Forum}/api/posts?sort=-createdAt&page[limit]=10";
                 Posts.Clear();
                 GetPosts();
             }
