@@ -43,13 +43,17 @@ namespace FlarumApi.Models
         public DateTime? LastPostedAt { get; set; }
         public bool? HasBestAnswer { get; set; }
         public int UserId { get; set; }
-
         public User User { get; set; }
         public int LastPostedUserId { get; set; }
         public User LastPostedUser { get; set; }
         public int FirstPostId { get; set; }
         public Post FirstPost { get; set; }
         public List<int> TagIds { get; set; }
+        public bool? FrontPage { get; set; }//精品贴
+        public object Subscription { get; set; }//精品贴
+
+        public bool? IsLocked { get; set; }//锁定
+        public bool? IsSticky { get; set; }//置顶
         public ObservableCollection<Tag> Tags { get; set; }
         public ObservableCollection<Post> Posts { get; set; }
         /// <summary>
@@ -69,6 +73,11 @@ namespace FlarumApi.Models
                 CreatedAt = attributes.Value<DateTime?>("createdAt") ?? null,
                 LastPostedAt = attributes.Value<DateTime?>("lastPostedAt") ?? null,
                 HasBestAnswer = attributes.Value<bool?>("hasBestAnswer"),
+                IsSticky = attributes.Value<bool?>("isSticky") ?? false,
+                IsLocked = attributes.Value<bool?>("isLocked") ?? false,
+                FrontPage = attributes.Value<bool?>("frontpage") ?? false,
+                Subscription = attributes.Value<object>("subscription") ?? null,
+
             };
             discussion.Posts = new ObservableCollection<Post>();
             if (relationships != null)

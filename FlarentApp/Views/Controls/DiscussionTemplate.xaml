@@ -21,7 +21,9 @@
             </Border>
             <StackPanel Margin="{StaticResource SmallLeftMargin}">
                 <TextBlock Text="{x:Bind Discussion.Title,Mode=OneWay}" FontSize="20" TextTrimming="WordEllipsis"/>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" >
+
+
                     <ListView ItemsSource="{x:Bind Discussion.Tags,Mode=OneWay}" SelectionMode="None" Margin="0,6,0,0" ItemContainerStyle="{StaticResource ListViewItemNoPaddingStyle}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:Tag">
@@ -42,10 +44,20 @@
                 <TextBlock x:Name="FirstPostTextBlock" Text="{x:Bind Discussion.FirstPost.ContentHtml,Mode=OneWay,Converter={StaticResource DecodeHtmlConverter}}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxHeight="50" TextWrapping="Wrap" MaxWidth="1080" FontSize="14" Visibility="Collapsed"/>
             </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" >
-            <FontIcon Glyph="&#xE8F2;" FontSize="16"/>
-            <TextBlock Text="{x:Bind Discussion.CommentCount}" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,6"/>
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Spacing="8" >
+                <FontIcon Glyph="&#xE8F2;" FontSize="16"/>
+                <TextBlock Text="{x:Bind Discussion.CommentCount}" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,6"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                <FontIcon Glyph="&#xE840;" Visibility="{x:Bind Discussion.IsSticky,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}" FontSize="14" ToolTipService.ToolTip="置顶"/>
+                <FontIcon Glyph="&#xE72E;" Visibility="{x:Bind Discussion.IsLocked,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}" FontSize="14" Margin="4,0,0,0" ToolTipService.ToolTip="已锁定"/>
+                <FontIcon Glyph="&#xE734;" Visibility="{x:Bind Discussion.FrontPage,Converter={StaticResource BoolToVisibilityConverter},Mode=OneWay}" FontSize="14" Margin="4,0,0,0" ToolTipService.ToolTip="精品帖"/>
+                <FontIcon Glyph="&#xE728;" Visibility="{x:Bind Discussion.Subscription,Converter={StaticResource NullToVisibilityConverter},Mode=OneWay}" FontSize="14" Margin="4,0,0,0" ToolTipService.ToolTip="已关注"/>
+            </StackPanel>
         </StackPanel>
+
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="LargeLayout" >
