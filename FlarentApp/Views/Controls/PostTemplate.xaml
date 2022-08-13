@@ -89,7 +89,7 @@
                 <SymbolIcon Symbol="More"/>
                 <Button.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Name="EditMenuItem" Icon="Edit" Text="编辑" Visibility="{x:Bind ReplyButton.Visibility,Mode=OneWay}"/>
+                        <MenuFlyoutItem x:Name="EditMenuItem" Icon="Edit" Text="编辑" Visibility="{x:Bind ReplyButton.Visibility,Mode=OneWay}" IsEnabled="{x:Bind Post.CanEdit}"/>
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>

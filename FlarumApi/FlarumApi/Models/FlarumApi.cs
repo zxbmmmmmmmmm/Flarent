@@ -126,6 +126,7 @@ namespace FlarumApi.Models
         public bool ShowLikeIcon { get; set; }
         public bool IsHidden { get; set; }
         public DateTime? HiddenAt { get; set; }
+        public bool CanEdit { get; set; }
 
         public static Post CreateFromJson(JToken token)
         {
@@ -164,6 +165,7 @@ namespace FlarumApi.Models
             post.CreatedAt = attributes.Value<DateTime?>("createdAt") ?? null;
             post.EditedAt = attributes.Value<DateTime?>("editedAt") ?? null;
             post.HiddenAt = attributes.Value<DateTime?>("hiddenAt") ?? null;
+            post.CanEdit = attributes.Value<bool>("canEdit") ;
 
             if (post.ContentType != "comment" && post.ContentHtml == null)
             {

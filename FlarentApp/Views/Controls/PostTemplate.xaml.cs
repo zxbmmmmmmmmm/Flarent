@@ -43,10 +43,8 @@ namespace FlarentApp.Views.Controls
 
         private async void EditMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var converter = new HtmlToMarkdownConverter();
 
-            var text = (string)converter.Convert(Post.ContentHtml, null, null
-                , null);
+            var text = Post.Content.ToString();
             await new ReplyDialog(null, Post, text,$"https://{Flarent.Settings.Forum}/d/{Post.Discussion.Id}/{Post.Number}").ShowAsync();
         }
 
