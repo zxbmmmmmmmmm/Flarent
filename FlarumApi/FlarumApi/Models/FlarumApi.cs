@@ -51,7 +51,7 @@ namespace FlarumApi.Models
         public List<int> TagIds { get; set; }
         public bool? FrontPage { get; set; }//精品贴
         public object Subscription { get; set; }//精品贴
-
+        public bool? IsHidden { get; set; }
         public bool? IsLocked { get; set; }//锁定
         public bool? IsSticky { get; set; }//置顶
         public ObservableCollection<Tag> Tags { get; set; }
@@ -75,6 +75,7 @@ namespace FlarumApi.Models
                 HasBestAnswer = attributes.Value<bool?>("hasBestAnswer"),
                 IsSticky = attributes.Value<bool?>("isSticky") ?? false,
                 IsLocked = attributes.Value<bool?>("isLocked") ?? false,
+                IsHidden = attributes.Value<bool?>("isHidden") ?? false,
                 FrontPage = attributes.Value<bool?>("frontpage") ?? false,
                 Subscription = attributes.Value<object>("subscription") ?? null,
 

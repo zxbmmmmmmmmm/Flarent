@@ -47,8 +47,11 @@ namespace FlarentApp.Helpers.Converters
                 else
                     return Visibility.Visible;
             }
-
-            throw new ArgumentException("parameter must be a bool value!");
+            else
+            {
+                return Visibility.Collapsed;
+            }
+            //throw new ArgumentException("parameter must be a bool value!");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
