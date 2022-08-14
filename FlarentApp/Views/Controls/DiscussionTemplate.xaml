@@ -41,7 +41,16 @@
                     <TextBlock Text="{x:Bind Discussion.LastPostedAt,Converter={StaticResource DateConverter},Mode=OneWay}" Margin="6,7,0,0" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
                     
                 </StackPanel>
-                <TextBlock x:Name="FirstPostTextBlock" Text="{x:Bind Discussion.FirstPost.ContentHtml,Mode=OneWay,Converter={StaticResource DecodeHtmlConverter}}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxHeight="50" TextWrapping="Wrap" MaxWidth="1080" FontSize="14" Visibility="Collapsed"/>
+                <TextBlock x:Name="FirstPostTextBlock"
+                           Text="{x:Bind Discussion.FirstPost.ContentHtml,Mode=OneWay,Converter={StaticResource DecodeHtmlConverter}}"
+                           Style="{StaticResource DetailBodyBaseMediumStyle}"
+                           MaxLines="2"
+                           TextWrapping="Wrap"
+                           MaxWidth="1080"
+                           FontSize="14"
+                           TextTrimming="CharacterEllipsis"
+                           HorizontalAlignment="Stretch"
+                           Visibility="Collapsed"/>
             </StackPanel>
         </StackPanel>
         <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -64,7 +73,7 @@
             <VisualStateGroup>
                 <VisualState x:Name="LargeLayout" >
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1400"/>
+                        <AdaptiveTrigger MinWindowWidth="1256"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="FirstPostTextBlock.Visibility" Value="Visible"/>
