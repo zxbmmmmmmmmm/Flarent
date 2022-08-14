@@ -4,6 +4,7 @@ using FlarentApp.Services;
 using FlarentApp.Views.Controls;
 using FlarentApp.Views.DetailPages;
 using HtmlAgilityPack;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
@@ -238,7 +239,7 @@ namespace FlarentApp.HTMLParser
                 BorderBrush = new SolidColorBrush(Color.FromArgb(50, 128, 128, 128)),
                 //Background = new SolidColorBrush(Color.FromArgb(50, 128, 128, 128)),
             };
-            var richtext = new RichTextBlock { Margin = new Thickness(12,0,16,0)};
+            var richtext = new RichTextBlock { Margin = new Thickness(12,0,16,0),Name="QuoteRichText"};
 
             richtext.SetValue(HtmlProperty, node.InnerHtml);
             border.Child = richtext;
@@ -335,11 +336,13 @@ namespace FlarentApp.HTMLParser
                 var sourceWidth = WebUtility.HtmlDecode(node.Attributes["width"]?.Value);
                 var sourceHeight = WebUtility.HtmlDecode(node.Attributes["height"]?.Value);
 
-                var image = new Image
+                var image = new ImageEx
                 {
                     Stretch = Stretch.Uniform,
                     VerticalAlignment = VerticalAlignment.Top,
                     HorizontalAlignment = HorizontalAlignment.Left,
+                    PlaceholderSource = new BitmapImage(new Uri("ms-appx:///Assets/App/ImagePlaceHolder.png") ),
+                    Height = 512
                 };
 
                 if (sourceWidth != null || sourceHeight != null)
@@ -358,10 +361,10 @@ namespace FlarentApp.HTMLParser
                 }
                 else
                 {
-                    image.ImageOpened += ImageOpened;
+                    image.ImageExOpened += ImageOpened; ;
                 }
 
-                image.ImageFailed += ImageFailed;
+                image.ImageExFailed += ImageFailed; ;
                 image.Tapped += ImageOnTapped;
 
                 image.Source = new BitmapImage(new Uri(sourceUri, UriKind.Absolute));
@@ -377,22 +380,14 @@ namespace FlarentApp.HTMLParser
             }
             return span;
         }
-
-        private static void ImageOnTapped(object sender, TappedRoutedEventArgs tappedRoutedEventArgs)
+        private static void ImageFailed(object sender, ImageExFailedEventArgs e)
         {
-            var image = sender as Image;
-            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", (UIElement)sender);
-            var source = image.Source as BitmapImage;
-            new ImageView().Show(source.UriSource.ToString());
-            OnImageTapped?.Invoke(sender, tappedRoutedEventArgs);
+            Debug.WriteLine("image failed to load");
         }
 
-        private static void ImageFailed(object sender, ExceptionRoutedEventArgs e)
-            => Debug.WriteLine("image failed to load");
-
-        private static void ImageOpened(object sender, RoutedEventArgs e)
+        private static void ImageOpened(object sender, ImageExOpenedEventArgs e)
         {
-            var img = sender as Image;
+            var img = sender as ImageEx;
             if (img == null) return;
 
             var bimg = img.Source as BitmapImage;
@@ -420,6 +415,24 @@ namespace FlarentApp.HTMLParser
                 img.Width = bimg.PixelWidth;
             }
         }
+
+        private static void ImageOnTapped(object sender, TappedRoutedEventArgs tappedRoutedEventArgs)
+        {
+          
+            var image = sender as ImageEx;
+            image.IsEnabled = false;
+
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", (UIElement)sender);
+            var source = image.Source as BitmapImage;
+            var view = new ImageView();
+            view.Show(source.UriSource.ToString());
+            OnImageTapped?.Invoke(sender, tappedRoutedEventArgs);
+            image.IsEnabled = true;
+            
+
+        }
+
+
 
         private static Inline GenerateHyperLink(HtmlNode node)
         {

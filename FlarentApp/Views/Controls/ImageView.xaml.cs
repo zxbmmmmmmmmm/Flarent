@@ -139,8 +139,13 @@ namespace FlarentApp.Views.Controls
         private void CopyLinkBtn_Click(object sender, RoutedEventArgs e)
         {
             DataPackage dataPackage = new DataPackage();
-            dataPackage.SetText("");
+            dataPackage.SetText(LinkTextBlock.Text);
             Clipboard.SetContent(dataPackage);
+        }
+
+        private void MainImage_ImageExOpened(object sender, Microsoft.Toolkit.Uwp.UI.Controls.ImageExOpenedEventArgs e)
+        {
+            LoadingProgressRing.Visibility = Visibility.Collapsed;
         }
     }
 }
