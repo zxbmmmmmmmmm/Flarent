@@ -160,8 +160,8 @@ namespace FlarumApi.Models
             post.Content = attributes.Value<object>("content") ?? null;
             post.ContentType = attributes.Value<string>("contentType") ?? null;
             post.Votes = attributes.Value<int?>("votes") ?? null;
-            post.HasUpvoted = attributes.Value<bool>("hasUpvoted");
-            post.IsHidden = attributes.Value<bool>("isHidden");
+            post.HasUpvoted = attributes.Value<bool?>("hasUpvoted")?? false;
+            post.IsHidden = attributes.Value<bool?>("isHidden")??false;
             post.ContentHtml = attributes.Value<string>("contentHtml") ?? null;
             post.CreatedAt = attributes.Value<DateTime?>("createdAt") ?? null;
             post.EditedAt = attributes.Value<DateTime?>("editedAt") ?? null;

@@ -13,7 +13,9 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal"  MaxWidth="1300" Margin="33,12,0,0">
                 <TextBlock Text="于" Margin="0,6,0,0"/>
-                <HyperlinkButton x:Name="DiscussionButton" Content="{x:Bind Post.Discussion.Title,Mode=OneWay}" Style="{StaticResource TextBlockButtonStyle}" Margin="{StaticResource SmallLeftMargin}"/>
+                <HyperlinkButton x:Name="DiscussionButton">
+                    <TextBlock Text="{x:Bind Post.Discussion.Title,Mode=OneWay}"/>
+                </HyperlinkButton>
             </StackPanel>
 
             <local:PostTemplate Post="{x:Bind Post,Mode=OneWay}"/>

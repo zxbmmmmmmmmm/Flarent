@@ -284,13 +284,15 @@
                                     <TextBlock Text="Beta" Foreground="#92CCDC" Margin="0,10,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <StackPanel Margin="{StaticResource XSmallTopMargin}" HorizontalAlignment="Center" Grid.Row="1" Spacing="8">
-                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="8">
-                                        <TextBlock
+                                    <TextBlock
                                         x:Uid="Settings_AboutDescription"
-                                        Style="{ThemeResource BodyTextBlockStyle}"  VerticalAlignment="Center"/>
+                                        Style="{ThemeResource BodyTextBlockStyle}"  HorizontalAlignment="Center"/>
+                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                         <HyperlinkButton x:Uid="Settings_PrivacyTermsLink"  HorizontalAlignment="Center" Style="{StaticResource TextBlockButtonStyle}" Visibility="Collapsed"/>
                                         <HyperlinkButton Content="作者主页" NavigateUri="https://discuss.flarum.org.cn/u/Betta_Fish" />
                                         <HyperlinkButton Content="检查更新" NavigateUri="https://discuss.flarum.org.cn/d/3829" />
+                                        <HyperlinkButton Content="赞助" NavigateUri="https://afdian.net/@Betta_Fish" />
+
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="8">
                                         <Button Content="更新内容" x:Name="ViewUpdateButton" Click="ViewUpdateButton_Click"/>
@@ -310,7 +312,6 @@
                                         <Image Source="ms-appx:///Assets/StoreLogo.png" Height="24" HorizontalAlignment="Left"/>
                                         <TextBlock Text="{x:Bind app:Flarent.Settings.ForumInfo.Name,Mode=OneWay}" VerticalAlignment="Center"/>
                                     </StackPanel>
-
                                     <HyperlinkButton Content="访问主页" HorizontalAlignment="Right" NavigateUri="{x:Bind app:Flarent.Settings.ForumInfo.BaseUrl}"/>
                                 </Grid>
                                 <TextBlock Text="{x:Bind app:Flarent.Settings.ForumInfo.Description,Mode=OneWay}" Grid.Row="1" Margin="{StaticResource SmallLeftTopRightBottomMargin}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Stretch" IsTextSelectionEnabled="True"/>
