@@ -33,7 +33,7 @@ namespace FlarentApp.Views.Controls
         public PostTemplate()
         {
             this.InitializeComponent();
-            ContentMarkdownTextBlock.Background = new SolidColorBrush(Colors.Transparent);
+            //ContentMarkdownTextBlock.Background = new SolidColorBrush(Colors.Transparent);
             DescriptionTextBlock.Background = new SolidColorBrush(Colors.Transparent);
             RequestedTheme = (Window.Current.Content as FrameworkElement).RequestedTheme;
             this.DataContextChanged += (s, e) => Bindings.Update();
@@ -172,7 +172,7 @@ namespace FlarentApp.Views.Controls
 
         private void ContentMarkdownTextBlock_ImageClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
         {
-            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", ContentMarkdownTextBlock);
+            //ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", ContentMarkdownTextBlock);
             new ImageView().Show(e.Link);
             //var shell = Window.Current.Content as ShellPage;
             //shell.ShowImage(e.Link);            

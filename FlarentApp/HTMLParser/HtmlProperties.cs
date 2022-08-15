@@ -424,6 +424,9 @@ namespace FlarentApp.HTMLParser
                     image.ImageExOpened += ImageOpened; ;
                 }
 
+                image.PointerEntered += PointerEntered;
+                image.PointerExited += PointerExited; ;
+
                 image.ImageExFailed += ImageFailed; ;
                 image.Tapped += ImageOnTapped;
 
@@ -440,6 +443,49 @@ namespace FlarentApp.HTMLParser
             }
             return span;
         }
+
+        private static void PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            InlineUIContainer container;
+            if (sender is WebView)
+            {
+                var control = sender as WebView;
+                var stack = control.Parent as StackPanel;
+                container = stack.Parent as InlineUIContainer;
+            }
+            else
+            {
+                var control = sender as Control;
+                control.IsEnabled = false;
+                container = control.Parent as InlineUIContainer;
+                Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1);
+                control.IsEnabled = true;
+            }
+
+            RichTextBlock textblock = container.ElementStart.VisualParent as RichTextBlock;
+            textblock.IsTextSelectionEnabled = true;
+        }
+
+        private static void PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            InlineUIContainer container;
+            if (sender is WebView)
+            {
+                var control = sender as WebView;
+                var stack = control.Parent as StackPanel;
+                container = stack.Parent as InlineUIContainer;
+            }
+            else
+            {
+                var control = sender as Control;
+                container = control.Parent as InlineUIContainer;
+                Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Hand, 1);
+            }
+
+            RichTextBlock textblock = container.ElementStart.VisualParent as RichTextBlock;
+            textblock.IsTextSelectionEnabled = false;
+        }
+
         private static void ImageFailed(object sender, ImageExFailedEventArgs e)
         {
             Debug.WriteLine("image failed to load");
@@ -451,7 +497,7 @@ namespace FlarentApp.HTMLParser
             if (img == null) return;
 
             var bimg = img.Source as BitmapImage;
-            if (bimg != null && (bimg.PixelWidth > ImageMaxPixelWidth || bimg.PixelHeight > ImageMaxPixelHeight))
+            if (bimg != null && (bimg.PixelWidth > ImageMaxPixelWidth /*|| bimg.PixelHeight > ImageMaxPixelHeight*/))
             {
                 img.Width = ImageMaxPixelWidth;
                 img.Height = ImageMaxPixelHeight;
@@ -469,7 +515,7 @@ namespace FlarentApp.HTMLParser
             }
             else
             {
-                if (bimg == null) return;
+            if (bimg == null) return;
 
                 img.Height = bimg.PixelHeight;
                 img.Width = bimg.PixelWidth;
@@ -478,10 +524,8 @@ namespace FlarentApp.HTMLParser
 
         private static void ImageOnTapped(object sender, TappedRoutedEventArgs tappedRoutedEventArgs)
         {
-          
             var image = sender as ImageEx;
             image.IsEnabled = false;
-
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", (UIElement)sender);
             var source = image.Source as BitmapImage;
             var view = new ImageView();
@@ -711,6 +755,10 @@ namespace FlarentApp.HTMLParser
                 if (node.Attributes["height"] != null)
                     webView.Height = int.Parse(node.Attributes["height"].Value);
                 webView.Unloaded += WebView_Unloaded;
+
+                webView.PointerEntered += PointerEntered;
+                webView.PointerExited += PointerExited; ;
+
                 var stack = new StackPanel { Spacing = 8 };
                 var hyperlinkBtn = new HyperlinkButton { Content = "在浏览器中打开", NavigateUri = new Uri(src.Replace("amp;", "")) };
                 stack.Children.Add(webView);
