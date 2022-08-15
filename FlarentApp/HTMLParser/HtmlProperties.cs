@@ -689,10 +689,11 @@ namespace FlarentApp.HTMLParser
                     //Width = int.Parse(node.Attributes["width"].Value),
                     //Height = int.Parse(node.Attributes["height"].Value)
                 };
-                //webView.CacheMode = 
+                //webView.CacheMode =
+                var src = node.Attributes["src"].Value;
+
                 if (node.Attributes["src"] != null)
                 {
-                    var src = node.Attributes["src"].Value;
                     if (src.StartsWith("//"))
                     {
                         src =  "https:" + src;
@@ -710,8 +711,13 @@ namespace FlarentApp.HTMLParser
                 if (node.Attributes["height"] != null)
                     webView.Height = int.Parse(node.Attributes["height"].Value);
                 webView.Unloaded += WebView_Unloaded;
-                inlineUiContainer.Child = webView;
+                var stack = new StackPanel { Spacing = 8 };
+                var hyperlinkBtn = new HyperlinkButton { Content = "在浏览器中打开", NavigateUri = new Uri(src.Replace("amp;", "")) };
+                stack.Children.Add(webView);
+                stack.Children.Add(hyperlinkBtn);
+                inlineUiContainer.Child = stack;
                 span.Inlines.Add(inlineUiContainer);
+
                 span.Inlines.Add(new LineBreak());
                 return span;
             }
