@@ -31,7 +31,7 @@
                 </StackPanel>
                 <ListView x:Name="UserActonListView" Grid.Row="1" Margin="{StaticResource SmallTopMargin}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="UserActonListView_ItemClick">
                     <ListView.Items>
-                        <ListViewItem >
+                        <ListViewItem>
                             <StackPanel Orientation="Horizontal" Spacing="12" Tag="PersonalPage">
                                 <FontIcon Glyph="&#xE136;"/>
                                 <TextBlock Text="个人主页"/>

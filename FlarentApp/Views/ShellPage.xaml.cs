@@ -190,9 +190,10 @@ namespace FlarentApp.Views
                     {
                         if(Flarent.Settings.Token != "")
                         {
+                            if (User == null)
+                                UpdateUserInfo();
                             var flyout = FlyoutBase.GetAttachedFlyout(UserMenuItem);
-                            flyout.ShowAt(UserMenuItem);
-                            
+                            flyout.ShowAt(UserMenuItem);                           
                         }
                         else
                         {
