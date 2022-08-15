@@ -156,6 +156,11 @@ namespace FlarentApp.HTMLParser
             switch (node.Name)
             {
                 case "div":
+                    if (node.Attributes["class"] != null)
+                    {
+                        if (node.Attributes["class"].Value.Contains("alert"))
+                            return GenerateInfoBar(node);
+                    }
                     return GenerateSpan(node);
                 case "p":
                 case "P":
@@ -226,6 +231,59 @@ namespace FlarentApp.HTMLParser
                     return GenerateSpanWNewLine(node);
             }
             return null;
+        }
+
+        private static Inline GenerateInfoBar(HtmlNode node)
+        {
+            var span = new Span();
+            span.Inlines.Add(new LineBreak());
+            var inlineUiContainer = new InlineUIContainer ();
+            var infobar = new InfoBar
+            {
+                IsClosable = false,
+                Title = "信息",
+                IsOpen = true,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+            };
+            if (node.Attributes["class"].Value.Contains("error")|| node.Attributes["class"].Value.Contains("warning"))
+            {
+                infobar.Title = "警告";
+                infobar.Severity = InfoBarSeverity.Warning;
+            }
+            if (node.Attributes["class"].Value.Contains("success"))
+            {
+                infobar.Severity = InfoBarSeverity.Success;
+            }
+
+            var grid = new Grid { Margin = new Thickness(0,0,0,20)};
+            var _grid = new Grid { Width = 1280 };//用于撑开整个grid
+
+            var richtext = new RichTextBlock();
+
+            
+
+            grid.Children.Add(richtext);
+            grid.Children.Add(_grid);
+
+            try
+            {
+                var inner = HtmlNode.CreateNode(node.InnerHtml);                
+                richtext.SetValue(HtmlProperty, inner.InnerHtml);
+            }
+            catch
+            {
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(node.InnerHtml);
+                richtext.SetValue(HtmlProperty, doc.DocumentNode.InnerHtml);
+
+            }
+
+            infobar.Content = grid;
+            inlineUiContainer.Child = infobar;
+            span.Inlines.Add(inlineUiContainer);
+            span.Inlines.Add(new LineBreak());
+            //AddChildren(span, node);
+            return span;
         }
 
         private static Inline GenerateQuote(HtmlNode node)
