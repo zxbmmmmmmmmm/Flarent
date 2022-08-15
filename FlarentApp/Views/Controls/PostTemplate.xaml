@@ -43,7 +43,7 @@
             <FontIcon Glyph="&#xED1A;" Visibility="{x:Bind Post.IsHidden}" FontSize="15" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
             <TextBlock Text="已隐藏" VerticalAlignment="Center" Style="{StaticResource DetailBodyBaseMediumStyle}" Visibility="{x:Bind Post.IsHidden}"/>
         </StackPanel>
-        <controls:MarkdownTextBlock x:Name="ContentMarkdownTextBlock"
+        <!--<controls:MarkdownTextBlock x:Name="ContentMarkdownTextBlock"
                                     Grid.Row="1"
                                     Background="Transparent"
                                     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
@@ -52,10 +52,8 @@
                                     Margin="{StaticResource SmallTopMargin}"
                                     Text="{x:Bind Post.ContentHtml,Mode=OneWay,Converter={StaticResource HtmlToMarkdownConverter}}"
                                     LinkClicked="ContentMarkdownTextBlock_LinkClicked"
-                                    ImageClicked="ContentMarkdownTextBlock_ImageClicked" Visibility="Collapsed"/>
-        <RichTextBlock html:HtmlProperties.Html="{x:Bind Post.ContentHtml,Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalTextAlignment="Start">
-
-        </RichTextBlock>
+                                    ImageClicked="ContentMarkdownTextBlock_ImageClicked" Visibility="Collapsed"/>-->
+        <RichTextBlock html:HtmlProperties.Html="{x:Bind Post.ContentHtml,Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalTextAlignment="Start" />
         <!--<WebView x:Name="ContentWebView"
             NavigationCompleted="ContentWebView_NavigationCompleted"
                  NavigationStarting="ContentWebView_NavigationStarting"
