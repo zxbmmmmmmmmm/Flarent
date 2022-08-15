@@ -267,14 +267,16 @@ namespace FlarentApp.HTMLParser
 
             try
             {
-                var inner = HtmlNode.CreateNode(node.InnerHtml);                
-                richtext.SetValue(HtmlProperty, inner.InnerHtml);
+               
+                var inner = HtmlNode.CreateNode(node.InnerHtml);
+                if(inner.Name == "span")               
+                    richtext.SetValue(HtmlProperty, node.InnerHtml);
+                else
+                    richtext.SetValue(HtmlProperty, inner.InnerHtml);
             }
             catch
             {
-                HtmlDocument doc = new HtmlDocument();
-                doc.LoadHtml(node.InnerHtml);
-                richtext.SetValue(HtmlProperty, doc.DocumentNode.InnerHtml);
+                richtext.SetValue(HtmlProperty, node.InnerHtml);
 
             }
 
