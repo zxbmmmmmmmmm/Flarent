@@ -3,6 +3,7 @@ using FlarentApp.Helpers.Converters;
 using FlarentApp.Services;
 using FlarentApp.Views.DetailPages;
 using FlarentApp.Views.Dialogs;
+using FlarumApi;
 using FlarumApi.Models;
 using System;
 using System.Collections.Generic;
@@ -48,8 +49,25 @@ namespace FlarentApp.Views.Controls
             await new ReplyDialog(null, Post, text,$"https://{Flarent.Settings.Forum}/d/{Post.Discussion.Id}/{Post.Number}").ShowAsync();
         }
 
-        private void VotesToggleButton_Click(object sender, RoutedEventArgs e)
+        private async void VotesToggleButton_Click(object sender, RoutedEventArgs e)
         {
+            var data = await FlarumApiProviders.VoteAsync((bool)VotesToggleButton.IsChecked, $"https://{Flarent.Settings.Forum}/api/posts/{(int)Post.Id}", (int)Post.Id, Flarent.Settings.Token);
+            if (data == true)
+            {
+                if((bool)VotesToggleButton.IsChecked)
+                    Post.Votes += 1;
+                else
+                    Post.Votes -= 1;
+                VotesTextBlock.Text = Post.Votes.ToString();
+            }
+            else
+            {
+                new Toast("操作失败,请重试").Show();
+                if ((bool)VotesToggleButton.IsChecked)
+                    VotesToggleButton.IsChecked = false;
+                else
+                    VotesToggleButton.IsChecked = true;
+            }
 
         }
 

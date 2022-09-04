@@ -76,7 +76,7 @@
             <ToggleButton x:Name="VotesToggleButton" IsChecked="{x:Bind Post.HasUpvoted}" Visibility="{x:Bind Post.Votes,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}" >
                 <StackPanel Orientation="Horizontal">
                     <FontIcon Glyph="&#xE19F;" FontSize="14"/>
-                    <TextBlock Text="{x:Bind Post.Votes,Mode=OneWay}" Margin="{StaticResource SmallLeftMargin}"/>
+                    <TextBlock x:Name="VotesTextBlock" Text="{x:Bind Post.Votes,Mode=OneWay}" Margin="{StaticResource SmallLeftMargin}"/>
                 </StackPanel>
             </ToggleButton>
             <Button x:Name="ReplyButton" Visibility="{x:Bind app:Flarent.Settings.Token,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}">

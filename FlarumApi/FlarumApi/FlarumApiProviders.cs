@@ -255,7 +255,7 @@ namespace FlarumApi
                 }
             };
             var json = JsonConvert.SerializeObject(contents, Formatting.None);
-            var data = await NetworkHelper.PostWithJsonAsync(link, json, token,referer);
+            var data = await NetworkHelper.PatchWithJsonAsync(link, json, token,referer);
             string error = string.Empty;
             if (data["errors"] == null)
             {
@@ -269,6 +269,41 @@ namespace FlarumApi
             return tuple;
 
         }
+        public async static Task<bool> VoteAsync(bool up, string link, int postId, string token)
+        {
+
+            //var token = ApplicationData.Current.LocalSettings.Values["token"].ToString();
+            //client.DefaultRequestHeaders.Add("Authorization", "Token " + token);
+            //var datum = new ReplyData { data = new Reply { type = "posts", attributes = new ReplyAttributes { content = text }, relationships = new Relationships { discussion = new Discussion { data = new Data { id = discussionId.ToString() } } } } };
+            //var json = Newtonsoft.Json.JsonConvert.SerializeObject(datum);
+
+            var contents = new Dictionary<string, object>
+            {
+                {"data",new Dictionary<string,object>
+                {
+                    {"type","posts" },
+
+                    {"attributes",new List<string>
+                    {
+                        up.ToString().ToLower(),
+                        "false",
+                        "vote",
+                    }
+                    },
+                    {"id",postId.ToString() },
+
+                }
+                }
+            };
+            var json = JsonConvert.SerializeObject(contents, Formatting.None);
+            var data = await NetworkHelper.PatchWithJsonAsync(link, json, token);
+            if (data["data"] != null)
+                return true;
+            else
+                return false;
+
+        }
+
     }
     public sealed class FlarumApiConverters
     {

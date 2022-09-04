@@ -42,10 +42,23 @@ namespace FlarumApi.Helpers
             var client = new HttpClient();
             if(referer!=null)
                 client.DefaultRequestHeaders.Add("referer", referer);
-
             client.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0");//模拟浏览器
             client.DefaultRequestHeaders.Add("Connection", "Keep-Alive");
             client.DefaultRequestHeaders.Add("Keep-Alive", "timeout=600");
+            client.DefaultRequestHeaders.Add("Authorization", "Token " + token);
+            var response = await client.PostAsync(link, new StringContent(json, System.Text.Encoding.UTF8, "application/json"));
+            var result = await response.Content.ReadAsStringAsync();
+            return JObject.Parse(result);
+        }
+        public static async Task<JObject> PatchWithJsonAsync(string link, string json, string token, string referer = null)
+        {
+            var client = new HttpClient();
+            if (referer != null)
+                client.DefaultRequestHeaders.Add("referer", referer);
+            client.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0");//模拟浏览器
+            client.DefaultRequestHeaders.Add("Connection", "Keep-Alive");
+            client.DefaultRequestHeaders.Add("Keep-Alive", "timeout=600");
+            client.DefaultRequestHeaders.Add("x-http-method-override", "PATCH");
             client.DefaultRequestHeaders.Add("Authorization", "Token " + token);
             var response = await client.PostAsync(link, new StringContent(json, System.Text.Encoding.UTF8, "application/json"));
             var result = await response.Content.ReadAsStringAsync();

@@ -1,5 +1,6 @@
 ﻿using FlarentApp.Helpers;
 using FlarentApp.Services;
+using FlarentApp.Views.Controls;
 using FlarentApp.Views.DetailPages;
 using FlarumApi;
 using FlarumApi.Models;
@@ -101,6 +102,7 @@ namespace FlarentApp.Views.Dialogs
             if (data.Item2 == "")
             {
                 Hide();
+                new Toast("编辑成功，请刷新页面").Show();
                 var postId = (int)reply["data"]["id"];
             }
             else

@@ -19,10 +19,10 @@
             <HyperlinkButton Content="{x:Bind Discussion.Title}" />
         </StackPanel>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" >
-            <Button x:Name="MinimizeButton" Style="{StaticResource EllipsisButton}" IsEnabled="False">
+            <Button x:Name="MinimizeButton" Style="{StaticResource EllipsisButton}" IsEnabled="False" Padding="4">
                 <FontIcon Glyph="&#xE921;"/>
             </Button>
-            <Button x:Name="CancelButton" Style="{StaticResource EllipsisButton}" Click="CancelButton_Click">
+            <Button x:Name="CancelButton" Style="{StaticResource EllipsisButton}" Click="CancelButton_Click" Padding="4">
                 <FontIcon Glyph="&#xE10A;"/>
             </Button>
         </StackPanel>
