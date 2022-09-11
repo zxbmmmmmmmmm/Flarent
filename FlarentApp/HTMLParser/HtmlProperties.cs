@@ -15,6 +15,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Media.Core;
 using Windows.Media.Playback;
+using Windows.Media.Protection.PlayReady;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -430,7 +432,10 @@ namespace FlarentApp.HTMLParser
                 image.ImageExFailed += ImageFailed; ;
                 image.Tapped += ImageOnTapped;
 
-                image.Source = new BitmapImage(new Uri(sourceUri, UriKind.Absolute));
+                GetImage(image,sourceUri);
+
+                //image.Source = new BitmapImage(new Uri(sourceUri, UriKind.Absolute));
+                
 
                 inlineUiContainer.Child = image;
 
@@ -442,6 +447,33 @@ namespace FlarentApp.HTMLParser
                 Debug.WriteLine(ex.Message);
             }
             return span;
+        }
+
+        private static async void GetImage(ImageEx image,string sourceUri)
+        {
+            Windows.Web.Http.HttpClient http = new Windows.Web.Http.HttpClient();
+
+            http.DefaultRequestHeaders.Add("referer", $"https://{Flarent.Settings.Forum}/");
+
+
+            IBuffer buffer = await http.GetBufferAsync(new Uri(sourceUri));
+
+            BitmapImage img = new BitmapImage();
+
+            using (IRandomAccessStream stream = new InMemoryRandomAccessStream())
+
+            {
+
+                await stream.WriteAsync(buffer);
+
+                stream.Seek(0);
+
+                await img.SetSourceAsync(stream);
+                img.UriSource = new Uri(sourceUri);
+
+                image.Source = img;
+
+            }
         }
 
         private static void PointerExited(object sender, PointerRoutedEventArgs e)
