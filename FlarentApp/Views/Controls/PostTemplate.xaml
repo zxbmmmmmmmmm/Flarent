@@ -53,7 +53,7 @@
                                     Text="{x:Bind Post.ContentHtml,Mode=OneWay,Converter={StaticResource HtmlToMarkdownConverter}}"
                                     LinkClicked="ContentMarkdownTextBlock_LinkClicked"
                                     ImageClicked="ContentMarkdownTextBlock_ImageClicked" Visibility="Collapsed"/>-->
-        <RichTextBlock html:HtmlProperties.Html="{x:Bind Post.ContentHtml,Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalTextAlignment="Start" />
+        <RichTextBlock x:Name="PostContent" html:HtmlProperties.Html="{x:Bind Post.ContentHtml,Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalTextAlignment="Start" />
         <!--<WebView x:Name="ContentWebView"
             NavigationCompleted="ContentWebView_NavigationCompleted"
                  NavigationStarting="ContentWebView_NavigationStarting"

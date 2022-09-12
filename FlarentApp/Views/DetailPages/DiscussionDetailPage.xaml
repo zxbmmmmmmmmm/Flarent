@@ -111,9 +111,9 @@
         </ListView>
         <Grid>
             <StackPanel x:Name="ActionPanel" Visibility="Collapsed" VerticalAlignment="Top" Margin="36,24,36,0" MaxWidth="1450" >
-                <StackPanel Spacing="12" HorizontalAlignment="Right">
+                <StackPanel HorizontalAlignment="Right">
                     <Button x:Name="ReplyButton" Click="ReplyButton_Click" Content="回复" Width="162" Style="{StaticResource AccentButtonStyle}" IsEnabled="{x:Bind PostSlider.IsEnabled,Mode=OneWay}"/>
-                    <StackPanel Orientation="Horizontal" Spacing="4">
+                    <StackPanel Orientation="Horizontal" Spacing="4" Margin="{StaticResource XSmallTopMargin}">
                         <ToggleButton x:Name="FavoriteButton" Content="关注" Width="126" IsEnabled="False"/>
                         <Button Padding="8" IsEnabled="{x:Bind ReplyButton.IsEnabled,Mode=OneWay}">
                             <FontIcon Glyph="&#xE10C;" FontSize="14"/>
@@ -126,12 +126,12 @@
                             </Button.Flyout>
                         </Button>
                     </StackPanel>
-                    <StackPanel Margin="{StaticResource MediumTopMargin}" Spacing="8">
-                        <TextBlock Text="最早内容" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
+                    <StackPanel x:Name="SliderPanel" Margin="0,16,0,0" Spacing="8" >
+                        <TextBlock Text="最早内容" Style="{StaticResource DetailBodyBaseMediumStyle}" />
                         <Slider x:Name="PostSlider"  Height="256" Width="64" HorizontalAlignment="Left" Orientation="Vertical" IsDirectionReversed="True"  TickFrequency="30" TickPlacement="BottomRight" Minimum="0" PointerReleased="PostSlider_PointerReleased"/>
-                        <TextBlock Text="最新回复" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
+                        <TextBlock Text="最新回复" Style="{StaticResource DetailBodyBaseMediumStyle}" />
                     </StackPanel>
-                    <StackPanel>
+                    <StackPanel Margin="0,12,0,0">
                         <TextBlock Text="第-页" x:Name="PageTextBlock" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="16"/>
                         <TextBlock Text="第-条回复" x:Name="PagePostsTextBlock" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
                     </StackPanel>

@@ -191,33 +191,21 @@
     <comment>First use prompt message primary button text</comment>
   </data>
   <data name="WhatsNew_Body.Text" xml:space="preserve">
-    <value># Flarent 0.5.1
+    <value># Flarent 0.6.0
 
 ## 更新内容
 
-### 界面更新
+- 支持编辑
 
-现在标题栏拥有一些边距，更符合win11设计
+- 支持[FoF Gamification](https://github.com/FriendsOfFlarum/gamification.git)中的点赞操作
 
-### BBCode Alerts支持
+- 支持**当前论坛**内的防盗链图片显示(referer为论坛网址)
 
-现在可以显示[bbcode-alerts插件](https://packagist.org/packages/ramesh-dada/bbcode-alerts)内的警告/信息
+- 仅有一页的讨论将不再显示页面切换器
 
-![Image description](https://flarum.csur.fun/2022-08-15/1660572751-614353-image.png)
+## 修复
 
-### 讨论标签显示
-
-现在可以显示讨论的部分标签
-
-如:置顶/锁定/已关注等
-
-### 其他内容
-
-- 添加 已隐藏帖子的标签显示
-- 添加 iFrame下的"在浏览器中打开"按钮
-- 优化 图片加载
-- 优化 帖子内容显示
-- 修复 导航到讨论页面有几率报错的问题</value>
+- 修复了一些已知问题</value>
     <comment>本次更新中新增的内容，将在用户更新版本后显示</comment>
   </data>
   <data name="WhatsNewDialog.Title" xml:space="preserve">

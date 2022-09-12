@@ -1,16 +1,19 @@
 ﻿using FlarentApp.Helpers;
 using FlarentApp.Helpers.Converters;
+using FlarentApp.HTMLParser;
 using FlarentApp.Services;
 using FlarentApp.Views.DetailPages;
 using FlarentApp.Views.Dialogs;
 using FlarumApi;
 using FlarumApi.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Email.DataProvider;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
@@ -46,7 +49,13 @@ namespace FlarentApp.Views.Controls
         {
 
             var text = Post.Content.ToString();
-            await new ReplyDialog(null, Post, text,$"https://{Flarent.Settings.Forum}/d/{Post.Discussion.Id}/{Post.Number}").ShowAsync();
+            var dialog = new ReplyDialog(null, Post, text);
+            await dialog.ShowAsync();
+            if(dialog.Success == true)
+            {
+                Post = dialog.Post;
+                //PostContent.SetValue(HtmlProperties.HtmlProperty, dialog.Text);
+            }
         }
 
         private async void VotesToggleButton_Click(object sender, RoutedEventArgs e)

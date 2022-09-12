@@ -178,6 +178,8 @@ namespace FlarentApp.Views.DetailPages
             PostsListView.Visibility = Visibility.Visible;
             ReplyButton.IsEnabled = true;
             LoadingProgressRing.Visibility = Visibility.Collapsed;
+            if (TotalPages < 2)
+                SliderPanel.Visibility = Visibility.Collapsed;
         }
         private async Task GetPost(int min, int range)
         {

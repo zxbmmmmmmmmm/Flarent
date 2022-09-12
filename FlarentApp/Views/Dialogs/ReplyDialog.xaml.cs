@@ -30,6 +30,7 @@ namespace FlarentApp.Views.Dialogs
         public Post Post;
         public string Text;
         public string Referer;
+        public bool Success = false;
         public ReplyDialog(Discussion discussion, Post post = null, string text = "",string referer = null)
         {
             this.InitializeComponent();
@@ -37,8 +38,7 @@ namespace FlarentApp.Views.Dialogs
             Post = post;
             Referer = referer;
             if(text!="")
-                EditZone.Document.Selection.TypeText(text);
-        }
+                EditZone.Document.Selection.TypeText(text);        }
 
         private void EditZone_TextChanged(object sender, RoutedEventArgs e)
         {
@@ -102,8 +102,11 @@ namespace FlarentApp.Views.Dialogs
             if (data.Item2 == "")
             {
                 Hide();
-                new Toast("编辑成功，请刷新页面").Show();
-                var postId = (int)reply["data"]["id"];
+                Text = data.Item2;
+                new Toast("编辑成功").Show();
+                Post = data.Item1;
+                var postId = data.Item1.Id;
+                Success = true;
             }
             else
             {
