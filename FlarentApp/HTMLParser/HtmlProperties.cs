@@ -6,6 +6,7 @@ using FlarentApp.Views.DetailPages;
 using HtmlAgilityPack;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Microsoft.UI.Xaml.Controls;
+using ReverseMarkdown.Converters;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -431,6 +432,7 @@ namespace FlarentApp.HTMLParser
 
                 image.ImageExFailed += ImageFailed; ;
                 image.Tapped += ImageOnTapped;
+                image.Tag = sourceUri;
 
                 GetImage(image,sourceUri);
 
@@ -560,8 +562,9 @@ namespace FlarentApp.HTMLParser
             image.IsEnabled = false;
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", (UIElement)sender);
             var source = image.Source as BitmapImage;
+            
             var view = new ImageView();
-            view.Show(source.UriSource.ToString());
+            view.Show(image.Tag.ToString());
             OnImageTapped?.Invoke(sender, tappedRoutedEventArgs);
             image.IsEnabled = true;
             
