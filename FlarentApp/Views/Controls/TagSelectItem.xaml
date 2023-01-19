@@ -1,0 +1,29 @@
+﻿<UserControl
+    x:Class="FlarentApp.Views.Controls.TagSelectItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FlarentApp.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:fa="using:FontAwesome.UWP" xmlns:models="using:FlarumApi.Models"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <fa:FontAwesome Icon="{x:Bind FlarumTag.Icon ,Converter={StaticResource FontAwesomeConverter},Mode=OneWay}" FontSize="24"/>
+            <TextBlock Text="{x:Bind FlarumTag.Name,Mode=OneWay}" FontSize="20" />
+        </StackPanel>
+        <ListView Grid.Row="1" SelectionMode="Multiple" ItemsSource="{x:Bind FlarumTag.Chidren,Mode=OneWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:Tag">
+                    <local:TagSelectItem FlarumTag="{x:Bind}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

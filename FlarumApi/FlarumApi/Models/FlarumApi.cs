@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using Windows.System;
 
 namespace FlarumApi.Models
 {
@@ -324,9 +325,14 @@ namespace FlarumApi.Models
         public string Color { get; set; }
         public int PostCount { get; set; }
         public int DiscussionCount { get; set; }
+        public bool IsChild { get; set; }
+        public List<int> ChidrenIds { get; set; }
+        public List<Tag> Chidren { get; set; }
+
         public static Tag CreateFromJson(JToken token)
         {
             var attributes = token.Value<JToken>("attributes");
+            var relationships = token.Value<JToken>("relationships");
             var tag = new Tag
             {
                 Id = token.Value<int?>("id"),
@@ -337,8 +343,19 @@ namespace FlarumApi.Models
                 Color = attributes.Value<string>("color"),
                 PostCount = attributes.Value<int>("postCount"),
                 DiscussionCount = attributes.Value<int>("discussionCount"),
+                IsChild = attributes.Value<bool>("isChild"),
             };
-
+            if (relationships != null)
+            {
+                if (relationships["children"] != null)
+                {
+                    tag.ChidrenIds = new List<int>();
+                    foreach (var like in relationships["children"]["data"])
+                    {
+                        tag.ChidrenIds.Add((int)like["id"]);
+                    }
+                }
+            }
             return tag;
         }
 

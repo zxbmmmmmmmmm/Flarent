@@ -2,6 +2,7 @@
 using FlarentApp.Helpers.Converters;
 using FlarentApp.Services;
 using FlarentApp.Views.DetailPages;
+using FlarentApp.Views.Dialogs;
 using FlarumApi;
 using FlarumApi.Models;
 using System;
@@ -185,6 +186,11 @@ namespace FlarentApp.Views
         {
             LoadingProgressRing.Visibility = Windows.UI.Xaml.Visibility.Visible;
             GetDiscussions();
+        }
+
+        private async void NewDiscussionButton_Click(object sender, RoutedEventArgs e)
+        {
+            await new NewDiscussionDialog().ShowAsync();
         }
     }
 }

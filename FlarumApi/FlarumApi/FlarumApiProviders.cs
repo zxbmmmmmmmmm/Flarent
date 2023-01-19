@@ -8,6 +8,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Windows.System;
+using User = FlarumApi.Models.User;
 
 namespace FlarumApi
 {
@@ -107,7 +109,7 @@ namespace FlarumApi
         /// <returns></returns>
         public async static Task<ObservableCollection<Tag>> GetTags(string forum, string token)
         {
-            var link = $"https://{forum}/api/tags";
+            var link = $"https://{forum}/api/tags?include=children";
             var data = await NetworkHelper.GetAsync(link, token);
             var tags = FlarumApiConverters.GetTags(data);
             return tags;
@@ -418,6 +420,18 @@ namespace FlarumApi
             foreach(var tag in data)
             {
                 tags.Add(Tag.CreateFromJson(tag));
+            }
+            foreach (var item in tags)
+            {
+                var inclustions = InclusionTypeFilter.FiltTypes(jObj["included"]);
+                var children = inclustions.Item3;
+
+                if (item.ChidrenIds != null)
+                {
+                    item.Chidren = new List<Tag>();
+                    foreach (var id in item.ChidrenIds)
+                        item.Chidren.Add(children.First(p => p.Id == id));
+                }
             }
             return tags;
         }

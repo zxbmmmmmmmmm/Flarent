@@ -203,6 +203,9 @@
     <Compile Include="Views\Controls\PostTemplateWithDiscussion.xaml.cs">
       <DependentUpon>PostTemplateWithDiscussion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\TagSelectItem.xaml.cs">
+      <DependentUpon>TagSelectItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\Toast.xaml.cs">
       <DependentUpon>Toast.xaml</DependentUpon>
     </Compile>
@@ -244,6 +247,9 @@
     </Compile>
     <Compile Include="Views\Dialogs\LoginDialog.xaml.cs">
       <DependentUpon>LoginDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\NewDiscussionDialog.xaml.cs">
+      <DependentUpon>NewDiscussionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\ReplyDialog.xaml.cs">
       <DependentUpon>ReplyDialog.xaml</DependentUpon>
@@ -329,6 +335,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Controls\TagSelectItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\Toast.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -382,6 +392,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\LoginDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\NewDiscussionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

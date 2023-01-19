@@ -20,7 +20,7 @@
                     </Grid>
                 </CommandBar.Content>
                 <CommandBar.PrimaryCommands>
-                    <AppBarButton Label="发布" Icon="Add" IsEnabled="False" Visibility="{x:Bind app:Flarent.Settings.Token,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}"/>
+                    <AppBarButton Label="发布" Icon="Add" Click="NewDiscussionButton_Click" Visibility="{x:Bind app:Flarent.Settings.Token,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}"/>
                 </CommandBar.PrimaryCommands>
                 <CommandBar.SecondaryCommands>
                     <AppBarButton x:Name="RefreshButton" Icon="Refresh" Label="刷新" Click="RefreshButton_Click" />
@@ -88,8 +88,8 @@
 
                             </Grid>
                         </Border>
-                        <muxc:DropDownButton x:Name="ReplyButton" Content="发布主题" Width="162" Style="{StaticResource AccentButtonStyle}"  HorizontalAlignment="Center"/>
-                        <muxc:DropDownButton x:Name="FavoriteButton" Content="关注" Width="162" HorizontalAlignment="Center"/>
+                        <muxc:DropDownButton x:Name="NewDiscussionButton" Click="NewDiscussionButton_Click" Content="发布主题" Width="162" Style="{StaticResource AccentButtonStyle}"  HorizontalAlignment="Center" Visibility="{x:Bind app:Flarent.Settings.Token,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}" />
+                        <muxc:DropDownButton x:Name="FavoriteButton" Content="关注" Width="162" HorizontalAlignment="Center" Visibility="Collapsed"/>
 
                     </StackPanel>
                 </StackPanel>

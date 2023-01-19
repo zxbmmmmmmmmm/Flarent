@@ -20,6 +20,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Spacing="8" Orientation="Horizontal">
@@ -28,8 +29,22 @@
                         <TextBlock Text="{x:Bind User.DisplayName,Mode=OneWay}" Style="{StaticResource SubtitleTextBlockStyle}"/>
                         <TextBlock Text="{x:Bind User.Bio,Mode=OneWay}" TextWrapping="Wrap" MaxWidth="256"/>
                     </StackPanel>
+
                 </StackPanel>
-                <ListView x:Name="UserActonListView" Grid.Row="1" Margin="{StaticResource SmallTopMargin}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="UserActonListView_ItemClick">
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center" Margin="{StaticResource XSmallTopMargin}">
+                    <StackPanel>
+                        <TextBlock Text="{x:Bind User.CommentCount,Mode=OneWay}" FontSize="24"/>
+                        <TextBlock Text="回复" Style="{StaticResource DetailBodyBaseMediumStyle}" FontSize="12" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <Border Height="40" BorderThickness="1,0,0,0" BorderBrush="#33808080"  VerticalAlignment="Center"/>
+
+                    <StackPanel>
+                        <TextBlock Text="{x:Bind User.DiscussionCount,Mode=OneWay}" FontSize="24"/>
+                        <TextBlock Text="帖子" Style="{StaticResource DetailBodyBaseMediumStyle}" FontSize="12" HorizontalAlignment="Center"/>
+
+                    </StackPanel>
+                </StackPanel>
+                <ListView x:Name="UserActonListView" Grid.Row="2" Margin="{StaticResource SmallTopMargin}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="UserActonListView_ItemClick" >
                     <ListView.Items>
                         <ListViewItem>
                             <StackPanel Orientation="Horizontal" Spacing="12" Tag="PersonalPage">
