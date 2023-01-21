@@ -434,10 +434,15 @@ namespace FlarentApp.HTMLParser
                 image.Tapped += ImageOnTapped;
                 image.Tag = sourceUri;
 
-                GetImage(image,sourceUri);
+                try
+                {
+                    GetImage(image, sourceUri);
+                }
+                catch
+                {
+                    image.Source = new BitmapImage(new Uri(sourceUri, UriKind.Absolute));
+                }
 
-                //image.Source = new BitmapImage(new Uri(sourceUri, UriKind.Absolute));
-                
 
                 inlineUiContainer.Child = image;
 

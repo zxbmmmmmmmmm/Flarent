@@ -32,7 +32,8 @@
                       ItemsSource="{x:Bind Discussions,Mode=OneWay}"
                       IsItemClickEnabled="True"
                       SelectionMode="None"
-                      ItemClick="DiscussionsListView_ItemClick">
+                      ItemClick="DiscussionsListView_ItemClick"
+                      ItemContainerStyle="{StaticResource ListViewItemStyle}">
                 <ListView.Header>
                     <Grid>
                         <muxc:NavigationView PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" MaxWidth="1224" ItemInvoked="NavigationView_ItemInvoked">
@@ -61,17 +62,6 @@
                         <localcontrols:DiscussionTemplate Discussion="{x:Bind}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem" >
-                        <Setter Property="Padding" Value="0"/>
-                        <Setter Property="VerticalAlignment" Value="Stretch"/>
-                        <Setter Property="MinHeight" Value="20" />
-                        <Setter Property="MinWidth" Value="30" />
-                        <Setter Property="MaxWidth"  Value="1224"/>
-                        <Setter Property="CornerRadius" Value="4"/>
-                        <Setter Property="Margin" Value="{StaticResource SmallLeftRightMargin}"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
             </ListView>
             <Grid>
                 <StackPanel x:Name="ActionPanel" Visibility="Collapsed" VerticalAlignment="Top" Margin="36,48,36,0" MaxWidth="1650">

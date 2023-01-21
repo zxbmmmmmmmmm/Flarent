@@ -10,7 +10,7 @@
     <Grid>
         <muxc:ProgressRing x:Name="LoadingProgressRing" Height="64" Width="64" HorizontalAlignment="Center"  VerticalAlignment="Center" />
         <localcontrols:ErrorControl x:Name="ErrorControl" VerticalAlignment="Center" Visibility="Collapsed"/>
-        <ListView x:Name="DiscussionsListView" ItemsSource="{x:Bind Discussions,Mode=OneWay}" IsItemClickEnabled="True" SelectionMode="None" ItemClick="DiscussionsListView_ItemClick">
+        <ListView x:Name="DiscussionsListView" ItemsSource="{x:Bind Discussions,Mode=OneWay}" IsItemClickEnabled="True" SelectionMode="None" ItemClick="DiscussionsListView_ItemClick" ItemContainerStyle="{StaticResource ListViewItemStyle}">
             <ListView.Footer>
                 <Grid Margin="0,24">
                     <Button x:Name="LoadMoreButton" Content="加载更多" Click="LoadMoreButton_Click" FontSize="16" Padding="160,8" HorizontalAlignment="Center" Visibility="{x:Bind LinkNext,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}"/>
@@ -21,18 +21,6 @@
                     <localcontrols:DiscussionTemplate Discussion="{x:Bind}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem" >
-                    <Setter Property="Padding" Value="0"/>
-                    <Setter Property="VerticalAlignment" Value="Stretch"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="MinHeight" Value="20" />
-                    <Setter Property="MinWidth" Value="30" />
-                    <Setter Property="MaxWidth"  Value="1224"/>
-                    <Setter Property="CornerRadius" Value="4"/>
-                    <Setter Property="Margin" Value="{StaticResource SmallLeftRightMargin}"/>
-                </Style>
-            </ListView.ItemContainerStyle>
         </ListView>
 
     </Grid>

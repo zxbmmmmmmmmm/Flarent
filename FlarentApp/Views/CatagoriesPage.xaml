@@ -9,23 +9,12 @@
     mc:Ignorable="d">
     <Grid x:Name="ContentArea">
         <muxc:ProgressRing x:Name="LoadingProgressRing" Height="64" Width="64" HorizontalAlignment="Center"  VerticalAlignment="Center" />
-        <ListView x:Name="CatagoriesListView" ItemsSource="{x:Bind Catagories,Mode=OneWay}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="CatagoriesListView_ItemClick">
+        <ListView x:Name="CatagoriesListView" ItemsSource="{x:Bind Catagories,Mode=OneWay}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="CatagoriesListView_ItemClick" ItemContainerStyle="{StaticResource ListViewItemStyle}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:Tag">
                     <localcontrols:CatagoryTemplate TagData="{x:Bind}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem" >
-                    <Setter Property="Padding" Value="0"/>
-                    <Setter Property="VerticalAlignment" Value="Stretch"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="MinHeight" Value="20" />
-                    <Setter Property="MinWidth" Value="30" />
-                    <Setter Property="MaxWidth" Value="1224" />
-
-                </Style>
-            </ListView.ItemContainerStyle>
         </ListView>
         
     </Grid>

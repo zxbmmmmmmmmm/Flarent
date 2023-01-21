@@ -95,7 +95,7 @@
             </Button>
         </StackPanel>
         <StackPanel Grid.Row="4" Margin="0,0,0,16">
-            <ListView ItemsSource="{x:Bind Post.Likes}" SelectionMode="None" VerticalAlignment="Center" >
+            <ListView ItemsSource="{x:Bind Post.Likes}" SelectionMode="None" VerticalAlignment="Center" ItemContainerStyle="{StaticResource ListViewItemNoPaddingStyle}">
                 <ListView.Header>
                     <FontIcon Glyph="&#xE19F;" FontSize="14"  Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" Visibility="{x:Bind Post.ShowLikeIcon,Converter={StaticResource BoolToVisibilityConverter}}" VerticalAlignment="Top" Margin="0,10,4,0"/>
                 </ListView.Header>
@@ -109,15 +109,7 @@
                         <controls:WrapPanel HorizontalSpacing="4"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem" >
-                        <Setter Property="Padding" Value="0"/>
-                        <Setter Property="VerticalAlignment" Value="Stretch"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        <Setter Property="MinHeight" Value="20" />
-                        <Setter Property="MinWidth" Value="30" />
-                    </Style>
-                </ListView.ItemContainerStyle>
+
                 <ListView.ContextFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Icon="Favorite" Text="关注"/>

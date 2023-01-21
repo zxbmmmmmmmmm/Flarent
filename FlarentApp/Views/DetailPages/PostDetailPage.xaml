@@ -10,21 +10,12 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ListView x:Name="PostsListView" ItemsSource="{x:Bind Posts,Mode=OneWay}" SelectionMode="None">
+        <ListView x:Name="PostsListView" ItemsSource="{x:Bind Posts,Mode=OneWay}" SelectionMode="None" ItemContainerStyle="{StaticResource ListViewItemStyle}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:Post">
                     <localcontrols:PostTemplate x:Name="PostTemp" Post="{x:Bind}" HorizontalAlignment="Stretch" />
                 </DataTemplate>
             </ListView.ItemTemplate>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem" >
-                    <Setter Property="Padding" Value="0"/>
-                    <Setter Property="VerticalAlignment" Value="Stretch"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="MinHeight" Value="20" />
-                    <Setter Property="MinWidth" Value="30" />
-                </Style>
-            </ListView.ItemContainerStyle>
         </ListView>
         <localcontrols:PostTemplate x:Name="PostTemp" HorizontalAlignment="Stretch" Width="520" Visibility="Collapsed"/>
         <muxc:ProgressRing x:Name="LoadingProgressRing" Height="64" Width="64"/>
