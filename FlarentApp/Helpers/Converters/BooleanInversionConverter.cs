@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
@@ -43,6 +44,13 @@ namespace FlarentApp.Helpers.Converters
             if (value is bool boolValue)
             {
                 if (boolValue)
+                    return Visibility.Collapsed;
+                else
+                    return Visibility.Visible;
+            }
+            else if(value is Visibility visibility)
+            {
+                if(visibility == Visibility.Visible)
                     return Visibility.Collapsed;
                 else
                     return Visibility.Visible;

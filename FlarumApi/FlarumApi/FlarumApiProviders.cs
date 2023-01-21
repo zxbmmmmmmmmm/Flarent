@@ -107,11 +107,11 @@ namespace FlarumApi
         /// <param name="forum"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async static Task<ObservableCollection<Tag>> GetTags(string forum, string token)
+        public async static Task<ObservableCollection<Tag>> GetTags(string forum, string token,bool hideChild = false)
         {
             var link = $"https://{forum}/api/tags?include=children";
             var data = await NetworkHelper.GetAsync(link, token);
-            var tags = FlarumApiConverters.GetTags(data);
+            var tags = FlarumApiConverters.GetTags(data,hideChild);
             return tags;
         }
         /// <summary>
@@ -219,6 +219,46 @@ namespace FlarumApi
             };
             var json = JsonConvert.SerializeObject(contents, Formatting.None);
             var data = await NetworkHelper.PostWithJsonAsync(link,json,token);
+            string error = string.Empty;
+            if (data["errors"] == null)
+            {
+
+            }
+            else
+            {
+                error = data["errors"][0]["code"].ToString();
+            }
+            var tuple = new Tuple<JObject, string>(data, error);
+            return tuple;
+
+        }
+        public async static Task<Tuple<JObject, string>> CreateDiscussioinAsync(string title,string text, string link,List<Dictionary<string,string>> tags, string token)
+        {
+            var contents = new Dictionary<string, object>
+            {
+                {"data",new Dictionary<string,object>
+                {
+                    {"type","discussions" },
+                    {"attributes",new Dictionary<string,string>
+                    {                    
+                        {"title",title },
+                        {"content",text }
+                    }
+                    },
+                    {"relationships",new Dictionary<string,object>
+                    {
+                        {"tags",new Dictionary<string,object>
+                        {
+                            { "data",tags }
+                        }
+                        }
+                    }
+                    }
+                }
+                }
+            };
+            var json = JsonConvert.SerializeObject(contents, Formatting.None);
+            var data = await NetworkHelper.PostWithJsonAsync(link, json, token);
             string error = string.Empty;
             if (data["errors"] == null)
             {
@@ -413,13 +453,15 @@ namespace FlarumApi
 
             return user;
         }
-        public static ObservableCollection<Tag> GetTags(JObject jObj)
+        public static ObservableCollection<Tag> GetTags(JObject jObj,bool hideChild = false)
         {
             var tags = new ObservableCollection<Tag>();
             var data = jObj["data"];
-            foreach(var tag in data)
+            foreach(var item in data)
             {
-                tags.Add(Tag.CreateFromJson(tag));
+                var tag = Tag.CreateFromJson(item);
+                if (!tag.IsChild||!hideChild)
+                    tags.Add(tag);
             }
             foreach (var item in tags)
             {
@@ -430,7 +472,9 @@ namespace FlarumApi
                 {
                     item.Chidren = new List<Tag>();
                     foreach (var id in item.ChidrenIds)
+                    {
                         item.Chidren.Add(children.First(p => p.Id == id));
+                    }
                 }
             }
             return tags;

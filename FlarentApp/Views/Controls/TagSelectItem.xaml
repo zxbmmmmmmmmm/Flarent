@@ -9,16 +9,24 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Spacing="12">
-            <fa:FontAwesome Icon="{x:Bind FlarumTag.Icon ,Converter={StaticResource FontAwesomeConverter},Mode=OneWay}" FontSize="24"/>
-            <TextBlock Text="{x:Bind FlarumTag.Name,Mode=OneWay}" FontSize="20" />
+        <CheckBox x:Name="MyCheckBox" IsEnabled="False" IsChecked="{x:Bind FlarumTag.IsSelected,Mode=OneWay}" />
+
+        <StackPanel Orientation="Horizontal" Spacing="12" Margin="32,0,0,0">
+            <fa:FontAwesome Icon="{x:Bind FlarumTag.Icon ,Converter={StaticResource FontAwesomeConverter},Mode=OneWay}" FontSize="20" />
+            <TextBlock Text="{x:Bind FlarumTag.Name,Mode=OneWay}" FontSize="16" VerticalAlignment="Center"/>
         </StackPanel>
-        <ListView Grid.Row="1" SelectionMode="Multiple" ItemsSource="{x:Bind FlarumTag.Chidren,Mode=OneWay}">
+        <TextBlock Text="主标签" Visibility="{x:Bind FlarumTag.Position,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
+        <ListView x:FieldModifier="public"
+                  x:Name="ChildrenTagsListView"
+                  Grid.Row="1" SelectionMode="None"
+                  IsItemClickEnabled="True"
+                  ItemClick="ChildrenTagsListView_ItemClick"
+                  ItemsSource="{x:Bind FlarumTag.Chidren,Mode=OneWay}" Visibility="{x:Bind MyCheckBox.IsChecked,Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:Tag">
                     <local:TagSelectItem FlarumTag="{x:Bind}"/>

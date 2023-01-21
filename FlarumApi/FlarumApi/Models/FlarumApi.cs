@@ -18,6 +18,11 @@ namespace FlarumApi.Models
         public string Description { get; set; }
         public string Website { get; set; }
         public string BaseUrl { get; set; }
+        public int? MinPrimaryTags { get; set; }
+        public int? MaxPrimaryTags { get; set; }
+        public int? MinSecondaryTags { get; set; }
+        public int? MaxSecondaryTags { get; set; }
+
         public static Forum CreateFromJson(JToken token)
         {
             var attributes = token.Value<JToken>("attributes");
@@ -29,7 +34,10 @@ namespace FlarumApi.Models
                 FavIcon = attributes.Value<string>("faviconUrl") ?? "ms-appx:///Assets/StoreLogo.png",
                 Name = attributes.Value<string>("title"),
                 Description = attributes.Value<string>("description"),
-
+                MinPrimaryTags = attributes.Value<int?>("minPrimaryTags"),
+                MaxPrimaryTags = attributes.Value<int?>("maxPrimaryTags"),
+                MinSecondaryTags = attributes.Value<int?>("minSecondaryTags"),
+                MaxSecondaryTags = attributes.Value<int?>("maxSecondaryTags"),
             };
             return forum;
         }
@@ -327,8 +335,12 @@ namespace FlarumApi.Models
         public int DiscussionCount { get; set; }
         public bool IsChild { get; set; }
         public List<int> ChidrenIds { get; set; }
-        public List<Tag> Chidren { get; set; }
-
+        public List<Tag> Chidren  { get; set; }
+        /// <summary>
+        /// 标签的位置
+        /// </summary>
+        public int? Position { get; set; }
+        public bool IsSelected { get; set; }
         public static Tag CreateFromJson(JToken token)
         {
             var attributes = token.Value<JToken>("attributes");
@@ -343,8 +355,11 @@ namespace FlarumApi.Models
                 Color = attributes.Value<string>("color"),
                 PostCount = attributes.Value<int>("postCount"),
                 DiscussionCount = attributes.Value<int>("discussionCount"),
+                Position = attributes.Value<int?>("position"),
                 IsChild = attributes.Value<bool>("isChild"),
+                Chidren = new List<Tag>()
             };
+            
             if (relationships != null)
             {
                 if (relationships["children"] != null)

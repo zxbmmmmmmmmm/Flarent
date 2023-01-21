@@ -4,7 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FlarentApp.Views.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:localcontrols="using:FlarentApp.Views.Controls" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:models="using:FlarumApi.Models" xmlns:fa="using:FontAwesome.UWP"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:localcontrols="using:FlarentApp.Views.Controls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:models="using:FlarumApi.Models" xmlns:fa="using:FontAwesome.UWP"
+    xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     mc:Ignorable="d">
 
 
@@ -18,7 +23,14 @@
         </Grid.RowDefinitions>
         <muxc:ProgressBar x:Name="LoadingProgressBar" IsIndeterminate="True" VerticalAlignment="Top" Visibility="Collapsed"/>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Padding="0,8" Spacing="12">
-            <ToggleButton x:Name="AddTagButton" Content="添加标签" Click="AddTagButton_Click"/>
+            <ToggleButton x:Name="AddTagButton"  Click="AddTagButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="已选择" />
+                    <TextBlock x:Name="SelectedCount" Text="{x:Bind SelectedTags.Count,Mode=OneWay}"/>
+                    <TextBlock Text="个标签"/>
+
+                </StackPanel>
+            </ToggleButton>
             <TextBox x:Name="TitleTextBox" PlaceholderText="输入标题..." MinWidth="256"/>
         </StackPanel>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" >
@@ -42,10 +54,10 @@
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
             </ListView>
-            <ListView x:Name="TagsListView" Height="256" SelectionMode="Multiple" SelectionChanged="TagsListView_SelectionChanged" IsMultiSelectCheckBoxEnabled="True">
+            <ListView x:FieldModifier="public" x:Name="TagsListView" ItemsSource="{x:Bind Tags,Mode=OneWay}" Height="256" SelectionMode="None" IsItemClickEnabled="True" ItemClick="TagsListView_ItemClick" IsMultiSelectCheckBoxEnabled="True" >
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="models:Tag">
-                        <localcontrols:TagSelectItem FlarumTag="{x:Bind}"/>
+                        <localcontrols:TagSelectItem FlarumTag="{x:Bind Mode=OneWay}" />
                     </DataTemplate>
 
                 </ListView.ItemTemplate>
@@ -53,7 +65,7 @@
         </StackPanel>
         <Grid Grid.Row="2" Visibility="{x:Bind AddTagButton.IsChecked,Converter={StaticResource BooleanVisibilityInversionConverter},Mode=OneWay}">
             <RichEditBox x:Name="EditZone"
-                     PlaceholderText="输入回复..."
+                     PlaceholderText="输入内容..."
                      TextWrapping="Wrap"
                      VerticalContentAlignment="Stretch"
                      MinHeight="256"
@@ -62,9 +74,10 @@
                      BorderThickness="1"
                      SelectionFlyout="{x:Null}"/>
         </Grid>
+        <TextBlock x:Name="ErrorTextBlock" Grid.Row="3" Text="" VerticalAlignment="Center" FontSize="16"/>
         <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="{StaticResource SmallTopMargin}" Spacing="8">
             <Button Content="存草稿" IsEnabled="False"/>
-            <Button x:Name="ReplyButton" Click="Submit_Click" Content="发布" Style="{StaticResource AccentButtonStyle}"/>
+            <Button x:Name="CreateButton" Click="Submit_Click" Content="发布" Style="{StaticResource AccentButtonStyle}"/>
         </StackPanel>
     </Grid>
 

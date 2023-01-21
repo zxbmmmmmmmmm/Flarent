@@ -91,12 +91,18 @@ namespace FlarentApp.Views
             KeyboardAccelerators.Add(_altLeftKeyboardAccelerator);
             KeyboardAccelerators.Add(_backKeyboardAccelerator);
             await Task.CompletedTask;
-
+            UpdateForumInfo();    
             if (Flarent.Settings.Token != "")//已登录
                 UpdateUserInfo();//更新用户数据
             else
                 User = Preset.NotLoginedUser;//未登录用户
 
+        }
+        public async void UpdateForumInfo()
+        {
+            var link = $"https://{Flarent.Settings.Forum}/api";
+            var forum = await FlarumApiProviders.GetForumInfo(link, Flarent.Settings.Token);
+            Flarent.Settings.ForumInfo = forum;
         }
         public void SetTitleBar()
         {
