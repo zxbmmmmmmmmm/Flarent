@@ -191,21 +191,10 @@
     <comment>First use prompt message primary button text</comment>
   </data>
   <data name="WhatsNew_Body.Text" xml:space="preserve">
-    <value># Flarent 0.6.0
-
-## 更新内容
-
-- 支持编辑
-
-- 支持[FoF Gamification](https://github.com/FriendsOfFlarum/gamification.git)中的点赞操作
-
-- 支持**当前论坛**内的防盗链图片显示(referer为论坛网址)
-
-- 仅有一页的讨论将不再显示页面切换器
-
-## 修复
-
-- 修复了一些已知问题</value>
+    <value># Flarent 0.7.0
+- 支持创建帖子
+- 优化主页/用户/分类等列表视图的样式（添加圆角并删除了Reveal效果）
+- 优化图片加载</value>
     <comment>本次更新中新增的内容，将在用户更新版本后显示</comment>
   </data>
   <data name="WhatsNewDialog.Title" xml:space="preserve">
