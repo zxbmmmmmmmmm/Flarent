@@ -464,7 +464,7 @@ namespace RichTextControls.Generators
             {
                 Stretch = Stretch.UniformToFill,
                 Margin = new Thickness(0,12,0,0),
-                CornerRadius = new CornerRadius(4),
+                CornerRadius = new CornerRadius(8),
             };
 
             if (Uri.TryCreate(node.Source, UriKind.RelativeOrAbsolute, out Uri src))
