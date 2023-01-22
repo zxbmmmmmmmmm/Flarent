@@ -133,13 +133,13 @@
       <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
-      <Version>7.1.2</Version>
+      <Version>7.1.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
-      <Version>7.1.2</Version>
+      <Version>7.1.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>7.1.2</Version>
+      <Version>7.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.8.0</Version>
@@ -526,6 +526,10 @@
     <ProjectReference Include="..\FlarumApi\FlarumApi\FlarumApi.csproj">
       <Project>{091a8819-f104-462a-b04f-03fb1097ba47}</Project>
       <Name>FlarumApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RichTextControls\RichTextControls.csproj">
+      <Project>{e3bd6f6f-b39e-4180-8182-dfe85c780bf4}</Project>
+      <Name>RichTextControls</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
