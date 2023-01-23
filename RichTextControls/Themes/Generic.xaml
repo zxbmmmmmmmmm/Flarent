@@ -4,13 +4,19 @@
     xmlns:richTextControls="using:RichTextControls">
 
     <Thickness x:Key="HtmlTextBlockElementBorderThickness">3,0,0,0</Thickness>
+    <SolidColorBrush x:Key="HtmlTextBlockElementBackground" Opacity="0.4" Color="{ThemeResource SystemChromeMediumHighColor}"/>
+    <SolidColorBrush x:Key="HtmlTextBlockElementBorderBrush" Opacity="0.2" Color="{ThemeResource SystemChromeHighColor}"/>
+    <SolidColorBrush x:Key="HtmlTextBlockBlockquoteBackground" Color="{ThemeResource SystemChromeMediumLowColor}"/>
+
+    <CornerRadius x:Key="HtmlTextBlockElementCornerRadius">4</CornerRadius>
 
     <Style x:Key="HtmlTextBlockBlockquoteBorderStyle" TargetType="Border">
-        <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" />
-        <Setter Property="BorderBrush" Value="{ThemeResource SystemControlBackgroundChromeMediumBrush}" />
+        <Setter Property="Background" Value="#0000" />
+        <Setter Property="BorderBrush" Value="{ThemeResource HtmlTextBlockElementBorderBrush}" />
         <Setter Property="BorderThickness" Value="{StaticResource HtmlTextBlockElementBorderThickness}" />
         <Setter Property="Padding" Value="{StaticResource TextControlThemePadding}" />
         <Setter Property="Margin" Value="{StaticResource TextControlMarginThemeThickness}" />
+        <Setter Property="CornerRadius" Value="0" />
     </Style>
 
     <Style TargetType="richTextControls:HtmlTextBlock">
@@ -35,6 +41,7 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         Padding="{TemplateBinding Padding}"
                         Margin="{TemplateBinding Margin}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
                         />
                 </ControlTemplate>
             </Setter.Value>
@@ -45,11 +52,13 @@
         <Setter Property="BuiltinBrush" Value="SeaGreen" />
         <Setter Property="KeywordBrush" Value="Blue" />
         <Setter Property="NumberBrush" Value="Purple" />
-        <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" />
+        <Setter Property="Background" Value="{ThemeResource HtmlTextBlockElementBackground}" />
         <Setter Property="BorderBrush" Value="{ThemeResource SystemControlBackgroundChromeMediumBrush}" />
-        <Setter Property="BorderThickness" Value="{StaticResource HtmlTextBlockElementBorderThickness}" />
+        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="{StaticResource TextControlThemePadding}" />
         <Setter Property="Margin" Value="{StaticResource TextControlMarginThemeThickness}" />
+        <Setter Property="CornerRadius" Value="{StaticResource HtmlTextBlockElementCornerRadius}" />
+
     </Style>
 
 </ResourceDictionary>

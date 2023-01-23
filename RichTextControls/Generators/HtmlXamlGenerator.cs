@@ -460,13 +460,19 @@ namespace RichTextControls.Generators
 
         private ImageEx GenerateImage(IHtmlImageElement node)
         {
+
             var image = new ImageEx()
             {
                 Stretch = Stretch.UniformToFill,
                 Margin = new Thickness(0,12,0,0),
                 CornerRadius = new CornerRadius(8),
             };
-
+            var sourceWidth = node.GetAttribute("width");
+            var sourceHeight = node.GetAttribute("height");
+            if (sourceWidth != null)
+                image.MaxWidth = double.Parse(sourceWidth.Replace("px",""));
+            if (sourceHeight != null)
+                image.MaxHeight = double.Parse(sourceHeight.Replace("px", ""));
             if (Uri.TryCreate(node.Source, UriKind.RelativeOrAbsolute, out Uri src))
             {
                 var bitmap = new BitmapImage(src);
