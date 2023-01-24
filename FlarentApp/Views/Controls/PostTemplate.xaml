@@ -55,7 +55,7 @@
                                     LinkClicked="ContentMarkdownTextBlock_LinkClicked"
                                     ImageClicked="ContentMarkdownTextBlock_ImageClicked" Visibility="Collapsed"/>-->
         <richtext:HtmlTextBlock Html="{x:Bind Post.ContentHtml,Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" Margin="0,12,0,0" Visibility="Visible"/>
-        <RichTextBlock x:Name="PostContent" html:HtmlProperties.Html="{x:Bind Post.ContentHtml,Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalTextAlignment="Start" Visibility="Collapsed"/>
+        <!--<RichTextBlock x:Name="PostContent" html:HtmlProperties.Html="{x:Bind Post.ContentHtml,Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalTextAlignment="Start" Visibility="Collapsed"/>-->
         <!--<WebView x:Name="ContentWebView"
             NavigationCompleted="ContentWebView_NavigationCompleted"
                  NavigationStarting="ContentWebView_NavigationStarting"

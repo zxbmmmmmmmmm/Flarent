@@ -151,6 +151,19 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\extensions\wvbdev-tieba-stickers\angry.png" />
+    <Content Include="Assets\extensions\wvbdev-tieba-stickers\cry.png" />
+    <Content Include="Assets\extensions\wvbdev-tieba-stickers\easteregg.png" />
+    <Content Include="Assets\extensions\wvbdev-tieba-stickers\hehe.png" />
+    <Content Include="Assets\extensions\wvbdev-tieba-stickers\huaji-reverse.png" />
+    <Content Include="Assets\extensions\wvbdev-tieba-stickers\huaji.png" />
+    <Content Include="Assets\extensions\wvbdev-tieba-stickers\pen.png" />
+    <Content Include="Assets\extensions\wvbdev-tieba-stickers\santa-huaji.png" />
+    <Content Include="Assets\extensions\wvbdev-tieba-stickers\smirking.png" />
+    <Content Include="Assets\extensions\wvbdev-tieba-stickers\yinxian.png" />
+    <Content Include="Assets\ImagePlaceholder.png" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

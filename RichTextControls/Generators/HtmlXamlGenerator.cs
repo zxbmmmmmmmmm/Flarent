@@ -466,6 +466,8 @@ namespace RichTextControls.Generators
                 Stretch = Stretch.UniformToFill,
                 Margin = new Thickness(0,12,0,0),
                 CornerRadius = new CornerRadius(8),
+                PlaceholderStretch = Stretch.Uniform,
+                PlaceholderSource = new BitmapImage(new Uri("ms-appx:///Assets/App/ImagePlaceHolder.png") ),
             };
             var sourceWidth = node.GetAttribute("width");
             var sourceHeight = node.GetAttribute("height");
@@ -473,11 +475,24 @@ namespace RichTextControls.Generators
                 image.MaxWidth = double.Parse(sourceWidth.Replace("px",""));
             if (sourceHeight != null)
                 image.MaxHeight = double.Parse(sourceHeight.Replace("px", ""));
-            if (Uri.TryCreate(node.Source, UriKind.RelativeOrAbsolute, out Uri src))
+
+            var imageSrc = node.Source;
+            image.Source = imageSrc;
+
+            if (imageSrc.StartsWith("about"))//本地
+            {
+                image.Source = imageSrc.Remove(0, 5).Insert(0, "ms-appx");//替换为App内资源文件
+
+                //image.MaxHeight = new BitmapImage(new Uri(imageSrc)).PixelHeight;
+            }
+
+            /*if (Uri.TryCreate(node.Source, UriKind.RelativeOrAbsolute, out Uri src))
             {
                 var bitmap = new BitmapImage(src);
                 image.Source = bitmap;
             }
+            else
+                image.Source = node.Source;*/
 
             return image;
         }
