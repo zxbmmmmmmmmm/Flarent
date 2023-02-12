@@ -3,14 +3,17 @@ using FlarentApp.Helpers.Converters;
 using FlarentApp.Services;
 using FlarentApp.Views.DetailPages;
 using FlarentApp.Views.Dialogs;
+using FlarentApp.Views.WindowPages;
 using FlarumApi;
 using FlarumApi.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
@@ -191,6 +194,7 @@ namespace FlarentApp.Views
         private async void NewDiscussionButton_Click(object sender, RoutedEventArgs e)
         {
             await new NewDiscussionDialog().ShowAsync();
+
         }
     }
 }

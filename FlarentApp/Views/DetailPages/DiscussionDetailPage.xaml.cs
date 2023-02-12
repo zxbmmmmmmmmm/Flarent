@@ -1,6 +1,7 @@
 ﻿using FlarentApp.Helpers;
 using FlarentApp.Services;
 using FlarentApp.Views.Dialogs;
+using FlarentApp.Views.WindowPages;
 using FlarumApi;
 using FlarumApi.Models;
 using System;
@@ -12,10 +13,12 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
@@ -254,9 +257,10 @@ namespace FlarentApp.Views.DetailPages
             PostScrollViewer.ChangeView(PostScrollViewer.HorizontalOffset, PostScrollViewer.ExtentHeight, PostScrollViewer.ZoomFactor);//导航到底部
         }
        
-        private void ReplyButton_Click(object sender, RoutedEventArgs e)
+        private async void ReplyButton_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new ReplyDialog(Discussion).ShowAsync();
+            //var dialog = new ReplyDialog(Discussion).ShowAsync();
+            await WindowService.Current.CreateReplyWindow(Discussion);
         }
 
         private async void DownloadItem_Click(object sender, RoutedEventArgs e)

@@ -1,17 +1,18 @@
 ﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="using:FlarentApp.Helpers.Converters" xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Converters">
-    <converters:HtmlToMarkdownConverter x:Name="HtmlToMarkdownConverter"/>
-    <converters:BooleanInversionConverter x:Name="BooleanInversionConverter"/>
-    <converters:BooleanVisibilityInversionConverter x:Name="BooleanVisibilityInversionConverter"/>
-    <converters:DateConverter x:Name="DateConverter"/>
-    <converters:BoolToVisibilityConverter x:Name="BoolToVisibilityConverter"/>
-    <converters:VisibilityToBoolConverter x:Key="VisibilityToBoolConverter"/>
+    xmlns:converters="using:FlarentApp.Helpers.Converters"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Converters">
+    <converters:HtmlToMarkdownConverter x:Name="HtmlToMarkdownConverter" />
+    <converters:BooleanInversionConverter x:Name="BooleanInversionConverter" />
+    <converters:BooleanVisibilityInversionConverter x:Name="BooleanVisibilityInversionConverter" />
+    <converters:DateConverter x:Name="DateConverter" />
+    <converters:BoolToVisibilityConverter x:Name="BoolToVisibilityConverter" />
+    <converters:VisibilityToBoolConverter x:Key="VisibilityToBoolConverter" />
 
     <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
-    <converters:NullToVisibilityConverter x:Name="NullToVisibilityConverter"/>
-    <converters:FontAwesomeConverter x:Name="FontAwesomeConverter"/>
-    <converters:ColorToBrushConverter x:Name="ColorToBrushConverter"/>
-    <converters:DecodeHtmlConverter x:Name="DecodeHtmlConverter"/>
+    <converters:NullToVisibilityConverter x:Name="NullToVisibilityConverter" />
+    <converters:FontAwesomeConverter x:Name="FontAwesomeConverter" />
+    <converters:ColorToBrushConverter x:Name="ColorToBrushConverter" />
+    <converters:DecodeHtmlConverter x:Name="DecodeHtmlConverter" />
 </ResourceDictionary>

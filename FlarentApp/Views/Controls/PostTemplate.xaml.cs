@@ -4,6 +4,7 @@ using FlarentApp.HTMLParser;
 using FlarentApp.Services;
 using FlarentApp.Views.DetailPages;
 using FlarentApp.Views.Dialogs;
+using FlarentApp.Views.WindowPages;
 using FlarumApi;
 using FlarumApi.Models;
 using Newtonsoft.Json.Linq;
@@ -18,10 +19,12 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
 using Windows.UI;
+using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
@@ -49,13 +52,24 @@ namespace FlarentApp.Views.Controls
         {
 
             var text = Post.Content.ToString();
-            var dialog = new ReplyDialog(null, Post, text);
-            await dialog.ShowAsync();
-            if(dialog.Success == true)
-            {
-                Post = dialog.Post;
+            //var dialog = new ReplyDialog(null, Post, text);
+            //await dialog.ShowAsync();
+            //if(dialog.Success == true)
+            //{
+                //Post = dialog.Post;
                 //PostContent.SetValue(HtmlProperties.HtmlProperty, dialog.Text);
-            }
+            //}
+            var appWindow = await WindowService.Current.CreateReplyWindow(Post.Discussion, Post, text,null,false);
+            appWindow.Closed += delegate
+            {
+                var frame = ElementCompositionPreview.GetAppWindowContent(appWindow) as Frame;
+                var page = frame.Content as ReplyPage;
+                if(page.Success)
+                    Post = page.Post;
+                frame.Content = null;
+                appWindow = null;
+            };
+
         }
 
         private async void VotesToggleButton_Click(object sender, RoutedEventArgs e)
@@ -84,7 +98,11 @@ namespace FlarentApp.Views.Controls
         {
             var btn = sender as Button;
             var clicked = btn.DataContext as Post;
-            await new ReplyDialog(Post.Discussion,null, $"@\"{clicked.User.DisplayName}\"#p{clicked.Id} ").ShowAsync();
+
+            await WindowService.Current.CreateReplyWindow(Post.Discussion,null, $"@\"{clicked.User.DisplayName}\"#p{clicked.Id} ",null);
+
+
+            //await new ReplyDialog(Post.Discussion,null, $"@\"{clicked.User.DisplayName}\"#p{clicked.Id} ").ShowAsync();
         }
 
         private void WindowSizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)

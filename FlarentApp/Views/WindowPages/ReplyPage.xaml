@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="FlarentApp.Views.WindowPages.ReplyPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FlarentApp.Views.WindowPages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d" Background="{StaticResource SystemControlAcrylicWindowBrush}">
+    <Grid Margin="24,0,24,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <muxc:ProgressBar x:Name="LoadingProgressBar" IsIndeterminate="True" VerticalAlignment="Top" Visibility="Collapsed" Margin="-24,0"/>
+        <Grid x:Name="TitleBar" Height="32">
+            <TextBlock Text="{x:Bind MyAppWindow.Title}" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <RichEditBox x:Name="EditZone"
+                     PlaceholderText="输入回复..."
+                     TextWrapping="Wrap"
+                     TextChanged="EditZone_TextChanged"
+                     VerticalContentAlignment="Stretch"
+                     MinHeight="256"
+                     MinWidth="490"
+                     Padding="10,3"
+                     BorderThickness="1"
+                         
+                     SelectionFlyout="{x:Null}"/>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right" Margin="{StaticResource SmallTopMargin}" Spacing="8">
+            <Button Content="存草稿" IsEnabled="False"/>
+            <Button x:Name="ReplyButton" Click="ReplyButton_Click" Content="回复" Style="{StaticResource AccentButtonStyle}"/>
+        </StackPanel>
+    </Grid>
+
+</Page>

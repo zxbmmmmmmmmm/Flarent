@@ -12,6 +12,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -20,35 +21,40 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“内容对话框”项模板
+// https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
-namespace FlarentApp.Views.Dialogs
+namespace FlarentApp.Views.WindowPages
 {
-    public sealed partial class ReplyDialog : ContentDialog
+    /// <summary>
+    /// 可用于自身或导航至 Frame 内部的空白页。
+    /// </summary>
+    public sealed partial class ReplyPage : Page
     {
         public Discussion Discussion;
         public Post Post;
         public string Text;
         public string Referer;
         public bool Success = false;
-        public ReplyDialog(Discussion discussion, Post post = null, string text = "",string referer = null)
+        public AppWindow MyAppWindow { get; set; }
+
+        public ReplyPage()
         {
             this.InitializeComponent();
-            Discussion = discussion;
-            Post = post;
-            Referer = referer;
-            if(text!="")
-                EditZone.Document.Selection.TypeText(text);
-        }
 
+        }
         private void EditZone_TextChanged(object sender, RoutedEventArgs e)
         {
             LoadingProgressBar.Visibility = Visibility.Collapsed;
         }
-
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Hide();
+            base.OnNavigatedTo(e);
+            var tuple = e.Parameter as Tuple<Discussion,Post,string,string>;
+            Discussion = tuple.Item1;
+            Post = tuple.Item2;
+            Referer = tuple.Item4;
+            if (tuple.Item3 != "")
+                EditZone.Document.Selection.TypeText(tuple.Item3);
         }
 
         private async void ReplyButton_Click(object sender, RoutedEventArgs e)
@@ -56,17 +62,17 @@ namespace FlarentApp.Views.Dialogs
             LoadingProgressBar.Visibility = Visibility.Visible;
             LoadingProgressBar.ShowError = false;
             string text = string.Empty;
-            EditZone.Document.GetText(Windows.UI.Text.TextGetOptions.UseCrlf,out text);
+            EditZone.Document.GetText(Windows.UI.Text.TextGetOptions.UseCrlf, out text);
             ReplyButton.IsEnabled = false;
             try
             {
-                if(Post==null)//发帖
+                if (Post == null)//发帖
                 {
                     var data = await FlarumApiProviders.ReplyAsync(text, $"https://{Flarent.Settings.Forum}/api/posts", (int)Discussion.Id, Flarent.Settings.Token);
                     var reply = data.Item1;
                     if (data.Item2 == "")
                     {
-                        Hide();
+                        await MyAppWindow.CloseAsync();
                         var postId = (int)reply["data"]["id"];
                         var shell = Window.Current.Content as ShellPage;//获取当前正在显示的页面
                         var frame = shell.shellFrame;
@@ -98,16 +104,18 @@ namespace FlarentApp.Views.Dialogs
         }
         public async Task Edit(string text)
         {
-            var data = await FlarumApiProviders.EditAsync(text, $"https://{Flarent.Settings.Forum}/api/posts/{(int)Post.Id}", (int)Post.Id, Flarent.Settings.Token,Referer);
+            var data = await FlarumApiProviders.EditAsync(text, $"https://{Flarent.Settings.Forum}/api/posts/{(int)Post.Id}", (int)Post.Id, Flarent.Settings.Token, Referer);
             var reply = data.Item1;
             if (data.Item2 == "")
             {
-                Hide();
                 Text = data.Item2;
                 new Toast("编辑成功").Show();
+                var discussion = Post.Discussion;
                 Post = data.Item1;
+                Post.Discussion = discussion;
                 var postId = data.Item1.Id;
                 Success = true;
+                await MyAppWindow.CloseAsync();
             }
             else
             {
@@ -116,5 +124,4 @@ namespace FlarentApp.Views.Dialogs
             }
         }
     }
-    
 }

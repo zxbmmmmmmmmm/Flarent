@@ -182,6 +182,7 @@
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
     <Compile Include="Services\WhatsNewDisplayService.cs" />
+    <Compile Include="Services\WindowService.cs" />
     <Compile Include="Views\CatagoriesPage.xaml.cs">
       <DependentUpon>CatagoriesPage.xaml</DependentUpon>
     </Compile>
@@ -271,6 +272,9 @@
     </Compile>
     <Compile Include="Views\Dialogs\WhatsNewDialog.xaml.cs">
       <DependentUpon>WhatsNewDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowPages\ReplyPage.xaml.cs">
+      <DependentUpon>ReplyPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -427,6 +431,10 @@
     <Page Include="Views\Dialogs\WhatsNewDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowPages\ReplyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
