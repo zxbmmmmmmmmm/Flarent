@@ -2,7 +2,10 @@
 using AngleSharp.Dom;
 using AngleSharp.Dom.Html;
 using AngleSharp.Parser.Html;
+using ColorCode.Compilation.Languages;
 using Microsoft.Toolkit.Uwp.UI.Controls;
+using Microsoft.Toolkit.Uwp.UI.Controls.Markdown.Render;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +30,14 @@ namespace RichTextControls.Generators
 
         private static readonly Regex _htmlWhitespaceRegex = new Regex(@"(?<=\s)\s+(?![^<pre>]*</pre>)", RegexOptions.Compiled);
         private static readonly Regex _preTagRegex = new Regex(@"(?:\<pre\>)(.*)(?:\<\/pre\>)", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        protected ILinkRegister LinkRegister { get; }
 
-        public HtmlXamlGenerator(string html)
+        public HtmlXamlGenerator(string html, ILinkRegister linkRegister)
         {
             _parser = new HtmlParser();
-            _html = PrepareRawHtml(html);
+            _html = PrepareRawHtml(html); 
+            LinkRegister = linkRegister;
+
         }
 
         public HtmlXamlGenerator(IHtmlDocument document)
@@ -155,6 +161,12 @@ namespace RichTextControls.Generators
                     var strike = GenerateStrike(node);
                     return AddInlineToTextBlock(elements, strike);
                 case "DIV":
+                    var div = (IHtmlDivElement)node;
+                    if (div.Attributes["class"] != null)
+                    {
+                        if (div.Attributes["class"].Value.Contains("alert"))
+                            return GenerateInfoBar(div);
+                    }
                     return GenerateDiv(node);
                 case "LI": // Treat <li> outside of a <ul> or <ol> as regular Paragraph.
                 case "P":
@@ -425,6 +437,35 @@ namespace RichTextControls.Generators
 
             return verticalStackPanel;
         }*/
+        private InfoBar GenerateInfoBar(IHtmlDivElement node)
+        {
+            var span = new Span();
+            //span.Inlines.Add(new LineBreak());
+            var inlineUiContainer = new InlineUIContainer();
+            var infobar = new InfoBar
+            {
+                IsClosable = false,
+                Title = "信息",
+                IsOpen = true,
+                HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Stretch,
+            };
+            if (node.Attributes["class"].Value.Contains("error") || node.Attributes["class"].Value.Contains("warning"))
+            {
+                infobar.Title = "警告";
+                infobar.Severity = InfoBarSeverity.Warning;
+            }
+            if (node.Attributes["class"].Value.Contains("success"))
+            {
+                infobar.Severity = InfoBarSeverity.Success;
+            }
+
+            var panel = new StackPanel { Margin = new Thickness(0,0,40,24)};
+
+            AddChildren(node, panel.Children);
+
+            infobar.Content = panel;
+            return infobar;
+        }
 
         private StackPanel GenerateOL(IHtmlOrderedListElement node)
         {
@@ -469,6 +510,7 @@ namespace RichTextControls.Generators
                 PlaceholderStretch = Stretch.Uniform,
                 PlaceholderSource = new BitmapImage(new Uri("ms-appx:///Assets/App/ImagePlaceHolder.png") ),
             };
+
             var sourceWidth = node.GetAttribute("width");
             var sourceHeight = node.GetAttribute("height");
             if (sourceWidth != null)
@@ -485,6 +527,7 @@ namespace RichTextControls.Generators
 
                 //image.MaxHeight = new BitmapImage(new Uri(imageSrc)).PixelHeight;
             }
+            LinkRegister.RegisterNewHyperLink(image, imageSrc,false);
 
             /*if (Uri.TryCreate(node.Source, UriKind.RelativeOrAbsolute, out Uri src))
             {
@@ -517,9 +560,10 @@ namespace RichTextControls.Generators
 
                 if (Uri.TryCreate(node.Href, UriKind.RelativeOrAbsolute, out Uri hrefUri))
                 {
-                    hyperlink.NavigateUri = hrefUri;
-                }
+                    //hyperlink.NavigateUri = hrefUri;
+                    LinkRegister.RegisterNewHyperLink(hyperlink, hrefUri.ToString());
 
+                }
                 // TODO: Add option for unfurling links as images
                 // TODO: Add link clicked event
 
@@ -540,8 +584,10 @@ namespace RichTextControls.Generators
 
             if (Uri.TryCreate(node.Href, UriKind.RelativeOrAbsolute, out Uri hrefUri))
             {
-                hyperlink.NavigateUri = hrefUri;
+                //hyperlink.NavigateUri = hrefUri;
                 hyperlink.Margin = new Thickness(0, 0, 0, -10);
+                LinkRegister.RegisterNewHyperLink(hyperlink, hrefUri.ToString());
+
             }
             var stack = new StackPanel { Spacing = 8, Orientation = Orientation.Horizontal };
             switch (node.ClassName) 

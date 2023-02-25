@@ -190,7 +190,7 @@
                                             Storyboard.TargetName="BorderBackground"
                                             Storyboard.TargetProperty="Opacity"
                                             To="0.6"
-                                            Duration="100" />
+                                            Duration="0" />
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Background">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListLowBrush}" />
                                         </ObjectAnimationUsingKeyFrames>

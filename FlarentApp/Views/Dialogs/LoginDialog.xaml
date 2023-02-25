@@ -5,7 +5,7 @@
     xmlns:local="using:FlarentApp.Views.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:app="using:FlarentApp.Helpers"
+    xmlns:app="using:FlarentApp.Helpers" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" Width="512"
     mc:Ignorable="d"
     Title="登录">
     <ContentDialog.TitleTemplate>
@@ -23,23 +23,47 @@
         </DataTemplate>
     </ContentDialog.TitleTemplate>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel Spacing="12">
-            <TextBox x:Name="UserNameTextBox" PlaceholderText="用户名/邮箱" TextChanged="UserNameTextBox_TextChanged" KeyDown="UserNameTextBox_KeyDown"/>
-            <PasswordBox x:Name="MyPasswordBox" PlaceholderText="密码" PasswordChanged="MyPasswordBox_PasswordChanged" KeyDown="MyPasswordBox_KeyDown"/>
-            <Grid>
-                <CheckBox x:Name="RememberMeCheckBox" Content="记住我"/>
-                <TextBlock x:Name="ErrorTextBlock" Text="用户名或密码错误" HorizontalAlignment="Right"  VerticalAlignment="Center" Visibility="Collapsed"/>
-            </Grid>
-        </StackPanel>
-        
-        <Button x:Name="CancelButton" Content="取消" Click="CancelButton_Click" Grid.Row="1" HorizontalAlignment="Left" Margin="{StaticResource SmallTopMargin}"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="{StaticResource SmallTopMargin}" HorizontalAlignment="Right" Spacing="8">
-            <Button Content="注册" IsEnabled="False"/>
-            <Button x:Name="LoginButton" Content="登录" Click="LoginButton_Click" Style="{StaticResource AccentButtonStyle}" AccessKey="Enter"/>
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Visibility="Collapsed">
+            <controls:TileControl Grid.Row="1"
+                          AnimationDuration="30"
+                          AnimationStepX="1"
+                          AnimationStepY="1"
+                          ImageAlignment="None"
+                         
+                          ImageSource="ms-appx:///Assets/App/ChatBubbles.svg"
+                          IsAnimated="True"
+                          OffsetX="0"
+                          OffsetY="0"
+                          ScrollOrientation="Both">
+                <Border >
+                    <TextBlock  Text="Simple Content"/>
+                </Border>
+            </controls:TileControl>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Spacing="12">
+                <TextBox x:Name="UserNameTextBox" PlaceholderText="用户名/邮箱" TextChanged="UserNameTextBox_TextChanged" KeyDown="UserNameTextBox_KeyDown"/>
+                <PasswordBox x:Name="MyPasswordBox" PlaceholderText="密码" PasswordChanged="MyPasswordBox_PasswordChanged" KeyDown="MyPasswordBox_KeyDown"/>
+                <Grid>
+                    <CheckBox x:Name="RememberMeCheckBox" Content="记住我"/>
+                    <TextBlock x:Name="ErrorTextBlock" Text="用户名或密码错误" HorizontalAlignment="Right"  VerticalAlignment="Center" Visibility="Collapsed"/>
+                </Grid>
+            </StackPanel>
+
+            <Button x:Name="CancelButton" Content="取消" Click="CancelButton_Click" Grid.Row="1" HorizontalAlignment="Left" Margin="{StaticResource SmallTopMargin}"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="{StaticResource SmallTopMargin}" HorizontalAlignment="Right" Spacing="8">
+                <Button Content="注册" IsEnabled="False"/>
+                <Button x:Name="LoginButton" Content="登录" Click="LoginButton_Click" Style="{StaticResource AccentButtonStyle}" AccessKey="Enter"/>
+            </StackPanel>
+        </Grid>
+
     </Grid>
 </ContentDialog>

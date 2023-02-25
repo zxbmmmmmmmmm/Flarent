@@ -447,9 +447,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\App\Flarent\Logo.png" />
+    <Content Include="Assets\App\ChatBubbles.png" />
     <Content Include="Assets\App\guest.png" />
     <Content Include="Assets\App\ImagePlaceholder.png" />
     <Content Include="Assets\App\InoriAizawa\Error.png" />
+    <Content Include="Assets\App\ChatBubbles.svg" />
     <Content Include="Assets\extensions\wvbdev-tieba-stickers\angry.png" />
     <Content Include="Assets\extensions\wvbdev-tieba-stickers\cry.png" />
     <Content Include="Assets\extensions\wvbdev-tieba-stickers\easteregg.png" />

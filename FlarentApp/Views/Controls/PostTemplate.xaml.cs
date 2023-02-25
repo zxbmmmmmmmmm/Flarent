@@ -7,6 +7,7 @@ using FlarentApp.Views.Dialogs;
 using FlarentApp.Views.WindowPages;
 using FlarumApi;
 using FlarumApi.Models;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ using Windows.UI.Xaml.Shapes;
 
 namespace FlarentApp.Views.Controls
 {
-    public sealed partial class PostTemplate : UserControl, INotifyPropertyChanged
+    public sealed partial class PostTemplate : UserControl, INotifyPropertyChanged ,IDisposable
     {
         public PostTemplate()
         {
@@ -135,6 +136,7 @@ namespace FlarentApp.Views.Controls
         }
         public static readonly DependencyProperty CanAdaptiveProperty =
            DependencyProperty.Register("CanAdaptive", typeof(bool), typeof(PostTemplate), new PropertyMetadata(false));
+        private bool disposedValue;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -206,10 +208,10 @@ namespace FlarentApp.Views.Controls
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
-        {
-           // UserButton.Click -= UserButton_Click;
+           {
+            // UserButton.Click -= UserButton_Click;
             //ContentMarkdownTextBlock.LinkClicked -= ContentMarkdownTextBlock_LinkClicked;
-            Window.Current.SizeChanged -= WindowSizeChanged;
+            Dispose();
             //ReplyButton.Click -= ReplyButton_Click;
             //VotesToggleButton.Click -= VotesToggleButton_Click;
             //EditMenuItem.Click -= EditMenuItem_Click;         
@@ -230,6 +232,80 @@ namespace FlarentApp.Views.Controls
                 NavigationService.OpenInRightPane(typeof(UserDetailPage), post.User.Id);
             else
                 NavigationService.Navigate<UserDetailPage>(post.User.Id);
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    UserButton.Click -= UserButton_Click;
+                    Window.Current.SizeChanged -= WindowSizeChanged;
+                    ReplyButton.Click -= ReplyButton_Click;
+                    VotesToggleButton.Click -= VotesToggleButton_Click;
+                    EditMenuItem.Click -= EditMenuItem_Click;
+                 }
+
+                Post = null;
+                
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: 仅当“Dispose(bool disposing)”拥有用于释放未托管资源的代码时才替代终结器
+        // ~PostTemplate()
+        // {
+        //     // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose()
+        {
+            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        private async void HtmlTextBlock_LinkClicked(object sender, RichTextControls.EventsArgs.LinkClickedEventArgs e)
+        {
+            var link = e.Link;
+            if (link.Contains($"{Flarent.Settings.Forum.ToLower()}/d/"))
+            {
+                var split = link.Split("/");
+                var id = split[split.Count() - 1];
+                if (split.Count() > 5)
+                    NavigationService.OpenInRightPane(typeof(PostDetailPage), link);
+                else
+                {
+                    if (id.Contains("-"))//防止链接后面有字符存在
+                    {
+                        var index = id.IndexOf('-');
+                        id = id.Remove(index);
+                    }
+                    NavigationService.Navigate<DiscussionDetailPage>(int.Parse(id));
+                }
+
+            }
+            else if (link.Contains($"{Flarent.Settings.Forum.ToLower()}/u/"))
+            {
+                var split = link.Split("/");
+                var uid = split[split.Count() - 1];
+                if (Flarent.Settings.ViewUsersInPane)
+                    NavigationService.OpenInRightPane(typeof(UserDetailPage), uid);
+                else
+                    NavigationService.Navigate<UserDetailPage>(uid);
+            }
+            else
+                await Launcher.LaunchUriAsync(new Uri(link));
+        }
+
+        private void HtmlTextBlock_ImageClicked(object sender, RichTextControls.EventsArgs.LinkClickedEventArgs e)
+        {
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", e.ImageEx);
+            new ImageView().Show(e.Link);
+
+
         }
     }
 }

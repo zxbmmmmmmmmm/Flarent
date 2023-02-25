@@ -30,6 +30,7 @@ namespace FlarentApp.Views.Controls
         private Popup Popup;
         private double WindowWidth;
         private double WindowHeight;
+
         public ImageView()
         {
             this.InitializeComponent();
@@ -37,7 +38,7 @@ namespace FlarentApp.Views.Controls
             Popup = new Popup();
             Popup.Child = this;
         }
-        public void Show(string image)
+        public void Show(string image,UIElement caller = null)
         {
             var anim = ConnectedAnimationService.GetForCurrentView().GetAnimation("ForwardConnectedAnimation");
             if (anim != null)
@@ -56,7 +57,6 @@ namespace FlarentApp.Views.Controls
         {
             Window.Current.SizeChanged -= WindowSizeChanged;
             this.Popup.IsOpen = false;
-            UnloadObject(this);
         }
         private void WindowSizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
         {

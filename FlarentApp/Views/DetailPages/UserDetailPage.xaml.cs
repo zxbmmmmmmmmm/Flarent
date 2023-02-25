@@ -57,7 +57,7 @@ namespace FlarentApp.Views.DetailPages
                 if (e.Parameter is int uid)
                     GetUser($"https://{Flarent.Settings.Forum}/api/users/{uid.ToString()}");
                 else if(e.Parameter is string userName)
-                    GetUser($"https://{Flarent.Settings.Forum}/api/users?filter[q]={userName}");
+                    GetUser($"https://{Flarent.Settings.Forum}/api/users/{userName}?bySlug=true");
             }
         }
         public async void GetUser(string link)

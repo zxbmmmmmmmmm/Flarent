@@ -1,4 +1,7 @@
-﻿using RichTextControls.Generators;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using Microsoft.Toolkit.Uwp.UI.Controls.Markdown.Render;
+using Microsoft.Toolkit.Uwp.UI.Helpers;
+using RichTextControls.Generators;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
@@ -7,9 +10,21 @@ using Windows.UI.Xaml.Documents;
 
 namespace RichTextControls
 {
-    public class HtmlTextBlock : Control
+    public partial class HtmlTextBlock : Control, Generators.ILinkRegister
     {
         private Border _rootElement;
+
+        // Used to attach the URL to hyperlinks.
+        private static readonly DependencyProperty HyperlinkUrlProperty =
+            DependencyProperty.RegisterAttached("HyperlinkUrl", typeof(string), typeof(MarkdownTextBlock), new PropertyMetadata(null));
+
+        // Checkes if clicked image is a hyperlink or not.
+        private static readonly DependencyProperty IsHyperlinkProperty =
+            DependencyProperty.RegisterAttached("IsHyperLink", typeof(string), typeof(MarkdownTextBlock), new PropertyMetadata(null));
+        private bool multiClickDetectionTriggered;
+        private readonly List<object> _listeningHyperlinks = new List<object>();
+        /// Gets the interface that is used to register hyperlinks.
+        /// </summary>
 
         /// <summary>
         /// Gets or sets the style for the blockquote Border
@@ -110,9 +125,298 @@ namespace RichTextControls
             control.RenderDocument();
         }
 
-        public HtmlTextBlock()
+        public HtmlTextBlock
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            ()
         {
             DefaultStyleKey = typeof(HtmlTextBlock);
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
         }
 
         protected override void OnApplyTemplate()
@@ -123,27 +427,18 @@ namespace RichTextControls
 
             RenderDocument();
         }
-
-        private void RenderDocument()
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (_rootElement == null || String.IsNullOrEmpty(Html))
-                return;
+            HookListeners();
 
-            try
-            {
-                var generator = CustomGenerator ?? new HtmlXamlGenerator(Html);
+            // Register for property callbacks that are owned by our parent class.
 
-                generator.BlockquoteBorderStyle = BlockquoteBorderStyle;
-                generator.PreformattedBorderStyle = PreformattedBorderStyle;
-
-                var parsedHtml = generator.Generate();
-
-                _rootElement.Child = parsedHtml;
-            }
-            catch (Exception ex)
-            {
-                _rootElement.Child = new TextBlock() { Text = $"Unable to parse this document. The error was: {ex.Message}" };
-            }
         }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

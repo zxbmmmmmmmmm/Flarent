@@ -107,9 +107,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CodeHighlightedTextBlock.cs" />
+    <Compile Include="EventArgs\LinkClickedEventArgs.cs" />
     <Compile Include="Generators\IHtmlXamlGenerator.cs" />
+    <Compile Include="Generators\ILinkRegister.cs" />
     <Compile Include="HightlightLanguage.cs" />
     <Compile Include="HtmlTextBlock.cs" />
+    <Compile Include="HtmlTextBlock.Methods.cs" />
     <Compile Include="Lexer\Grammars\CPlusPlusGrammar.cs" />
     <Compile Include="Lexer\Grammars\CSharpGrammar.cs" />
     <Compile Include="Lexer\Grammars\CSSGrammar.cs" />
@@ -121,6 +124,7 @@
     <Compile Include="Lexer\Grammars\RubyGrammar.cs" />
     <Compile Include="Lexer\Grammars\SQLGrammar.cs" />
     <Compile Include="Lexer\Grammars\XMLGrammar.cs" />
+    <Compile Include="HtmlTextBlock.Events.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Generators\HtmlXamlGenerator.cs" />
     <Compile Include="Lexer\IGrammar.cs" />

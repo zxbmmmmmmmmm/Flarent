@@ -31,7 +31,7 @@
                       VerticalScrollBarVisibility="Visible"
                       HorizontalScrollMode="Enabled"
                       HorizontalScrollBarVisibility="Visible" Margin="100">
-            <controls:ImageEx x:Name="MainImage" MaxWidth="{x:Bind MainScrollViewer.ViewportWidth,Mode=OneWay}" MaxHeight="{x:Bind MainScrollViewer.ViewportHeight,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" ImageExOpened="MainImage_ImageExOpened"/>
+            <controls:ImageEx x:Name="MainImage" MaxWidth="{x:Bind MainScrollViewer.ViewportWidth,Mode=OneWay}" MaxHeight="{x:Bind MainScrollViewer.ViewportHeight,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" ImageExOpened="MainImage_ImageExOpened" />
         </ScrollViewer>
         <StackPanel  Margin="24"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Spacing="2">
             <CommandBar DefaultLabelPosition="Collapsed">
