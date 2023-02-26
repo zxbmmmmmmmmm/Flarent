@@ -191,10 +191,12 @@
     <comment>First use prompt message primary button text</comment>
   </data>
   <data name="WhatsNew_Body.Text" xml:space="preserve">
-    <value># Flarent 0.7.0
-- 支持创建帖子
-- 优化主页/用户/分类等列表视图的样式（添加圆角并删除了Reveal效果）
-- 优化图片加载</value>
+    <value># Flarent 0.8.0
+
+- 支持窗口化回复
+- 支持图片自适应
+- 优化图片加载
+- 修复部分论坛因权限限制无法打开用户页面的问题</value>
     <comment>本次更新中新增的内容，将在用户更新版本后显示</comment>
   </data>
   <data name="WhatsNewDialog.Title" xml:space="preserve">

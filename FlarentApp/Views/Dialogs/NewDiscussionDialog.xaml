@@ -54,7 +54,7 @@
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
             </ListView>
-            <ListView x:FieldModifier="public" x:Name="TagsListView" ItemsSource="{x:Bind Tags,Mode=OneWay}" Height="256" SelectionMode="None" IsItemClickEnabled="True" ItemClick="TagsListView_ItemClick" IsMultiSelectCheckBoxEnabled="True" >
+            <ListView x:FieldModifier="public" x:Name="TagsListView" ItemsSource="{x:Bind Tags,Mode=OneWay}" Height="256" SelectionMode="None" IsItemClickEnabled="True" ItemClick="TagsListView_ItemClick" IsMultiSelectCheckBoxEnabled="True" HorizontalContentAlignment="Stretch" ItemContainerStyle="{StaticResource ListViewItemStyle}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="models:Tag">
                         <localcontrols:TagSelectItem FlarumTag="{x:Bind Mode=OneWay}" />

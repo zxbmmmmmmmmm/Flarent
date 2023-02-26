@@ -26,7 +26,7 @@
                   Grid.Row="1" SelectionMode="None"
                   IsItemClickEnabled="True"
                   ItemClick="ChildrenTagsListView_ItemClick"
-                  ItemsSource="{x:Bind FlarumTag.Chidren,Mode=OneWay}" Visibility="{x:Bind MyCheckBox.IsChecked,Mode=OneWay}">
+                  ItemsSource="{x:Bind FlarumTag.Chidren,Mode=OneWay}" Visibility="{x:Bind MyCheckBox.IsChecked,Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:Tag">
                     <local:TagSelectItem FlarumTag="{x:Bind}"/>

@@ -48,7 +48,7 @@ namespace FlarentApp
             {
                 ToastArguments toastArgs = ToastArguments.Parse(toastActivationArgs.Argument);
 
-                await Launcher.LaunchUriAsync(new Uri("https://wj.qq.com/s2/11777368"));
+                await Launcher.LaunchUriAsync(new Uri("https://wj.qq.com/s2/11777368/65f5"));
 
             }
         }
