@@ -2,7 +2,10 @@
 
 using FlarentApp.Services;
 using FlarentApp.Views.Controls;
+using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.ApplicationModel.Activation;
+using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 
 namespace FlarentApp
@@ -41,6 +44,13 @@ namespace FlarentApp
         protected override async void OnActivated(IActivatedEventArgs args)
         {
             await ActivationService.ActivateAsync(args);
+            if (args is ToastNotificationActivatedEventArgs toastActivationArgs)
+            {
+                ToastArguments toastArgs = ToastArguments.Parse(toastActivationArgs.Argument);
+
+                await Launcher.LaunchUriAsync(new Uri("https://wj.qq.com/s2/11777368"));
+
+            }
         }
 
         private void OnAppUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
