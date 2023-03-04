@@ -52,8 +52,13 @@
           <uap:Rotation Preference="portraitFlipped"/>
           <uap:Rotation Preference="portrait"/></uap:InitialRotationPreference>
       </uap:VisualElements>
-
       <Extensions>
+        <Extension Category="windows.backgroundTasks" EntryPoint="Tasks.DynamicNotifyTask">
+          <BackgroundTasks>
+            <Task Type="timer"/>
+            <Task Type="systemEvent"/>
+          </BackgroundTasks>
+        </Extension>
       </Extensions>
     </Application>
   </Applications>

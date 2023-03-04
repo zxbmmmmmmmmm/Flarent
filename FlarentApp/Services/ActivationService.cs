@@ -90,6 +90,7 @@ namespace FlarentApp.Services
             await ThemeSelectorService.SetRequestedThemeAsync();
             await FirstRunDisplayService.ShowIfAppropriateAsync();
             await WhatsNewDisplayService.ShowIfAppropriateAsync();
+            TaskService.RegisterBackgroundTask();           
         }
 
         private IEnumerable<ActivationHandler> GetActivationHandlers()

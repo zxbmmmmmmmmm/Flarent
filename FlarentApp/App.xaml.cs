@@ -2,6 +2,9 @@
 
 using FlarentApp.Services;
 using FlarentApp.Views.Controls;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation.Collections;
@@ -39,6 +42,8 @@ namespace FlarentApp
             {
                 await ActivationService.ActivateAsync(args);
             }
+            AppCenter.Start("d251ad1e-bfb3-4893-a926-971831e68d03",
+                    typeof(Analytics), typeof(Crashes));
         }
 
         protected override async void OnActivated(IActivatedEventArgs args)
