@@ -125,6 +125,7 @@
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\NotificationPusher.cs" />
+    <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Helpers\TilePusher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

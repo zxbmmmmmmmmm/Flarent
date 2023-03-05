@@ -22,7 +22,7 @@ namespace Tasks
             //
             // Call asynchronous method(s) using the await keyword.
             //
-            var data = await FlarumApiProviders.GetDiscussions(null, "https://community.wvbtech.com/api/discussions?sort=-createdAt", null, null);
+            var data = await FlarumApiProviders.GetDiscussions(null, $"https://{SettingsHelper.Forum}/api/discussions?sort=-createdAt", null, null);
             var discussions = data.Item1;
             if (data.Item1 == null)
                 deferral.Complete();

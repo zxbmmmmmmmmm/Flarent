@@ -16,7 +16,7 @@ using FlarumApi.Helpers;
 
 namespace FlarentApp.Helpers
 {
-    internal static class Flarent
+    public static class Flarent
     {
         public static Settings Settings = new Settings();
     }

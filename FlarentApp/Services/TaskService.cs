@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
+using Windows.Storage;
 
 namespace FlarentApp.Services
 {
@@ -24,6 +25,7 @@ namespace FlarentApp.Services
                         task.Value.Unregister(true);
                     }
                 }
+                var settingContainer = ApplicationData.Current.LocalSettings;
 
                 BackgroundTaskBuilder taskBuilder = new BackgroundTaskBuilder();
                 taskBuilder.Name = taskName;
