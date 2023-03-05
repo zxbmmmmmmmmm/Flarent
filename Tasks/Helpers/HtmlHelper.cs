@@ -20,5 +20,6 @@ namespace Tasks.Helpers
                 return nodes[0].Attributes["src"].Value;
             return null;
         }
+
     }
 }

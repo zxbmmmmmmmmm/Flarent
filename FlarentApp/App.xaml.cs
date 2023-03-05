@@ -10,6 +10,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation.Collections;
 using Windows.System;
 using Windows.UI.Xaml;
+using FlarentApp.Views.DetailPages;
 
 namespace FlarentApp
 {
@@ -48,14 +49,24 @@ namespace FlarentApp
 
         protected override async void OnActivated(IActivatedEventArgs args)
         {
-            await ActivationService.ActivateAsync(args);
             if (args is ToastNotificationActivatedEventArgs toastActivationArgs)
             {
                 ToastArguments toastArgs = ToastArguments.Parse(toastActivationArgs.Argument);
 
-                await Launcher.LaunchUriAsync(new Uri("https://wj.qq.com/s2/11777368/65f5"));
-
+                if (toastArgs["discussion"] != null)
+                {
+                    await ActivationService.ActivateAsync(args);
+                    NavigationService.Navigate(typeof(DiscussionDetailPage), int.Parse(toastArgs["discussion"]));
+                    Analytics.TrackEvent("NotificationClicked");
+                    return;
+                }
+                else
+                {
+                    await Launcher.LaunchUriAsync(new Uri("https://wj.qq.com/s2/11777368/65f5"));
+                    return;
+                }
             }
+            await ActivationService.ActivateAsync(args);
         }
 
         private void OnAppUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)

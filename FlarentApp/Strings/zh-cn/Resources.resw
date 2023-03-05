@@ -191,12 +191,10 @@
     <comment>First use prompt message primary button text</comment>
   </data>
   <data name="WhatsNew_Body.Text" xml:space="preserve">
-    <value># Flarent 0.8.0
+    <value># Flarent 0.8.1
 
-- 支持窗口化回复
-- 支持图片自适应
-- 优化图片加载
-- 修复部分论坛因权限限制无法打开用户页面的问题</value>
+- 初步支持推送通
+- 接入AppCenter</value>
     <comment>本次更新中新增的内容，将在用户更新版本后显示</comment>
   </data>
   <data name="WhatsNewDialog.Title" xml:space="preserve">

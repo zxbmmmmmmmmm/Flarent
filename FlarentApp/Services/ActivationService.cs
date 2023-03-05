@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using FlarentApp.Activation;
-
+using FlarentApp.Helpers;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -90,7 +90,8 @@ namespace FlarentApp.Services
             await ThemeSelectorService.SetRequestedThemeAsync();
             await FirstRunDisplayService.ShowIfAppropriateAsync();
             await WhatsNewDisplayService.ShowIfAppropriateAsync();
-            TaskService.RegisterBackgroundTask();           
+            if(Flarent.Settings.IsNotifyEnabled)
+                TaskService.RegisterBackgroundTask();           
         }
 
         private IEnumerable<ActivationHandler> GetActivationHandlers()

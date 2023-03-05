@@ -246,6 +246,38 @@
                         </Grid>
                     </muxc:Expander.Content>
                 </muxc:Expander>
+                <TextBlock Text="通知" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}">
+                    <TextBlock.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </TextBlock.Transitions>
+                </TextBlock>
+
+                <muxc:Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="{StaticResource SmallTopMargin}">
+                    <muxc:Expander.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition />
+                        </TransitionCollection>
+                    </muxc:Expander.Transitions>
+                    <muxc:Expander.Header>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <FontIcon Glyph="&#xEA8F;" />
+                                <TextBlock Text="通知推送" Margin="{StaticResource SmallLeftMargin}"/>
+                            </StackPanel>
+                            <ToggleSwitch VerticalAlignment="Center" HorizontalAlignment="Right" MinWidth="10" IsOn="{x:Bind app:Flarent.Settings.IsNotifyEnabled,Mode=TwoWay}"/>
+                        </Grid>
+
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <Grid>
+                            <TextBlock Text="开启后，应用将定时检查最新讨论，若有更新将推送并更新动态磁贴。日后将支持推送通知中心内的内容。" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
+
+                        </Grid>
+
+                    </muxc:Expander.Content>
+                </muxc:Expander>
 
                 <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}">
                     <TextBlock.Transitions>
@@ -329,6 +361,11 @@
                     </muxc:Expander.Content>
                 </muxc:Expander>
                 <muxc:InfoBar IsOpen="True" Margin="{StaticResource SmallTopMargin}" Title="问卷" Message="填写Flarent调查问卷" IsClosable="False">
+                    <muxc:InfoBar.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition/>
+                        </TransitionCollection>
+                    </muxc:InfoBar.Transitions>
                     <muxc:InfoBar.ActionButton>
                         <HyperlinkButton HorizontalAlignment="Right" Content="查看" NavigateUri="https://wj.qq.com/s2/11777368/65f5"/>
                     </muxc:InfoBar.ActionButton>

@@ -1,6 +1,9 @@
 ﻿using CommunityToolkit.Common;
 using FlarumApi;
 using FlarumApi.Models;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Newtonsoft.Json.Linq;
 using System;
@@ -22,11 +25,25 @@ namespace Tasks
             //
             // Call asynchronous method(s) using the await keyword.
             //
-            var data = await FlarumApiProviders.GetDiscussions(null, $"https://{SettingsHelper.Forum}/api/discussions?sort=-createdAt", null, null);
+            if (!SettingsHelper.IsNotifyEnabled)
+            {
+                deferral.Complete();
+                return;
+            }
+            var data = await FlarumApiProviders.GetDiscussions(null, $"https://{SettingsHelper.Forum}/api/discussions?sort=-createdAt", null, SettingsHelper.Token);
             var discussions = data.Item1;
             if (data.Item1 == null)
                 deferral.Complete();
-            var discussion = discussions[0];
+            var discussion = discussions.First();
+
+            var now = DateTime.Now;
+            var dt = discussion.CreatedAt.Value;
+            TimeSpan ts = now - dt;
+            if (ts.TotalSeconds >= 900)//超过15分钟则不推送
+            {
+                deferral.Complete();
+                return;
+            }
             var content = discussion.FirstPost.ContentHtml.DecodeHtml();
             TilePusher.UpdateDiscussion(discussion.Title, content);
 
@@ -41,7 +58,9 @@ namespace Tasks
                 .AddText(discussion.Title)
                 .AddText(content)
                 .AddAttributionText($"{discussion.User.DisplayName} 发布于 {DateHelper.FriendFormat((DateTime)discussion.CreatedAt)}")
-                .AddAppLogoOverride(new Uri(discussion.User.AvatarUrl));
+                .AddAppLogoOverride(new Uri(discussion.User.AvatarUrl),ToastGenericAppLogoCrop.Circle)
+                .AddArgument("discussion",discussion.Id.Value);
+                
             if (image != null)
                 toast.AddHeroImage(new Uri(image));
             toast.Show();

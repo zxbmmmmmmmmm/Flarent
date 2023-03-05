@@ -13,6 +13,7 @@ using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
 using FlarumApi.Helpers;
+using ReverseMarkdown.Converters;
 
 namespace FlarentApp.Helpers
 {
@@ -161,6 +162,18 @@ namespace FlarentApp.Helpers
                 OnPropertyChanged();
             }
         }
+
+        public bool IsNotifyEnabled
+        {
+            get => GetSettings("IsNotifyEnabled", true);
+            set
+            {
+                ApplicationData.Current.LocalSettings.Values["IsNotifyEnabled"] = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public async void OnPropertyChanged([CallerMemberName] string propertyName = "")

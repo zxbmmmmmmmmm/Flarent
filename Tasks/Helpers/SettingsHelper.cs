@@ -13,5 +13,13 @@ namespace Tasks.Helpers
         {
             get => ApplicationData.Current.LocalSettings.Values["Forum"].ToString();
         }
+        public static string Token
+        {
+            get => ApplicationData.Current.LocalSettings.Values["Token"].ToString();
+        }
+        public static bool IsNotifyEnabled
+        {
+            get => (bool)ApplicationData.Current.LocalSettings.Values["IsNotifyEnabled"];
+        }
     }
 }
