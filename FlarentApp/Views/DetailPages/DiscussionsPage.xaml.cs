@@ -2,6 +2,7 @@
 using FlarentApp.Services;
 using FlarumApi;
 using FlarumApi.Models;
+using Microsoft.AppCenter.Analytics;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -65,6 +66,8 @@ namespace FlarentApp.Views.DetailPages
             }
             Discussions.Clear();
             GetDiscussions();
+            Analytics.TrackEvent("DiscussionOpened");
+
         }
         private async void GetDiscussions()
         {

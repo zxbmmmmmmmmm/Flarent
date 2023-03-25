@@ -8,6 +8,7 @@ using FlarumApi;
 using FlarumApi.Helpers;
 using FlarumApi.Models;
 using Markdig;
+using Microsoft.AppCenter.Analytics;
 using Microsoft.Toolkit.Uwp.Notifications;
 using System;
 using System.Collections.Generic;
@@ -96,6 +97,7 @@ namespace FlarentApp.Views.WindowPages
                             page.TurnToLastPage();
                         }
                         NavigationService.OpenInRightPane(typeof(PostDetailPage), postId);
+                        Analytics.TrackEvent("PostReplied");
                     }
                     else
                     {
@@ -129,6 +131,7 @@ namespace FlarentApp.Views.WindowPages
                 Post.Discussion = discussion;
                 var postId = data.Item1.Id;
                 Success = true;
+                Analytics.TrackEvent("PostEdited");
                 await MyAppWindow.CloseAsync();
             }
             else

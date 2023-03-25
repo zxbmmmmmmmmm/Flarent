@@ -1,6 +1,7 @@
 ﻿using FlarentApp.Helpers;
 using FlarumApi;
 using FlarumApi.Models;
+using Microsoft.AppCenter.Analytics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -96,6 +97,7 @@ namespace FlarentApp.Views.Dialogs
 
             }
             await Windows.Storage.FileIO.WriteTextAsync(file, text);
+            Analytics.TrackEvent("DiscussionDownloaded");
             Hide();
         }
         public string HtmlToMarkdown(string html)

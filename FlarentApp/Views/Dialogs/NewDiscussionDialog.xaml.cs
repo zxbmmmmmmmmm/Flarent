@@ -4,6 +4,7 @@ using FlarentApp.Views.Controls;
 using FlarentApp.Views.DetailPages;
 using FlarumApi;
 using FlarumApi.Models;
+using Microsoft.AppCenter.Analytics;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -96,6 +97,7 @@ namespace FlarentApp.Views.Dialogs
             {
                 Hide();
                 new Toast("发送成功");
+                Analytics.TrackEvent("DiscussionCreated");
                 NavigationService.Navigate(typeof(DiscussionDetailPage), (int)data.Item1["data"]["id"]);
             }
             else

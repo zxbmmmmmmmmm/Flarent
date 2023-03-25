@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 using FlarentApp.Activation;
 using FlarentApp.Helpers;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -91,7 +94,9 @@ namespace FlarentApp.Services
             await FirstRunDisplayService.ShowIfAppropriateAsync();
             await WhatsNewDisplayService.ShowIfAppropriateAsync();
             if(Flarent.Settings.IsNotifyEnabled)
-                TaskService.RegisterBackgroundTask();           
+                TaskService.RegisterBackgroundTask();
+            AppCenter.Start("d251ad1e-bfb3-4893-a926-971831e68d03",
+                typeof(Analytics), typeof(Crashes));
         }
 
         private IEnumerable<ActivationHandler> GetActivationHandlers()
