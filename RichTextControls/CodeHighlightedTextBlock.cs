@@ -68,7 +68,7 @@ namespace RichTextControls
             nameof(StringBrush),
             typeof(SolidColorBrush),
             typeof(CodeHighlightedTextBlock),
-            new PropertyMetadata(new SolidColorBrush(Colors.DarkRed))
+            new PropertyMetadata(new SolidColorBrush(Color.FromArgb(210, 157, 133, 0)))
         );
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace RichTextControls
             nameof(BuiltinBrush),
             typeof(SolidColorBrush),
             typeof(CodeHighlightedTextBlock),
-            new PropertyMetadata(new SolidColorBrush(Colors.DarkSeaGreen))
+            new PropertyMetadata(new SolidColorBrush(Color.FromArgb(74, 198, 176, 0)))
         );
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace RichTextControls
             nameof(KeywordBrush),
             typeof(SolidColorBrush),
             typeof(CodeHighlightedTextBlock),
-            new PropertyMetadata(new SolidColorBrush(Colors.Blue))
+            new PropertyMetadata(new SolidColorBrush(Color.FromArgb(54,128,214,0)))
         );
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace RichTextControls
             nameof(NumberBrush),
             typeof(SolidColorBrush),
             typeof(CodeHighlightedTextBlock),
-            new PropertyMetadata(new SolidColorBrush(Colors.Purple))
+            new PropertyMetadata(new SolidColorBrush(Color.FromArgb(181, 206, 168, 0)))
         );
 
         /// <summary>

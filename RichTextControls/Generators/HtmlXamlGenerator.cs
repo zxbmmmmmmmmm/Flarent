@@ -479,7 +479,7 @@ namespace RichTextControls.Generators
 
                 var grid = new Grid();
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1,GridUnitType.Star) });
                 //var horizontalStackPanel = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 3, 0, 3) };
                 //horizontalStackPanel.Children.Add(new TextBlock() { Text = $"{number}.", Margin = new Thickness(9.5, 0, 9.5, 0) });
                 grid.Children.Add(new TextBlock() { Text = $"{number}.", Margin = new Thickness(9.5, 0, 9.5, 0),TextWrapping=TextWrapping.Wrap});
@@ -748,6 +748,7 @@ namespace RichTextControls.Generators
                     highlightLanguage = HighlightLanguage.SQL;
                     break;
                 default:
+                    highlightLanguage = HighlightLanguage.CPlusPlus;
                     break;
             }
 
@@ -763,7 +764,7 @@ namespace RichTextControls.Generators
             var span = new Span()
             {
                 FontFamily = new FontFamily("Consolas"),
-                Foreground = new SolidColorBrush(Colors.Red),
+                Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(212, 157, 120, 0)),
             };
 
             var run = new Run()
