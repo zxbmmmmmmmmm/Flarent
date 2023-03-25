@@ -8,6 +8,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.System;
 using User = FlarumApi.Models.User;
 
@@ -345,6 +347,13 @@ namespace FlarumApi
             else
                 return false;
 
+        }
+        public async static Task<UploadItem> UploadAsync(string link,string token, MultipartFormDataContent content)
+        {
+
+
+            var data = await NetworkHelper.UploadAsync(link, content, token);
+            return null;
         }
 
     }

@@ -51,7 +51,7 @@
                      SelectionFlyout="{x:Null}"
                      Grid.Row="1"  />
             </Grid>
-            <Grid x:Name="PreviewGrid" Grid.Column="0" Grid.Row="3" MinWidth="490" Margin="0">
+            <Grid x:Name="PreviewGrid" Grid.Column="0" Grid.Row="3" Margin="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition/>
@@ -60,10 +60,21 @@
                 <richtext:HtmlTextBlock x:Name="PreviewTextBlock" HorizontalAlignment="Stretch"  Visibility="Visible" Grid.Row="1"/>
 
             </Grid>
-            <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right" Margin="{StaticResource SmallTopMargin}" Spacing="8">
-                <Button Content="存草稿" IsEnabled="False"/>
-                <Button x:Name="ReplyButton" Click="ReplyButton_Click" Content="回复" Style="{StaticResource AccentButtonStyle}"/>
-            </StackPanel>
+            <Grid  Grid.Row="2" Margin="{StaticResource SmallTopMargin}">
+                <StackPanel HorizontalAlignment="Left">
+                    <Button x:Name="UploadButton" Click="UploadButton_Click">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <FontIcon Glyph="&#xE8E5;" FontSize="16"/>
+                            <TextBlock Text="上传"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+                    <Button Content="存草稿" IsEnabled="False"/>
+                    <Button x:Name="ReplyButton" Click="ReplyButton_Click" Content="回复" Style="{StaticResource AccentButtonStyle}"/>
+                </StackPanel>
+            </Grid>
+
 
         </Grid>
 

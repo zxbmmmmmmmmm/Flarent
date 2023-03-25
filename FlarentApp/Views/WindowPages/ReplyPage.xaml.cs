@@ -1,19 +1,27 @@
-﻿using FlarentApp.Helpers;
+﻿using ColorCode.Compilation.Languages;
+using FlarentApp.Helpers;
 using FlarentApp.Helpers.Converters;
 using FlarentApp.Services;
 using FlarentApp.Views.Controls;
 using FlarentApp.Views.DetailPages;
 using FlarumApi;
+using FlarumApi.Helpers;
 using FlarumApi.Models;
 using Markdig;
+using Microsoft.Toolkit.Uwp.Notifications;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -50,7 +58,7 @@ namespace FlarentApp.Views.WindowPages
             string value = string.Empty;
             EditZone.Document.GetText(Windows.UI.Text.TextGetOptions.AdjustCrlf, out value);
             if (value == string.Empty) PreviewTextBlock.Html = " ";
-            else PreviewTextBlock.Html = Markdown.ToHtml(value);
+            else PreviewTextBlock.Html = Markdig.Markdown.ToHtml(value);
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -147,5 +155,34 @@ namespace FlarentApp.Views.WindowPages
             }
 
         }
+
+        private async void UploadButton_Click(object sender, RoutedEventArgs e)
+        {
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".jpeg");
+            picker.FileTypeFilter.Add(".png");
+            StorageFile file = await picker.PickSingleFileAsync();//选择文件
+            if (file == null)
+                return;
+            string boundary = string.Format("------WebKitFormBoundary{0}", DateTime.Now.Ticks.ToString("x"));
+
+            var content = new MultipartFormDataContent(boundary);
+            var streamData = await file.OpenReadAsync();
+            var bytes = new byte[streamData.Size];
+            using (var dataReader = new DataReader(streamData))
+            {
+                await dataReader.LoadAsync((uint)streamData.Size);
+                dataReader.ReadBytes(bytes);
+            }
+            var streamContent = new ByteArrayContent(bytes);
+            string strBoundary =  DateTime.Now.Ticks.ToString("x");
+            content.Headers.ContentType = new MediaTypeHeaderValue($"multipart/form-data;boundary={boundary}") ;
+            content.Add(streamContent, "files[]");
+            await FlarumApiProviders.UploadAsync($"https://{Flarent.Settings.Forum}/api/fof/upload",Flarent.Settings.Token,content);
+        }
+
     }
 }

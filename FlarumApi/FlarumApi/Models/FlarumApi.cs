@@ -398,5 +398,54 @@ namespace FlarumApi.Models
         }
 
     }
+    public class UploadItem
+    {
+        public int? Id { get; set; }
+        /// <summary>
+        /// 上传内容原名
+        /// </summary>
+        public string BaseName { get; set; }
+        /// <summary>
+        /// BBcode代码
+        /// </summary>
+        public string BBCode { get; set; }
+        /// <summary>
+        /// 链接
+        /// </summary>
+        public string Url { get; set; }
+        public string Path { get; set; }
+        /// <summary>
+        /// 内容大小
+        /// </summary>
+        public string HumanSize { get; set; }
+        /// <summary>
+        /// 内容类型
+        /// </summary>
+        public string Type { get; set; }
+        /// <summary>
+        /// 内容标签(如image-preview)
+        /// </summary>
+        public string Tag { get; set; }
+        public string UUID { get; set; }
+        public static UploadItem CreateFromJson(JToken token)
+        {
+            var attributes = token.Value<JToken>("attributes");
+            var item = new UploadItem
+            {
+                Id = token.Value<int?>("id"),
+                Type = attributes.Value<string>("type"),
+                BaseName = attributes.Value<string>("baseName"),
+                BBCode = attributes.Value<string>("bbcode"),
+                HumanSize = attributes.Value<string>("humanSize"),
+                Url = attributes.Value<string>("url"),
+                Path = attributes.Value<string>("path"),
+                Tag = attributes.Value<string>("tag"),
+                UUID = attributes.Value<string>("uuid"),
+            };
+
+            return item;
+        }
+    }
+
 
 }

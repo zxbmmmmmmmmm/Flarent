@@ -183,7 +183,6 @@
     <Compile Include="Helpers\Converters\VisibilityToBoolConverter.cs" />
     <Compile Include="Helpers\LayoutHelper.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
-    <Compile Include="Helpers\RichEditBoxExtension.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
