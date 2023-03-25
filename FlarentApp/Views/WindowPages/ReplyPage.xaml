@@ -4,35 +4,69 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FlarentApp.Views.WindowPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    mc:Ignorable="d" Background="{StaticResource SystemControlAcrylicWindowBrush}">
-    <Grid Margin="24,0,24,20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <muxc:ProgressBar x:Name="LoadingProgressBar" IsIndeterminate="True" VerticalAlignment="Top" Visibility="Collapsed" Margin="-24,0"/>
-        <Grid x:Name="TitleBar" Height="32">
-            <TextBlock Text="{x:Bind MyAppWindow.Title}" VerticalAlignment="Center"/>
-        </Grid>
-        <Grid Grid.Row="1">
-            <RichEditBox x:Name="EditZone"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:richtext="using:RichTextControls" xmlns:helpers="using:FlarentApp.Helpers" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:markDown="using:Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarFormats.MarkDown"
+    mc:Ignorable="d" Background="{StaticResource SystemControlAcrylicWindowBrush}" SizeChanged="Page_SizeChanged">
+    <ScrollViewer>
+        <Grid Margin="24,0,24,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition x:Name="SecColumn" Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <muxc:ProgressBar x:Name="LoadingProgressBar" IsIndeterminate="True" VerticalAlignment="Top" Visibility="Collapsed" Margin="-24,0"/>
+            <Grid x:Name="TitleBar" Height="32">
+                <TextBlock Text="{x:Bind MyAppWindow.Title}" VerticalAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <controls:TextToolbar x:Name="Toolbar"
+                          Editor="{Binding ElementName=EditZone}"
+                          IsEnabled="True"
+                          UseURIChecker="True"
+                          Background="Transparent" >
+                    <controls:TextToolbar.Formatter>
+                        <!-- Choose one -->
+                        <markDown:MarkDownFormatter />
+                        <!--<textToolbarSamples:SampleFormatter />-->
+                    </controls:TextToolbar.Formatter>
+                </controls:TextToolbar>
+                <RichEditBox x:Name="EditZone"
                      PlaceholderText="输入回复..."
                      TextWrapping="Wrap"
                      TextChanged="EditZone_TextChanged"
                      VerticalContentAlignment="Stretch"
                      MinHeight="256"
-                     MinWidth="490"
+                     HorizontalAlignment="Stretch"
                      Padding="10,3"
                      BorderThickness="1"
-                         
-                     SelectionFlyout="{x:Null}"/>
+                     SelectionFlyout="{x:Null}"
+                     Grid.Row="1"  />
+            </Grid>
+            <Grid x:Name="PreviewGrid" Grid.Column="0" Grid.Row="3" MinWidth="490" Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="预览" Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center"/>
+                <richtext:HtmlTextBlock x:Name="PreviewTextBlock" HorizontalAlignment="Stretch"  Visibility="Visible" Grid.Row="1"/>
+
+            </Grid>
+            <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right" Margin="{StaticResource SmallTopMargin}" Spacing="8">
+                <Button Content="存草稿" IsEnabled="False"/>
+                <Button x:Name="ReplyButton" Click="ReplyButton_Click" Content="回复" Style="{StaticResource AccentButtonStyle}"/>
+            </StackPanel>
+
         </Grid>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right" Margin="{StaticResource SmallTopMargin}" Spacing="8">
-            <Button Content="存草稿" IsEnabled="False"/>
-            <Button x:Name="ReplyButton" Click="ReplyButton_Click" Content="回复" Style="{StaticResource AccentButtonStyle}"/>
-        </StackPanel>
-    </Grid>
+
+    </ScrollViewer>
 
 </Page>

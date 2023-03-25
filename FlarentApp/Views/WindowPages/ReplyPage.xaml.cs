@@ -1,9 +1,11 @@
 ﻿using FlarentApp.Helpers;
+using FlarentApp.Helpers.Converters;
 using FlarentApp.Services;
 using FlarentApp.Views.Controls;
 using FlarentApp.Views.DetailPages;
 using FlarumApi;
 using FlarumApi.Models;
+using Markdig;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -45,6 +47,10 @@ namespace FlarentApp.Views.WindowPages
         private void EditZone_TextChanged(object sender, RoutedEventArgs e)
         {
             LoadingProgressBar.Visibility = Visibility.Collapsed;
+            string value = string.Empty;
+            EditZone.Document.GetText(Windows.UI.Text.TextGetOptions.AdjustCrlf, out value);
+            if (value == string.Empty) PreviewTextBlock.Html = " ";
+            else PreviewTextBlock.Html = Markdown.ToHtml(value);
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -122,6 +128,24 @@ namespace FlarentApp.Views.WindowPages
                 LoadingProgressBar.ShowError = true;
                 ReplyButton.IsEnabled = true;
             }
+        }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if(e.NewSize.Width>= 1040)
+            {
+                Grid.SetRow(PreviewGrid, 1);
+                Grid.SetColumn(PreviewGrid, 1); SecColumn.Width = new GridLength(1,GridUnitType.Star);
+                PreviewGrid.Margin = new Thickness(16, 0, 16, 0);
+            }
+            else
+            {
+                Grid.SetRow(PreviewGrid, 3);
+                Grid.SetColumn(PreviewGrid, 0);
+                SecColumn.Width = GridLength.Auto;
+                PreviewGrid.Margin = new Thickness(0);
+            }
+
         }
     }
 }
