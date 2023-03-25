@@ -191,10 +191,14 @@
     <comment>First use prompt message primary button text</comment>
   </data>
   <data name="WhatsNew_Body.Text" xml:space="preserve">
-    <value># Flarent 0.8.1
+    <value># Flarent 0.8.2
 
-- 初步支持推送通
-- 接入AppCenter</value>
+## 更新内容
+
+- 新增发帖时预览（目前只支持Markdown内容）
+- 分类页面支持显示子标签
+- 修复了有序列表可能超出界限的问题
+- 优化代码显示</value>
     <comment>本次更新中新增的内容，将在用户更新版本后显示</comment>
   </data>
   <data name="WhatsNewDialog.Title" xml:space="preserve">
