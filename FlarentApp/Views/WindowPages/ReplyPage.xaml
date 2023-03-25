@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FlarentApp.Views.WindowPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:app="using:FlarentApp.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:richtext="using:RichTextControls" xmlns:helpers="using:FlarentApp.Helpers" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:markDown="using:Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarFormats.MarkDown"
     mc:Ignorable="d" Background="{StaticResource SystemControlAcrylicWindowBrush}" SizeChanged="Page_SizeChanged">
     <ScrollViewer>
@@ -62,7 +63,7 @@
             </Grid>
             <Grid  Grid.Row="2" Margin="{StaticResource SmallTopMargin}">
                 <StackPanel HorizontalAlignment="Left">
-                    <Button x:Name="UploadButton" Click="UploadButton_Click">
+                    <Button x:Name="UploadButton" Click="UploadButton_Click" IsEnabled="{x:Bind app:Flarent.Settings.DeveloperMode,Mode=OneWay}">
                         <StackPanel Orientation="Horizontal" Spacing="12">
                             <FontIcon Glyph="&#xE8E5;" FontSize="16"/>
                             <TextBlock Text="上传"/>

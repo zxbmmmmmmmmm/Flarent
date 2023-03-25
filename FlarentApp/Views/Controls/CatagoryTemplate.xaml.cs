@@ -1,4 +1,5 @@
-﻿using FlarumApi.Models;
+﻿using FlarentApp.Services;
+using FlarumApi.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,5 +34,11 @@ namespace FlarentApp.Views.Controls
         }
         public static readonly DependencyProperty CatagoryProperty =
            DependencyProperty.Register("TagData", typeof(Tag), typeof(CatagoryTemplate), new PropertyMetadata(new Tag()));
+
+        private void ChildrenTagsListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var clicked = e.ClickedItem as Tag;
+            NavigationService.Navigate<HomePage>(clicked);
+        }
     }
 }

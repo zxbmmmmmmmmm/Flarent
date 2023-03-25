@@ -42,7 +42,7 @@ namespace FlarentApp.Views
         }
         public async void GetCatagories()
         {
-            Catagories = await FlarumApiProviders.GetTags(Flarent.Settings.Forum, Flarent.Settings.Token);
+            Catagories = await FlarumApiProviders.GetTags(Flarent.Settings.Forum, Flarent.Settings.Token,true);
             CatagoriesListView.ItemsSource = Catagories;
             LoadingProgressRing.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }

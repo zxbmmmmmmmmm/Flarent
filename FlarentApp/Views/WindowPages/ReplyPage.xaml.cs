@@ -57,7 +57,7 @@ namespace FlarentApp.Views.WindowPages
             LoadingProgressBar.Visibility = Visibility.Collapsed;
             string value = string.Empty;
             EditZone.Document.GetText(Windows.UI.Text.TextGetOptions.AdjustCrlf, out value);
-            if (value == string.Empty) PreviewTextBlock.Html = " ";
+            if (value == string.Empty) PreviewTextBlock.Html = "没有内容";
             else PreviewTextBlock.Html = Markdig.Markdown.ToHtml(value);
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -151,7 +151,7 @@ namespace FlarentApp.Views.WindowPages
                 Grid.SetRow(PreviewGrid, 3);
                 Grid.SetColumn(PreviewGrid, 0);
                 SecColumn.Width = GridLength.Auto;
-                PreviewGrid.Margin = new Thickness(0);
+                PreviewGrid.Margin = new Thickness(0, 8, 0, 0);
             }
 
         }
@@ -179,7 +179,7 @@ namespace FlarentApp.Views.WindowPages
             }
             var streamContent = new ByteArrayContent(bytes);
             string strBoundary =  DateTime.Now.Ticks.ToString("x");
-            content.Headers.ContentType = new MediaTypeHeaderValue($"multipart/form-data;boundary={boundary}") ;
+            //content.Headers.ContentType = new MediaTypeHeaderValue($"multipart/form-data;boundary={boundary}") ;
             content.Add(streamContent, "files[]");
             await FlarumApiProviders.UploadAsync($"https://{Flarent.Settings.Forum}/api/fof/upload",Flarent.Settings.Token,content);
         }

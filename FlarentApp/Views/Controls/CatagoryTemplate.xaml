@@ -2,23 +2,81 @@
     x:Class="FlarentApp.Views.Controls.CatagoryTemplate"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:FlarentApp.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:fa="using:FontAwesome.UWP"
-    mc:Ignorable="d"
+    xmlns:local="using:FlarentApp.Views.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FlarumApi.Models"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    mc:Ignorable="d">
 
-    <Grid Margin="24">
-        <fa:FontAwesome Icon="{x:Bind TagData.Icon,Converter={StaticResource FontAwesomeConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="40" Foreground="#80808080"/>
-        <StackPanel Margin="24,0,0,0" HorizontalAlignment="Left">
-            <TextBlock Text="{x:Bind TagData.Name}" Style="{StaticResource TitleTextBlockStyle}"/>
-            <TextBlock Text="{x:Bind TagData.Description}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Spacing="8">
-            <FontIcon Glyph="&#xE134;" />
-            <TextBlock Text="{x:Bind TagData.DiscussionCount}"/>
-        </StackPanel>
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid x:Name="ParentGrid" Visibility="{x:Bind TagData.IsChild, Converter={StaticResource BooleanVisibilityInversionConverter}}" Margin="24">
+            <fa:FontAwesome
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="40"
+                Foreground="#80808080"
+                Icon="{x:Bind TagData.Icon, Converter={StaticResource FontAwesomeConverter}}" />
+            <StackPanel Margin="24,0,0,0" HorizontalAlignment="Left">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind TagData.Name}" />
+                <TextBlock Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind TagData.Description}" />
+            </StackPanel>
+            <StackPanel
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Orientation="Horizontal"
+                Spacing="8" Margin="0,12,0,0">
+                <StackPanel>
+                    <TextBlock Text="{x:Bind TagData.DiscussionCount}"  FontSize="16" HorizontalAlignment="Center" />
+                    <TextBlock Text="讨论" Style="{StaticResource DetailBodyBaseMediumStyle}" FontSize="13" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <Border/>
+                <StackPanel>
+                    <TextBlock Text="{x:Bind TagData.PostCount}"  FontSize="16" HorizontalAlignment="Center"/>
+                    <TextBlock Text="帖子" Style="{StaticResource DetailBodyBaseMediumStyle}" FontSize="13" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="ChildGrid" Visibility="{x:Bind TagData.IsChild}">
+            <fa:FontAwesome
+                HorizontalAlignment="Left"
+                FontSize="32"
+                Foreground="#80808080"
+                Icon="{x:Bind TagData.Icon, Converter={StaticResource FontAwesomeConverter}}" />
+            <StackPanel Margin="48,0,0,0" HorizontalAlignment="Left" >
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{x:Bind TagData.Name}" />
+                <TextBlock Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind TagData.Description}" />
+            </StackPanel>
+            <StackPanel
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="8">
+                <FontIcon Glyph="&#xE134;" />
+                <TextBlock Text="{x:Bind TagData.DiscussionCount}" />
+            </StackPanel>
+        </Grid>
+        <ListView
+            x:Name="ChildrenTagsListView"
+            Grid.Row="1"
+            x:FieldModifier="public"
+            IsItemClickEnabled="True"
+            ItemClick="ChildrenTagsListView_ItemClick"
+            ItemContainerStyle="{StaticResource ListViewItemStyle}"
+            ItemsSource="{x:Bind TagData.Chidren, Mode=OneWay}"
+            SelectionMode="None" Margin="24,0">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:Tag">
+                    <local:CatagoryTemplate TagData="{x:Bind}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </UserControl>
