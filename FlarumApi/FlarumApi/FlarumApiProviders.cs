@@ -368,7 +368,7 @@ namespace FlarumApi
             var inclusions = InclusionTypeFilter.FiltTypes(jObj["included"]);
             var users = inclusions.Item2;
             var discussions = inclusions.Item4;
-            var postReactions = InclusionTypeFilter.GetInclusions<PostReaction>("postReactions",jObj);
+            var postReactions = InclusionTypeFilter.GetInclusions<PostReaction>("post_reactions",jObj);
 
             foreach (var datum in data)
             {
@@ -377,7 +377,7 @@ namespace FlarumApi
                     post.Discussion = discussions.FirstOrDefault(p => p.Id == post.DiscussionId);
                 if (post.ReactionIds != null)
                 {
-                    post.Likes = new List<User>();
+                    post.Reactions = new List<Reaction>();
                     foreach (var id in post.ReactionIds)
                     {
                         var postReaction = postReactions.FirstOrDefault(p => p.Id == id);

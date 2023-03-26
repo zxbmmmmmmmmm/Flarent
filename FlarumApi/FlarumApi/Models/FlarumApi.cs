@@ -170,7 +170,7 @@ namespace FlarumApi.Models
                 }
                 if (relationships["reactions"] != null)
                 {
-                    post.LikeIds = new List<int>();
+                    post.ReactionIds = new List<int>();
                     foreach (var reaction in relationships["reactions"]["data"])
                     {
                         post.ReactionIds.Add((int)reaction["id"]);
