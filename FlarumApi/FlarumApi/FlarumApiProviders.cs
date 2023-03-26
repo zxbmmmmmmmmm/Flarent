@@ -17,6 +17,7 @@ namespace FlarumApi
 {
     public sealed class FlarumApiProviders
     {
+        public static List<Reaction> Reactions;
         /// <summary>
         /// 通过需要的postId返回帖子
         /// </summary>
@@ -181,7 +182,9 @@ namespace FlarumApi
         public async static Task<Forum> GetForumInfo(string link, string token)
         {
             var data = await NetworkHelper.GetAsync(link, token);
-            var forum = Forum.CreateFromJson(data["data"]);
+            var forum = new Forum().CreateFromJson(data["data"]);
+            forum.Reactions = InclusionTypeFilter.GetInclusions<Reaction>("reactions", data);
+            Reactions = forum.Reactions;
             return forum;
         }
         public async static Task<Tuple<JObject, string>> ReplyAsync(string text,string link,int discussionId,string token)
@@ -350,11 +353,10 @@ namespace FlarumApi
         }
         public async static Task<UploadItem> UploadAsync(string link,string token, MultipartFormDataContent content)
         {
-
-
             var data = await NetworkHelper.UploadAsync(link, content, token);
             return null;
         }
+        
 
     }
     public sealed class FlarumApiConverters
@@ -366,13 +368,23 @@ namespace FlarumApi
             var inclusions = InclusionTypeFilter.FiltTypes(jObj["included"]);
             var users = inclusions.Item2;
             var discussions = inclusions.Item4;
+            var postReactions = InclusionTypeFilter.GetInclusions<PostReaction>("postReactions",jObj);
 
             foreach (var datum in data)
             {
                 var post = Post.CreateFromJson(datum);
                 if (post.DiscussionId != null)
                     post.Discussion = discussions.FirstOrDefault(p => p.Id == post.DiscussionId);
-                if(post.LikeIds != null)
+                if (post.ReactionIds != null)
+                {
+                    post.Likes = new List<User>();
+                    foreach (var id in post.ReactionIds)
+                    {
+                        var postReaction = postReactions.FirstOrDefault(p => p.Id == id);
+                        post.Reactions.Add(FlarumApiProviders.Reactions.FirstOrDefault(p => p.Id == postReaction.ReactionId));
+                    }
+                }
+                if (post.LikeIds != null)
                 {
                     post.Likes = new List<User>();
                     foreach(var id in post.LikeIds)
@@ -380,6 +392,7 @@ namespace FlarumApi
                         post.Likes.Add(users.FirstOrDefault(p => p.Id == id));
                     }
                 }
+
                 if (post.Likes != null)
                 {
                     if (post.Likes.Count != 0)
@@ -399,7 +412,7 @@ namespace FlarumApi
         public static Discussion GetDiscussion(JObject jObj)
         {
             var data = jObj["data"];
-            var discussion = Discussion.CreateFromJson(data);
+            var discussion = new Discussion().CreateFromJson(data);
             var inclusions = InclusionTypeFilter.FiltTypes(jObj["included"]);
             var users = inclusions.Item2;
             var tags = inclusions.Item3;
@@ -416,7 +429,7 @@ namespace FlarumApi
             var tags = inclustions.Item3;
             foreach (var datum in data)
             {
-                var discussion = Discussion.CreateFromJson(datum);
+                var discussion = new Discussion().CreateFromJson(datum);
                 discussion.User = users.FirstOrDefault(p => p.Id == discussion.UserId) ?? Preset.DefaultUser ;
                 discussion.LastPostedUser = users.FirstOrDefault(p => p.Id == discussion.LastPostedUserId) ?? Preset.DefaultUser;
                 discussion.FirstPost = posts.FirstOrDefault(p => p.Id == discussion.FirstPostId) ?? null;
@@ -443,9 +456,9 @@ namespace FlarumApi
 
 
             if (data is JArray)
-                user =  User.CreateFromJson(data[0]);
+                user =  new User().CreateFromJson(data[0]);
             else
-                user =  User.CreateFromJson(data);
+                user =  new User().CreateFromJson(data);
             if (jObj["included"] != null)
             {
                 var inclustions = InclusionTypeFilter.FiltTypes(jObj["included"]);
@@ -468,7 +481,7 @@ namespace FlarumApi
             var data = jObj["data"];
             foreach(var item in data)
             {
-                var tag = Tag.CreateFromJson(item);
+                var tag = new Tag().CreateFromJson(item);
                 if (!tag.IsChild||!hideChild)
                     tags.Add(tag);
             }
@@ -493,7 +506,7 @@ namespace FlarumApi
             var users = new ObservableCollection<User>();
             var data = jObj["data"];
             foreach (var user in data)
-                users.Add(User.CreateFromJson(user));
+                users.Add(new User().CreateFromJson(user));
             return users;
         }
         public static ObservableCollection<Notification> GetNotifications(JObject jObj)
@@ -502,7 +515,7 @@ namespace FlarumApi
             var data = jObj["data"];
             foreach (var notification in data)
             {
-                notifications.Add(Notification.CreateFromJson(notification));
+                notifications.Add(new Notification().CreateFromJson(notification));
             }
             return notifications;
         }

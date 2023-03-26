@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FlarumApi.Helpers;
 using Newtonsoft.Json.Linq;
 using Windows.System;
 
@@ -22,8 +23,8 @@ namespace FlarumApi.Models
         public int? MaxPrimaryTags { get; set; }
         public int? MinSecondaryTags { get; set; }
         public int? MaxSecondaryTags { get; set; }
-
-        public static Forum CreateFromJson(JToken token)
+        public List<Reaction> Reactions { get; set; } 
+        public Forum CreateFromJson(JToken token)
         {
             var attributes = token.Value<JToken>("attributes");
             var forum = new Forum
@@ -70,7 +71,7 @@ namespace FlarumApi.Models
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static Discussion CreateFromJson(JToken token)
+        public Discussion CreateFromJson(JToken token)
         {
             var attributes = token.Value<JToken>("attributes");
             var relationships = token.Value<JToken>("relationships");
@@ -138,6 +139,9 @@ namespace FlarumApi.Models
         public DateTime? HiddenAt { get; set; }
         public bool CanEdit { get; set; }
 
+        public List<int> ReactionIds { get; set; }
+        public List<Reaction> Reactions { get; set; }
+
         public static Post CreateFromJson(JToken token)
         {
             var attributes = token.Value<JToken>("attributes");
@@ -162,6 +166,14 @@ namespace FlarumApi.Models
                     foreach (var like in relationships["likes"]["data"])
                     {
                         post.LikeIds.Add((int)like["id"]);
+                    }
+                }
+                if (relationships["reactions"] != null)
+                {
+                    post.LikeIds = new List<int>();
+                    foreach (var reaction in relationships["reactions"]["data"])
+                    {
+                        post.ReactionIds.Add((int)reaction["id"]);
                     }
                 }
             }
@@ -249,7 +261,7 @@ namespace FlarumApi.Models
         public int CommentCount { get; set; }
         public ObservableCollection<UserGroup> UserGroups { get; set; }
         public List<int> GroupIds { get; set; }
-        public static User CreateFromJson(JToken token)
+        public User CreateFromJson(JToken token)
         {
             var attributes = token.Value<JToken>("attributes");
             var relationships = token.Value<JToken>("relationships");
@@ -287,7 +299,7 @@ namespace FlarumApi.Models
         public string NamePlural { get; set; }
         public string Color { get; set; }
         public string Icon { get; set; }
-        public static UserGroup CreateFromJson(JToken token)
+        public UserGroup CreateFromJson(JToken token)
         {
             var attributes = token.Value<JToken>("attributes");
             var userGroup = new UserGroup
@@ -323,7 +335,7 @@ namespace FlarumApi.Models
         }
     }*/
 
-    public class Tag
+    public class Tag :IFlarumModel<Tag>
     {
         public int? Id { get; set; }
         public string Name { get; set; }
@@ -341,7 +353,7 @@ namespace FlarumApi.Models
         /// </summary>
         public int? Position { get; set; }
         public bool IsSelected { get; set; }
-        public static Tag CreateFromJson(JToken token)
+        public Tag CreateFromJson(JToken token)
         {
             var attributes = token.Value<JToken>("attributes");
             var relationships = token.Value<JToken>("relationships");
@@ -375,14 +387,14 @@ namespace FlarumApi.Models
         }
 
     }
-    public class Notification
+    public class Notification :IFlarumModel<Notification>
     {
         public int? Id { get; set; }
         public string Type { get; set; }
         public object Content { get; set; }
         public bool IsRead { get; set; }
         public DateTime? CreatedAt { get; set; }
-        public static Notification CreateFromJson(JToken token)
+        public Notification CreateFromJson(JToken token)
         {
             var attributes = token.Value<JToken>("attributes");
             var notification = new Notification
@@ -398,7 +410,52 @@ namespace FlarumApi.Models
         }
 
     }
-    public class UploadItem
+    public class Reaction : IFlarumModel <Reaction>
+    {
+        public int? Id { get; set; }
+        public string Display { get; set; }
+        public int Enabled { get; set; }
+        public string Identifier { get; set; }
+        public string Type { get; set; }
+        public Reaction CreateFromJson(JToken token)
+        {
+            var attributes = token.Value<JToken>("attributes");
+            var reaction = new Reaction
+            {
+                Id = token.Value<int?>("id"),
+                Type = attributes.Value<string>("type"),
+                Display = attributes.Value<string>("display"),
+                Enabled = attributes.Value<int>("enabled"),
+                Identifier= attributes.Value<string>("identifier"),
+            };
+
+            return reaction;
+        }
+    }
+
+    public class PostReaction : IFlarumModel<PostReaction>
+    {
+        public int? Id { get; set; }
+        public int ReactionId { get; set; }
+
+        public int PostId { get; set; }
+        public int UserId { get; set; }
+        public PostReaction CreateFromJson(JToken token)
+        {
+            var attributes = token.Value<JToken>("attributes");
+            var reaction = new PostReaction
+            {
+                Id = token.Value<int?>("id"),
+                PostId = attributes.Value<int>("postId"),
+                UserId = attributes.Value<int>("userId"),
+                ReactionId = attributes.Value<int>("reactionId"),
+            };
+
+            return reaction;
+        }
+    }
+
+    public class UploadItem : IFlarumModel<UploadItem>
     {
         public int? Id { get; set; }
         /// <summary>
@@ -427,7 +484,7 @@ namespace FlarumApi.Models
         /// </summary>
         public string Tag { get; set; }
         public string UUID { get; set; }
-        public static UploadItem CreateFromJson(JToken token)
+        public UploadItem CreateFromJson(JToken token)
         {
             var attributes = token.Value<JToken>("attributes");
             var item = new UploadItem
