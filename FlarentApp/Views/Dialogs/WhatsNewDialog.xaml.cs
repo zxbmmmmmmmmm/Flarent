@@ -12,10 +12,10 @@ namespace FlarentApp.Views.Dialogs
         {
             RequestedTheme = (Window.Current.Content as FrameworkElement).RequestedTheme;
             InitializeComponent();
-            new ToastContentBuilder()
-                .AddText("调查问卷", hintMaxLines: 1)
-                .AddText("点击填写Flarent调查问卷")
-                .Show();
+            //new ToastContentBuilder()
+                //.AddText("调查问卷", hintMaxLines: 1)
+                //.AddText("点击填写Flarent调查问卷")
+                //.Show();
         }
     }
 }

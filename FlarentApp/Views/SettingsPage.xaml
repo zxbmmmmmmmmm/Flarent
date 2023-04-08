@@ -360,7 +360,7 @@
 
                     </muxc:Expander.Content>
                 </muxc:Expander>
-                <muxc:InfoBar IsOpen="True" Margin="{StaticResource SmallTopMargin}" Title="问卷" Message="填写Flarent调查问卷" IsClosable="False">
+                <muxc:InfoBar IsOpen="True" Margin="{StaticResource SmallTopMargin}" Title="问卷" Message="填写Flarent调查问卷" IsClosable="False" Visibility="{x:Bind config:Config.IsClientModeEnabled,Converter={StaticResource BooleanVisibilityInversionConverter}}">
                     <muxc:InfoBar.Transitions>
                         <TransitionCollection>
                             <RepositionThemeTransition/>
