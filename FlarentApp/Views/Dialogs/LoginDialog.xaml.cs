@@ -79,5 +79,10 @@ namespace FlarentApp.Views.Dialogs
         {
             if (e.Key == VirtualKey.Enter) LoginButton_Click(null, null);
         }
+
+        private  async void SignUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(new Uri($"https://{Flarent.Settings.Forum}"));
+        }
     }
 }

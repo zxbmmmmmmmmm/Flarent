@@ -5,51 +5,36 @@
     xmlns:local="using:FlarentApp.Views.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:app="using:FlarentApp.Helpers" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" Width="512"
-    mc:Ignorable="d"
-    Title="登录">
-    <ContentDialog.TitleTemplate>
-        <DataTemplate>
-            <StackPanel Orientation="Horizontal">
-                <Image
-                    Width="32"
-                    Height="32"
-                    Source="ms-appx:///Assets/StoreLogo.png" VerticalAlignment="Center"/>
-                <TextBlock
-                    Margin="{StaticResource SmallLeftMargin}"
-                    VerticalAlignment="Center"
-                    Text="登录" />
-            </StackPanel>
-        </DataTemplate>
-    </ContentDialog.TitleTemplate>
-    <Grid>
+    xmlns:app="using:FlarentApp.Helpers" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    
+    mc:Ignorable="d" >
+
+    <ContentDialog.Resources>
+        <Thickness x:Key="ContentDialogPadding">0</Thickness>
+    </ContentDialog.Resources>
+    <Grid HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Visibility="Collapsed">
-            <controls:TileControl Grid.Row="1"
-                          AnimationDuration="30"
-                          AnimationStepX="1"
-                          AnimationStepY="1"
-                          ImageAlignment="None"
-                         
-                          ImageSource="ms-appx:///Assets/App/ChatBubbles.svg"
-                          IsAnimated="True"
-                          OffsetX="0"
-                          OffsetY="0"
-                          ScrollOrientation="Both">
-                <Border >
-                    <TextBlock  Text="Simple Content"/>
-                </Border>
-            </controls:TileControl>
+        <Grid Width="200" >
+            <Image Source="https://images.unsplash.com/photo-1680416249970-8fc845412862?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=727&amp;q=80"/>
+
         </Grid>
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Margin="24" MinWidth="256" >
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel Spacing="12">
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,24">
+                <Image Source="{x:Bind app:Flarent.Settings.ForumInfo.FavIcon}" Height="24"/>
+                <TextBlock Text="登录" VerticalAlignment="Center" FontSize="15" Margin="0,2,0,0"/>
+                <TextBlock Text="|" Style="{StaticResource DetailBodyBaseMediumStyle}" VerticalAlignment="Center"/>
+                <TextBlock Text="{x:Bind app:Flarent.Settings.ForumInfo.Name}" VerticalAlignment="Center" FontSize="16"/>
+            </StackPanel>
+            <StackPanel Spacing="12" Grid.Row="1" >
                 <TextBox x:Name="UserNameTextBox" PlaceholderText="用户名/邮箱" TextChanged="UserNameTextBox_TextChanged" KeyDown="UserNameTextBox_KeyDown"/>
                 <PasswordBox x:Name="MyPasswordBox" PlaceholderText="密码" PasswordChanged="MyPasswordBox_PasswordChanged" KeyDown="MyPasswordBox_KeyDown"/>
                 <Grid>
@@ -58,9 +43,9 @@
                 </Grid>
             </StackPanel>
 
-            <Button x:Name="CancelButton" Content="取消" Click="CancelButton_Click" Grid.Row="1" HorizontalAlignment="Left" Margin="{StaticResource SmallTopMargin}"/>
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="{StaticResource SmallTopMargin}" HorizontalAlignment="Right" Spacing="8">
-                <Button Content="注册" IsEnabled="False"/>
+            <Button x:Name="CancelButton" Content="取消" Click="CancelButton_Click" Grid.Row="2" HorizontalAlignment="Left" Margin="{StaticResource SmallTopMargin}" VerticalAlignment="Bottom"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="{StaticResource SmallTopMargin}" HorizontalAlignment="Right" Spacing="8" VerticalAlignment="Bottom">
+                <HyperlinkButton Name="SignUpButton" Content="注册" Click="SignUpButton_Click"/>
                 <Button x:Name="LoginButton" Content="登录" Click="LoginButton_Click" Style="{StaticResource AccentButtonStyle}" AccessKey="Enter"/>
             </StackPanel>
         </Grid>
