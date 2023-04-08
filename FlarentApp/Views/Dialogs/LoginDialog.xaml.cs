@@ -1,4 +1,5 @@
 ﻿using FlarentApp.Helpers;
+using FlarentApp.ViewModels.Dialogs;
 using FlarumApi;
 using System;
 using System.Collections.Generic;
@@ -22,51 +23,12 @@ namespace FlarentApp.Views.Dialogs
 {
     public sealed partial class LoginDialog : ContentDialog
     {
+        public LoginDialogVM ViewModel = new();
         public LoginDialog()
         {
+            ViewModel.Dialog = this;
             RequestedTheme = (Window.Current.Content as FrameworkElement).RequestedTheme;
             this.InitializeComponent();
-        }
-
-        private async void LoginButton_Click(object sender, RoutedEventArgs e)
-        {
-            var userName = UserNameTextBox.Text;
-            var password = MyPasswordBox.Password;
-            var forum = Flarent.Settings.Forum;
-            var isRemembered = RememberMeCheckBox.IsChecked;
-            var tup = await FlarumApiProviders.GetToken(userName, password, forum, (bool)isRemembered);
-            if(tup.Item3 == "")
-            {
-                Flarent.Settings.UserId = tup.Item1;
-                Flarent.Settings.Token = tup.Item2;
-                Hide();
-            }
-            else
-            {
-                switch (tup.Item3)
-                {
-                    case "not_authenticated":
-                        ErrorTextBlock.Text = "用户名或密码错误";
-                        ErrorTextBlock.Visibility = Visibility.Visible;
-                        break;
-                }
-
-            }
-        }
-
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            Hide();
-        }
-
-        private void UserNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ErrorTextBlock.Visibility = Visibility.Collapsed;
-        }
-
-        private void MyPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            ErrorTextBlock.Visibility = Visibility.Collapsed;
         }
 
         private void UserNameTextBox_KeyDown(object sender, KeyRoutedEventArgs e)
@@ -77,12 +39,8 @@ namespace FlarentApp.Views.Dialogs
 
         private void MyPasswordBox_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if (e.Key == VirtualKey.Enter) LoginButton_Click(null, null);
+            if (e.Key == VirtualKey.Enter) ViewModel.LoginCommand.Execute(null);
         }
 
-        private  async void SignUpButton_Click(object sender, RoutedEventArgs e)
-        {
-            await Launcher.LaunchUriAsync(new Uri($"https://{Flarent.Settings.Forum}"));
-        }
     }
 }

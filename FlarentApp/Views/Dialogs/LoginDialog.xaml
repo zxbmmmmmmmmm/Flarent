@@ -17,12 +17,12 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <muxc:ProgressBar IsIndeterminate="True" Canvas.ZIndex="2" VerticalAlignment="Top" Grid.Column="1" Visibility="Collapsed"/>
+        <muxc:ProgressBar IsIndeterminate="True" Canvas.ZIndex="2" VerticalAlignment="Top" Grid.Column="1"  Visibility="{x:Bind ViewModel.LoginCommand.IsRunning,Mode=OneWay}"/>
         <Grid Width="200" Height="260">
             <Image Source="https://images.unsplash.com/photo-1680416249970-8fc845412862?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=727&amp;q=80" Stretch="UniformToFill"/>
 
         </Grid>
-        <Grid Grid.Column="1" Margin="24" MinWidth="256" >
+        <Grid Grid.Column="1" Margin="24" MinWidth="256">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
 
@@ -36,18 +36,18 @@
                 <TextBlock Text="{x:Bind app:Flarent.Settings.ForumInfo.Name}" VerticalAlignment="Center" FontSize="16"/>
             </StackPanel>
             <StackPanel Spacing="12" Grid.Row="1" >
-                <TextBox x:Name="UserNameTextBox" PlaceholderText="用户名/邮箱" TextChanged="UserNameTextBox_TextChanged" KeyDown="UserNameTextBox_KeyDown"/>
-                <PasswordBox x:Name="MyPasswordBox" PlaceholderText="密码" PasswordChanged="MyPasswordBox_PasswordChanged" KeyDown="MyPasswordBox_KeyDown"/>
+                <TextBox x:Name="UserNameTextBox" Text="{x:Bind ViewModel.Username,Mode=TwoWay}" PlaceholderText="用户名/邮箱"  KeyDown="UserNameTextBox_KeyDown"/>
+                <PasswordBox x:Name="MyPasswordBox" Password="{x:Bind ViewModel.Password,Mode=TwoWay}" PlaceholderText="密码"  KeyDown="MyPasswordBox_KeyDown"/>
                 <Grid>
-                    <CheckBox x:Name="RememberMeCheckBox" Content="记住我"/>
-                    <TextBlock x:Name="ErrorTextBlock" Text="用户名或密码错误" HorizontalAlignment="Right"  VerticalAlignment="Center" Visibility="Collapsed" Style="{StaticResource DetailBodyBaseMediumStyle}" FontSize="14"/>
+                    <CheckBox x:Name="RememberMeCheckBox" Content="记住我" IsChecked="True"/>
+                    <TextBlock x:Name="ErrorTextBlock" Text="{x:Bind ViewModel.Error,Mode=OneWay}" HorizontalAlignment="Right"  VerticalAlignment="Center" Style="{StaticResource DetailBodyBaseMediumStyle}" FontSize="14"/>
                 </Grid>
             </StackPanel>
 
-            <Button x:Name="CancelButton" Content="取消" Click="CancelButton_Click" Grid.Row="2" HorizontalAlignment="Left" Margin="{StaticResource SmallTopMargin}" VerticalAlignment="Bottom"/>
+            <Button x:Name="CancelButton" Content="取消" IsEnabled="{x:Bind ViewModel.LoginCommand.IsRunning,Mode=OneWay,Converter={StaticResource BooleanInversionConverter}}" Command="{x:Bind ViewModel.CloseCommand}" Grid.Row="2" HorizontalAlignment="Left" Margin="{StaticResource SmallTopMargin}" VerticalAlignment="Bottom"/>
             <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="{StaticResource SmallTopMargin}" HorizontalAlignment="Right" Spacing="8" VerticalAlignment="Bottom">
-                <HyperlinkButton Name="SignUpButton" Content="注册" Click="SignUpButton_Click"/>
-                <Button x:Name="LoginButton" Content="登录" Click="LoginButton_Click" Style="{StaticResource AccentButtonStyle}" AccessKey="Enter"/>
+                <HyperlinkButton Name="SignUpButton" Content="注册" Command="{x:Bind ViewModel.SignUpCommand}"/>
+                <Button x:Name="LoginButton" Content="登录" Command="{x:Bind ViewModel.LoginCommand}" Style="{StaticResource AccentButtonStyle}" AccessKey="Enter"/>
             </StackPanel>
         </Grid>
 

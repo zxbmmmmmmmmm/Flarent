@@ -16,9 +16,9 @@ namespace FlarentApp.Helpers.Converters
             if (value is bool boolValue)
             {
                 if(boolValue)
-                    return true;              
+                    return false;              
                 else
-                    return false;
+                    return true;
             }
 
             throw new ArgumentException("parameter must be a bool value!");
