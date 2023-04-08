@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:app="using:FlarentApp.Helpers" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d" >
 
     <ContentDialog.Resources>
@@ -17,8 +17,9 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Width="200" >
-            <Image Source="https://images.unsplash.com/photo-1680416249970-8fc845412862?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=727&amp;q=80"/>
+        <muxc:ProgressBar IsIndeterminate="True" Canvas.ZIndex="2" VerticalAlignment="Top" Grid.Column="1" Visibility="Collapsed"/>
+        <Grid Width="200" Height="260">
+            <Image Source="https://images.unsplash.com/photo-1680416249970-8fc845412862?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=727&amp;q=80" Stretch="UniformToFill"/>
 
         </Grid>
         <Grid Grid.Column="1" Margin="24" MinWidth="256" >
@@ -39,7 +40,7 @@
                 <PasswordBox x:Name="MyPasswordBox" PlaceholderText="密码" PasswordChanged="MyPasswordBox_PasswordChanged" KeyDown="MyPasswordBox_KeyDown"/>
                 <Grid>
                     <CheckBox x:Name="RememberMeCheckBox" Content="记住我"/>
-                    <TextBlock x:Name="ErrorTextBlock" Text="用户名或密码错误" HorizontalAlignment="Right"  VerticalAlignment="Center" Visibility="Collapsed"/>
+                    <TextBlock x:Name="ErrorTextBlock" Text="用户名或密码错误" HorizontalAlignment="Right"  VerticalAlignment="Center" Visibility="Collapsed" Style="{StaticResource DetailBodyBaseMediumStyle}" FontSize="14"/>
                 </Grid>
             </StackPanel>
 
