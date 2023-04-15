@@ -53,7 +53,7 @@ namespace FlarentApp.ViewModels.Dialogs
             await Launcher.LaunchUriAsync(new Uri($"https://{Flarent.Settings.Forum}"));
         }
         [ObservableProperty]
-        private bool isRemember;
+        private bool isRemember = true;
         [ObservableProperty]
         private string error;
         [ObservableProperty]

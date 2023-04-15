@@ -2,54 +2,112 @@
     x:Class="FlarentApp.Views.Dialogs.LoginDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:FlarentApp.Views.Dialogs"
+    xmlns:app="using:FlarentApp.Helpers"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:FlarentApp.Views.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:app="using:FlarentApp.Helpers" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    mc:Ignorable="d" >
+    mc:Ignorable="d">
 
     <ContentDialog.Resources>
         <Thickness x:Key="ContentDialogPadding">0</Thickness>
     </ContentDialog.Resources>
     <Grid HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <muxc:ProgressBar IsIndeterminate="True" Canvas.ZIndex="2" VerticalAlignment="Top" Grid.Column="1"  Visibility="{x:Bind ViewModel.LoginCommand.IsRunning,Mode=OneWay}"/>
+        <muxc:ProgressBar
+            Grid.Column="1"
+            VerticalAlignment="Top"
+            Canvas.ZIndex="2"
+            IsIndeterminate="True"
+            Visibility="{x:Bind ViewModel.LoginCommand.IsRunning, Mode=OneWay}" />
         <Grid Width="200" Height="260">
-            <Image Source="https://images.unsplash.com/photo-1680416249970-8fc845412862?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=727&amp;q=80" Stretch="UniformToFill"/>
-
+            <Image Source="https://images.unsplash.com/photo-1680416249970-8fc845412862?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=727&amp;q=80" Stretch="UniformToFill" />
         </Grid>
-        <Grid Grid.Column="1" Margin="24" MinWidth="256">
+        <Grid
+            Grid.Column="1"
+            MinWidth="256"
+            Margin="24">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,24">
-                <Image Source="{x:Bind app:Flarent.Settings.ForumInfo.FavIcon}" Height="24"/>
-                <TextBlock Text="登录" VerticalAlignment="Center" FontSize="15" Margin="0,2,0,0"/>
-                <TextBlock Text="|" Style="{StaticResource DetailBodyBaseMediumStyle}" VerticalAlignment="Center"/>
-                <TextBlock Text="{x:Bind app:Flarent.Settings.ForumInfo.Name}" VerticalAlignment="Center" FontSize="16"/>
+            <StackPanel
+                Margin="0,0,0,24"
+                Orientation="Horizontal"
+                Spacing="8">
+                <Image Height="24" Source="{x:Bind app:Flarent.Settings.ForumInfo.FavIcon}" />
+                <TextBlock
+                    Margin="0,2,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="15"
+                    Text="登录" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Style="{StaticResource DetailBodyBaseMediumStyle}"
+                    Text="|" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Text="{x:Bind app:Flarent.Settings.ForumInfo.Name}" />
             </StackPanel>
-            <StackPanel Spacing="12" Grid.Row="1" >
-                <TextBox x:Name="UserNameTextBox" Text="{x:Bind ViewModel.Username,Mode=TwoWay}" PlaceholderText="用户名/邮箱"  KeyDown="UserNameTextBox_KeyDown"/>
-                <PasswordBox x:Name="MyPasswordBox" Password="{x:Bind ViewModel.Password,Mode=TwoWay}" PlaceholderText="密码"  KeyDown="MyPasswordBox_KeyDown"/>
+            <StackPanel Grid.Row="1" Spacing="12">
+                <TextBox
+                    x:Name="UserNameTextBox"
+                    KeyDown="UserNameTextBox_KeyDown"
+                    PlaceholderText="用户名/邮箱"
+                    Text="{x:Bind ViewModel.Username, Mode=TwoWay}" />
+                <PasswordBox
+                    x:Name="MyPasswordBox"
+                    KeyDown="MyPasswordBox_KeyDown"
+                    Password="{x:Bind ViewModel.Password, Mode=TwoWay}"
+                    PlaceholderText="密码" />
                 <Grid>
-                    <CheckBox x:Name="RememberMeCheckBox" Content="记住我" IsChecked="True"/>
-                    <TextBlock x:Name="ErrorTextBlock" Text="{x:Bind ViewModel.Error,Mode=OneWay}" HorizontalAlignment="Right"  VerticalAlignment="Center" Style="{StaticResource DetailBodyBaseMediumStyle}" FontSize="14"/>
+                    <CheckBox
+                        x:Name="RememberMeCheckBox"
+                        Content="记住我"
+                        IsChecked="{x:Bind ViewModel.IsRemember,Mode=TwoWay}" />
+                    <TextBlock
+                        x:Name="ErrorTextBlock"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        FontSize="14"
+                        Style="{StaticResource DetailBodyBaseMediumStyle}"
+                        Text="{x:Bind ViewModel.Error, Mode=OneWay}" />
                 </Grid>
             </StackPanel>
 
-            <Button x:Name="CancelButton" Content="取消" IsEnabled="{x:Bind ViewModel.LoginCommand.IsRunning,Mode=OneWay,Converter={StaticResource BooleanInversionConverter}}" Command="{x:Bind ViewModel.CloseCommand}" Grid.Row="2" HorizontalAlignment="Left" Margin="{StaticResource SmallTopMargin}" VerticalAlignment="Bottom"/>
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="{StaticResource SmallTopMargin}" HorizontalAlignment="Right" Spacing="8" VerticalAlignment="Bottom">
-                <HyperlinkButton Name="SignUpButton" Content="注册" Command="{x:Bind ViewModel.SignUpCommand}"/>
-                <Button x:Name="LoginButton" Content="登录" Command="{x:Bind ViewModel.LoginCommand}" Style="{StaticResource AccentButtonStyle}" AccessKey="Enter"/>
+            <Button
+                x:Name="CancelButton"
+                Grid.Row="2"
+                Margin="{StaticResource SmallTopMargin}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Command="{x:Bind ViewModel.CloseCommand}"
+                Content="取消"
+                IsEnabled="{x:Bind ViewModel.LoginCommand.IsRunning, Mode=OneWay, Converter={StaticResource BooleanInversionConverter}}" />
+            <StackPanel
+                Grid.Row="2"
+                Margin="{StaticResource SmallTopMargin}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Orientation="Horizontal"
+                Spacing="8">
+                <HyperlinkButton
+                    Name="SignUpButton"
+                    Command="{x:Bind ViewModel.SignUpCommand}"
+                    Content="注册" />
+                <Button
+                    x:Name="LoginButton"
+                    AccessKey="Enter"
+                    Command="{x:Bind ViewModel.LoginCommand}"
+                    Content="登录"
+                    Style="{StaticResource AccentButtonStyle}" />
             </StackPanel>
         </Grid>
-
     </Grid>
 </ContentDialog>
