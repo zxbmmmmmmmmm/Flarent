@@ -136,6 +136,13 @@ namespace FlarentApp.Views.Controls
         }
         public static readonly DependencyProperty CanAdaptiveProperty =
            DependencyProperty.Register("CanAdaptive", typeof(bool), typeof(PostTemplate), new PropertyMetadata(false));
+        public bool IsReadMode
+        {
+            get { return (bool)GetValue(IsReadModeProperty); }
+            set { SetValue(IsReadModeProperty, value); }
+        }
+        public static readonly DependencyProperty IsReadModeProperty =
+           DependencyProperty.Register("IsReadMode", typeof(bool), typeof(PostTemplate), new PropertyMetadata(false));
         private bool disposedValue;
 
         public event PropertyChangedEventHandler PropertyChanged;

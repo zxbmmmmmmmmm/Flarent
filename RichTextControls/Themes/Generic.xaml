@@ -1,12 +1,18 @@
 ﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:richTextControls="using:RichTextControls">
 
     <Thickness x:Key="HtmlTextBlockElementBorderThickness">3,0,0,0</Thickness>
-    <SolidColorBrush x:Key="HtmlTextBlockElementBackground" Opacity="0.4" Color="{ThemeResource SystemChromeMediumHighColor}"/>
-    <SolidColorBrush x:Key="HtmlTextBlockElementBorderBrush" Opacity="0.2" Color="{ThemeResource SystemChromeHighColor}"/>
-    <SolidColorBrush x:Key="HtmlTextBlockBlockquoteBackground" Color="{ThemeResource SystemChromeMediumLowColor}"/>
+    <SolidColorBrush
+        x:Key="HtmlTextBlockElementBackground"
+        Opacity="0.4"
+        Color="{ThemeResource SystemChromeMediumHighColor}" />
+    <SolidColorBrush
+        x:Key="HtmlTextBlockElementBorderBrush"
+        Opacity="0.2"
+        Color="{ThemeResource SystemChromeHighColor}" />
+    <SolidColorBrush x:Key="HtmlTextBlockBlockquoteBackground" Color="{ThemeResource SystemChromeMediumLowColor}" />
 
     <CornerRadius x:Key="HtmlTextBlockElementCornerRadius">4</CornerRadius>
 
@@ -34,15 +40,14 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="richTextControls:CodeHighlightedTextBlock">
-                    <Border 
-                        x:Name="RootElement" 
-                        Background="{TemplateBinding Background}" 
+                    <Border
+                        x:Name="RootElement"
+                        Margin="{TemplateBinding Margin}"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        Padding="{TemplateBinding Padding}"
-                        Margin="{TemplateBinding Margin}"
-                        CornerRadius="{TemplateBinding CornerRadius}"
-                        />
+                        CornerRadius="{TemplateBinding CornerRadius}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

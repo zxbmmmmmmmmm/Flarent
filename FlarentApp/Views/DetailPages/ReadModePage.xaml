@@ -1,0 +1,45 @@
+﻿<Page
+    x:Class="FlarentApp.Views.DetailPages.ReadModePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FlarentApp.Views.DetailPages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:lc="using:FlarentApp.Views.Controls"
+    xmlns:models="using:FlarumApi.Models"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <ScrollViewer x:Name="MainScrollViewer" ViewChanged="ScrollViewer_ViewChanged">
+            <Grid Margin="{StaticResource SmallLeftTopRightBottomMargin}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--标题区域-->
+                <Grid HorizontalAlignment="Center">
+                    <StackPanel>
+                        <TextBlock Text="{x:Bind ViewModel.Discussion.Title,Mode=OneWay}"  Style="{StaticResource TitleTextBlockStyle}" IsTextSelectionEnabled="True"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4">
+                            <HyperlinkButton Content="{x:Bind ViewModel.User.DisplayName,Mode=OneWay}" Style="{StaticResource TextBlockButtonStyle}" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" Margin="0,1,0,0"/>
+                            <TextBlock Text="{x:Bind ViewModel.Discussion.CreatedAt,Converter={StaticResource DateConverter},Mode=OneWay}" VerticalAlignment="Center" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <!--内容区域-->
+                <Grid Grid.Row="1">
+                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Posts,Mode=OneWay}">
+                        <muxc:ItemsRepeater.ItemTemplate>
+                            <DataTemplate x:DataType="models:Post">
+                                <lc:PostTemplate Post="{x:Bind}" IsReadMode="True"/>
+                            </DataTemplate>
+                        </muxc:ItemsRepeater.ItemTemplate>
+                    </muxc:ItemsRepeater>
+                </Grid>
+
+            </Grid>
+        </ScrollViewer>
+        <muxc:ProgressBar IsIndeterminate ="True" Visibility="{x:Bind ViewModel.LoadMoreCommand.IsRunning,Mode=OneWay}" VerticalAlignment="Bottom"/>
+    </Grid>
+</Page>

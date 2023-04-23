@@ -26,15 +26,19 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-            <Ellipse Height="32" Width="32" HorizontalAlignment="Left" Tapped="Ellipse_Tapped">
+            <Ellipse Height="32" Width="32" HorizontalAlignment="Left" Tapped="Ellipse_Tapped" Visibility="{x:Bind IsReadMode,Converter={StaticResource BooleanVisibilityInversionConverter},Mode=OneWay}">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="{x:Bind Post.User.AvatarUrl,Mode=OneWay}"/>
                 </Ellipse.Fill>
             </Ellipse>
             <StackPanel Orientation="Horizontal">
-                <HyperlinkButton x:Name="UserButton" Click="UserButton_Click"  FontSize="15">
+                <HyperlinkButton x:Name="UserButton" Click="UserButton_Click"  FontSize="15" Visibility="{x:Bind IsReadMode,Converter={StaticResource BooleanVisibilityInversionConverter},Mode=OneWay}">
                     <TextBlock Text="{x:Bind Post.User.DisplayName,Mode=OneWay}"/>
                 </HyperlinkButton>
+                <StackPanel Orientation="Horizontal" Visibility="{x:Bind IsReadMode}">
+                    <TextBlock Text="#" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
+                    <TextBlock Text="{x:Bind Post.Number,Mode=OneWay}" Margin="0,0,4,0" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
+                </StackPanel>
                 <TextBlock Text="{x:Bind Post.CreatedAt,Converter={StaticResource DateConverter}}" VerticalAlignment="Center" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
                 <TextBlock Text="已编辑" ToolTipService.ToolTip="{x:Bind Post.EditedAt,Converter={StaticResource DateConverter}}" VerticalAlignment="Center" Margin="{StaticResource SmallLeftMargin}" Style="{StaticResource DetailBodyBaseMediumStyle}" Visibility="{x:Bind Post.EditedAt,Converter={StaticResource NullToVisibilityConverter}}"/>
             </StackPanel>

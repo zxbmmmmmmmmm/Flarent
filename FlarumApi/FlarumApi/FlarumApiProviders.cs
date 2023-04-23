@@ -184,7 +184,6 @@ namespace FlarumApi
             var data = await NetworkHelper.GetAsync(link, token);
             var forum = new Forum().CreateFromJson(data["data"]);
             forum.Reactions = InclusionTypeFilter.GetInclusions<Reaction>("reactions", data);
-            Reactions = forum.Reactions;
             return forum;
         }
         public async static Task<Tuple<JObject, string>> ReplyAsync(string text,string link,int discussionId,string token)
@@ -375,36 +374,43 @@ namespace FlarumApi
                 var post = Post.CreateFromJson(datum);
                 if (post.DiscussionId != null)
                     post.Discussion = discussions.FirstOrDefault(p => p.Id == post.DiscussionId);
-                if (post.ReactionIds != null)
+                try
                 {
-                    post.Reactions = new List<Reaction>();
-                    foreach (var id in post.ReactionIds)
+                    if (post.ReactionIds.Count != 0)
                     {
-                        var postReaction = postReactions.FirstOrDefault(p => p.Id == id);
-                        post.Reactions.Add(FlarumApiProviders.Reactions.FirstOrDefault(p => p.Id == postReaction.ReactionId));
+                        post.Reactions = new List<Reaction>();
+                        foreach (var id in post.ReactionIds)
+                        {
+                            var postReaction = postReactions.FirstOrDefault(p => p.Id == id);
+                            post.Reactions.Add(FlarumApiProviders.Reactions.FirstOrDefault(p => p.Id == postReaction.ReactionId));
+                        }
                     }
-                }
-                if (post.LikeIds != null)
-                {
-                    post.Likes = new List<User>();
-                    foreach(var id in post.LikeIds)
+                    if (post.LikeIds != null)
                     {
-                        post.Likes.Add(users.FirstOrDefault(p => p.Id == id));
+                        post.Likes = new List<User>();
+                        foreach (var id in post.LikeIds)
+                        {
+                            post.Likes.Add(users.FirstOrDefault(p => p.Id == id));
+                        }
                     }
-                }
 
-                if (post.Likes != null)
-                {
-                    if (post.Likes.Count != 0)
-                        post.ShowLikeIcon = true;
+                    if (post.Likes != null)
+                    {
+                        if (post.Likes.Count != 0)
+                            post.ShowLikeIcon = true;
+                        else
+                            post.ShowLikeIcon = false;
+                    }
                     else
                         post.ShowLikeIcon = false;
-                }
-                else
-                    post.ShowLikeIcon = false;
 
-                post.User = users.FirstOrDefault(p => p.Id == post.UserId) ?? Preset.DefaultUser;
-                posts.Add(post);
+                }
+                finally
+                {
+                    post.User = users.FirstOrDefault(p => p.Id == post.UserId) ?? Preset.DefaultUser;
+                    posts.Add(post);
+                }
+
             }
             return posts;
         }

@@ -203,6 +203,7 @@
     <Compile Include="Services\WhatsNewDisplayService.cs" />
     <Compile Include="Services\WindowService.cs" />
     <Compile Include="ViewModels\Dialogs\LoginDialogVM.cs" />
+    <Compile Include="ViewModels\Dialogs\ReadModePageVM.cs" />
     <Compile Include="Views\CatagoriesPage.xaml.cs">
       <DependentUpon>CatagoriesPage.xaml</DependentUpon>
     </Compile>
@@ -241,6 +242,9 @@
     </Compile>
     <Compile Include="Views\DetailPages\PostDetailPage.xaml.cs">
       <DependentUpon>PostDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DetailPages\ReadModePage.xaml.cs">
+      <DependentUpon>ReadModePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\DownloadDialog.xaml.cs">
       <DependentUpon>DownloadDialog.xaml</DependentUpon>
@@ -381,6 +385,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DetailPages\PostDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DetailPages\ReadModePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -564,6 +572,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ViewModels\DetailPages\" />
     <Folder Include="Views\Controls\Templates\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

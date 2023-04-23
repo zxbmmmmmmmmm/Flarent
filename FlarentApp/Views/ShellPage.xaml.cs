@@ -21,7 +21,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
+using User = FlarumApi.Models.User;
 using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace FlarentApp.Views
@@ -101,8 +101,15 @@ namespace FlarentApp.Views
         public async void UpdateForumInfo()
         {
             var link = $"https://{Flarent.Settings.Forum}/api";
-            var forum = await FlarumApiProviders.GetForumInfo(link, Flarent.Settings.Token);
-            Flarent.Settings.ForumInfo = forum;
+            try
+            {
+                var forum = await FlarumApiProviders.GetForumInfo(link, Flarent.Settings.Token);
+                Flarent.Settings.ForumInfo = forum;
+            }
+            finally
+            {
+                FlarumApiProviders.Reactions = Flarent.Settings.ForumInfo.Reactions;
+            }
         }
         public void SetTitleBar()
         {
@@ -122,10 +129,16 @@ namespace FlarentApp.Views
         /// </summary>
         private async void UpdateUserInfo()
         {
-            var link = $"https://{Flarent.Settings.Forum}/api/users/{Flarent.Settings.UserId.ToString()}";
-            var user = await FlarumApiProviders.GetUser(link, Flarent.Settings.Token);
-            Flarent.Settings.UserInfo = JsonConvert.SerializeObject(user);
-            User = user;
+            try
+            {
+                var link = $"https://{Flarent.Settings.Forum}/api/users/{Flarent.Settings.UserId.ToString()}";
+                var user = await FlarumApiProviders.GetUser(link, Flarent.Settings.Token);
+                Flarent.Settings.UserInfo = JsonConvert.SerializeObject(user);
+            }
+            finally
+            {
+                User = JsonConvert.DeserializeObject<User>(Flarent.Settings.UserInfo);
+            }
             GetNotifications();
         }
 

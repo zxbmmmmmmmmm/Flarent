@@ -293,6 +293,11 @@ namespace FlarentApp.Views.DetailPages
             }
 
         }
+
+        private void ReadModeButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(ReadModePage),Discussion);
+        }
     }
 
 }

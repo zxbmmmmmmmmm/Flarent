@@ -113,6 +113,8 @@
             <StackPanel x:Name="ActionPanel" Visibility="Collapsed" VerticalAlignment="Top" Margin="36,24,36,0" MaxWidth="1450" >
                 <StackPanel HorizontalAlignment="Right">
                     <Button x:Name="ReplyButton" Click="ReplyButton_Click" Content="回复" Width="162" Style="{StaticResource AccentButtonStyle}" IsEnabled="{x:Bind PostSlider.IsEnabled,Mode=OneWay}"/>
+                    <Button x:Name="ReadModeButton" Click="ReadModeButton_Click" Margin="{StaticResource XSmallTopMargin}" Content="阅读模式" Width="162" IsEnabled="{x:Bind PostSlider.IsEnabled,Mode=OneWay}"/>
+
                     <StackPanel Orientation="Horizontal" Spacing="4" Margin="{StaticResource XSmallTopMargin}">
                         <ToggleButton x:Name="FavoriteButton" Content="关注" Width="126" IsEnabled="False"/>
                         <Button Padding="8" IsEnabled="{x:Bind ReplyButton.IsEnabled,Mode=OneWay}">
