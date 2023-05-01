@@ -42,6 +42,8 @@ namespace FlarentApp.Views.DetailPages
                     GetPost((string)e.Parameter);
                 else if (e.Parameter is int id)
                     GetPost(id);
+                else if (e.Parameter is List<int> ids)
+                    GetPost(ids);
             }
 
         }
@@ -65,7 +67,14 @@ namespace FlarentApp.Views.DetailPages
             PostsListView.ItemsSource = Posts;
             LoadingProgressRing.Visibility = Visibility.Collapsed;
         }
-
+        public async void GetPost(List<int> ids)
+        {
+            var posts = await FlarumApiProviders.GetPostsWithId(ids,Flarent.Settings.Forum, Flarent.Settings.Token);
+            Posts = posts;
+            //Posts = posts.Item1;
+            PostsListView.ItemsSource = Posts;
+            LoadingProgressRing.Visibility = Visibility.Collapsed;
+        }
 
     }
 }

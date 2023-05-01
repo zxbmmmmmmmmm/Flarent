@@ -45,4 +45,23 @@ namespace FlarentApp.Views.DetailPages
             }
         }
     }
+
+    public class PostDataTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate Normal { get; set; }
+        public DataTemplate Comments { get; set; }
+        protected override DataTemplate SelectTemplateCore(object item)
+        {
+            if (item is CommentList)
+                return Comments;
+            else
+                return Normal;
+        }
+    }
+    public class CommentList
+    {
+        public List<int> Comments { get; set; }
+        public ReadModePageVM ViewModel { get; set; }
+    }
+
 }

@@ -189,6 +189,7 @@ namespace FlarentApp.Views.DetailPages
             PostSlider.IsEnabled = false;
             var list = PostIds.GetRange(min, range);
             var data = await FlarumApiProviders.GetPostsWithId(list, Flarent.Settings.Forum, Flarent.Settings.Token);
+            if (data[0].Number == 1) Discussion.User = data[0].User;
             PostsListView.ItemsSource = data;
             PageTextBlock.Text = $"{CurrentPage + 1}/{TotalPages}页";
             PagePostsTextBlock.Text = $"第{min + 1}-{min + range}条回复";

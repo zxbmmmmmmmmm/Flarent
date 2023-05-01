@@ -2,44 +2,105 @@
     x:Class="FlarentApp.Views.DetailPages.ReadModePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:FlarentApp.Views.DetailPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:lc="using:FlarentApp.Views.Controls"
+    xmlns:local="using:FlarentApp.Views.DetailPages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FlarumApi.Models"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <local:PostDataTemplateSelector
+            x:Key="PostDataTemplateSelector"
+            Comments="{StaticResource CommentsTemplate}"
+            Normal="{StaticResource NormalTemplate}" />
+        <DataTemplate x:Key="NormalTemplate" x:DataType="models:Post">
+            <lc:PostTemplate IsReadMode="True" Post="{x:Bind}" />
+        </DataTemplate>
+        <DataTemplate x:Key="CommentsTemplate" x:DataType="local:CommentList">
+            <Grid MaxWidth="1256" Margin="32,0">
+                <Button
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    CornerRadius="0"
+                    Command="{x:Bind ViewModel.ViewCommentsCommand,Mode=OneWay}"
+                    CommandParameter="{x:Bind Comments}">
+                    <Grid>
+                        <StackPanel
+                            Margin="8,12"
+                            HorizontalAlignment="Left"
+                            Orientation="Horizontal">
+                            <FontIcon FontSize="16" Glyph="&#xE8F2;" />
+                            <TextBlock
+                                Margin="{StaticResource SmallLeftMargin}"
+                                FontSize="16"
+                                Text="{x:Bind Comments.Count}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                Text="条回复" />
+                        </StackPanel>
+                        <FontIcon
+                            Margin="0,0,8,0"
+                            HorizontalAlignment="Right"
+                            FontSize="16"
+                            Glyph="&#xE00F;" />
+                    </Grid>
+
+                </Button>
+
+                <Border
+                    Grid.Row="4"
+                    VerticalAlignment="Bottom"
+                    BorderBrush="#33808080"
+                    BorderThickness="0,1,0,0" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
     <Grid>
         <ScrollViewer x:Name="MainScrollViewer" ViewChanged="ScrollViewer_ViewChanged">
             <Grid Margin="{StaticResource SmallLeftTopRightBottomMargin}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <!--标题区域-->
+                <!--  标题区域  -->
                 <Grid HorizontalAlignment="Center">
                     <StackPanel>
-                        <TextBlock Text="{x:Bind ViewModel.Discussion.Title,Mode=OneWay}"  Style="{StaticResource TitleTextBlockStyle}" IsTextSelectionEnabled="True"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4">
-                            <HyperlinkButton Content="{x:Bind ViewModel.User.DisplayName,Mode=OneWay}" Style="{StaticResource TextBlockButtonStyle}" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" Margin="0,1,0,0"/>
-                            <TextBlock Text="{x:Bind ViewModel.Discussion.CreatedAt,Converter={StaticResource DateConverter},Mode=OneWay}" VerticalAlignment="Center" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"/>
+                        <TextBlock
+                            IsTextSelectionEnabled="True"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="{x:Bind ViewModel.Discussion.Title, Mode=OneWay}" />
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal"
+                            Spacing="4">
+                            <HyperlinkButton
+                                Margin="0,1,0,0"
+                                Content="{x:Bind ViewModel.User.DisplayName, Mode=OneWay}"
+                                Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"
+                                Style="{StaticResource TextBlockButtonStyle}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"
+                                Text="{x:Bind ViewModel.Discussion.CreatedAt, Converter={StaticResource DateConverter}, Mode=OneWay}" />
                         </StackPanel>
                     </StackPanel>
                 </Grid>
-                <!--内容区域-->
+                <!--  内容区域  -->
                 <Grid Grid.Row="1">
-                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Posts,Mode=OneWay}">
-                        <muxc:ItemsRepeater.ItemTemplate>
-                            <DataTemplate x:DataType="models:Post">
-                                <lc:PostTemplate Post="{x:Bind}" IsReadMode="True"/>
-                            </DataTemplate>
-                        </muxc:ItemsRepeater.ItemTemplate>
-                    </muxc:ItemsRepeater>
+                    <muxc:ItemsRepeater ItemTemplate="{StaticResource PostDataTemplateSelector}" ItemsSource="{x:Bind ViewModel.Posts, Mode=OneWay}" />
                 </Grid>
 
             </Grid>
         </ScrollViewer>
-        <muxc:ProgressBar IsIndeterminate ="True" Visibility="{x:Bind ViewModel.LoadMoreCommand.IsRunning,Mode=OneWay}" VerticalAlignment="Bottom"/>
+        <muxc:ProgressBar
+            VerticalAlignment="Bottom"
+            IsIndeterminate="True"
+            Visibility="{x:Bind ViewModel.LoadMoreCommand.IsRunning, Mode=OneWay}" />
     </Grid>
 </Page>

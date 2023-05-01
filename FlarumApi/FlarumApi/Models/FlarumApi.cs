@@ -139,7 +139,7 @@ namespace FlarumApi.Models
         public DateTime? HiddenAt { get; set; }
         public bool CanEdit { get; set; }
 
-        public List<int> ReactionIds { get; set; }
+        public List<int> ReactionIds  { get; set; }
         public List<Reaction> Reactions { get; set; }
 
         public static Post CreateFromJson(JToken token)
