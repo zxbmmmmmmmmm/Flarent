@@ -48,33 +48,14 @@
             <FontIcon Glyph="&#xED1A;" Visibility="{x:Bind Post.IsHidden}" FontSize="15" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
             <TextBlock Text="已隐藏" VerticalAlignment="Center" Style="{StaticResource DetailBodyBaseMediumStyle}" Visibility="{x:Bind Post.IsHidden}"/>
         </StackPanel>
-        <!--<controls:MarkdownTextBlock x:Name="ContentMarkdownTextBlock"
-                                    Grid.Row="1"
-                                    Background="Transparent"
-                                    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
-                                    UriPrefix="ms-appx://"
-                                    SchemeList="companyportal,randomscheme"
-                                    Margin="{StaticResource SmallTopMargin}"
-                                    Text="{x:Bind Post.ContentHtml,Converter={StaticResource HtmlToMarkdownConverter}}"
-                                    LinkClicked="ContentMarkdownTextBlock_LinkClicked"
-                                    ImageClicked="ContentMarkdownTextBlock_ImageClicked" Visibility="Collapsed"/>-->
-        <richtext:HtmlTextBlock Html="{x:Bind Post.ContentHtml}" Grid.Row="1" HorizontalAlignment="Stretch" Margin="0,12,0,0" Visibility="Visible" LinkClicked="HtmlTextBlock_LinkClicked" ImageClicked="HtmlTextBlock_ImageClicked"/>
-        <!--<RichTextBlock x:Name="PostContent" html:HtmlProperties.Html="{x:Bind Post.ContentHtml}" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalTextAlignment="Start" Visibility="Collapsed"/>-->
-        <!--<WebView x:Name="ContentWebView"
-            NavigationCompleted="ContentWebView_NavigationCompleted"
-                 NavigationStarting="ContentWebView_NavigationStarting"
-                 ScriptNotify="ContentWebView_ScriptNotify"
-                 Visibility="Collapsed"
-            app:WebViewExtensions.HtmlSource="{x:Bind Post.ContentHtml}"
-            Grid.Row="1"
-            DefaultBackgroundColor="Transparent"
-            ScrollViewer.IsVerticalRailEnabled="False"/>-->
+
+        <richtext:HtmlTextBlock x:Name="ContentBlock" Html="{x:Bind Post.ContentHtml}" Grid.Row="1" HorizontalAlignment="Stretch" Margin="0,12,0,0" Visibility="Visible" />
+
         <Grid x:Name="SpecialPostPanel" Grid.Row="2"  Visibility="{x:Bind Post.SpecialContent,Converter={StaticResource NullToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <!--<FontIcon x:Name="PostIcon" Glyph="{x:Bind Post.SpecialContent.Icon}" VerticalAlignment="Top" />-->
             <controls:MarkdownTextBlock x:Name="DescriptionTextBlock" Background="Transparent" Text="{x:Bind Post.SpecialContent.Description}" muxc:BackdropMaterial.ApplyToRootOrPageBackground="True" Margin="8,0,0,0" Grid.Column="1"/>
         </Grid>
         

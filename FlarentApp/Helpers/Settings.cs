@@ -113,6 +113,42 @@ namespace FlarentApp.Helpers
             }
         }
         /// <summary>
+        /// 看帖时默认进入阅读模式
+        /// </summary>
+        public bool ReadModeDefault
+        {
+            get => GetSettings("ReadModeDefault", false);
+            set
+            {
+                ApplicationData.Current.LocalSettings.Values["ReadModeDefault"] = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// 阅读模式提前加载全部内容
+        /// </summary>
+        public bool ReadModeLoadAllPostsFirst
+        {
+            get => GetSettings("ReadModeLoadAllPostsFirst", false);
+            set
+            {
+                ApplicationData.Current.LocalSettings.Values["ReadModeLoadAllPostsFirst"] = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// 阅读模式显示评论
+        /// </summary>
+        public bool IsReadModeCommentsVisible
+        {
+            get => GetSettings("IsReadModeCommentsVisible", false);
+            set
+            {
+                ApplicationData.Current.LocalSettings.Values["IsReadModeCommentsVisible"] = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
         /// token，用于身份验证
         /// 请勿随意更改
         /// </summary>

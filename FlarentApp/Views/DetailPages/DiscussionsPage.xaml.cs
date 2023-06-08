@@ -105,7 +105,10 @@ namespace FlarentApp.Views.DetailPages
         {
             var clicked = e.ClickedItem as Discussion;
             var id = clicked.Id;
-            NavigationService.Navigate<DiscussionDetailPage>(id);
+            if(Flarent.Settings.ReadModeDefault)
+                NavigationService.Navigate<ReadModePage>(clicked);
+            else
+                NavigationService.Navigate<DiscussionDetailPage>(id);
         }
     }
 }

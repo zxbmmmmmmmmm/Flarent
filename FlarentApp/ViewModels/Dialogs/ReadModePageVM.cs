@@ -19,13 +19,14 @@ namespace FlarentApp.ViewModels.Dialogs
     public sealed partial class ReadModePageVM:ObservableObject
     {
         [ObservableProperty]
-        public Discussion discussion = new();
+        private Discussion discussion = new();
         [ObservableProperty]
-        public User user = new();
+        private User user = new();
         [ObservableProperty]
-        public ObservableCollection<object> posts = new();
+        private ObservableCollection<object> posts = new();
         public List<int> PostIds = new();
         public string LinkNext;
+
         /*[RelayCommand]
         public async Task GetPosts()
         {
@@ -44,8 +45,24 @@ namespace FlarentApp.ViewModels.Dialogs
             }
         }*/
         [RelayCommand]
+        public async Task LoadAll()
+        {
+            while(LinkNext != "")
+            {
+                try
+                {
+                    await LoadMore();
+                }
+                catch
+                {
+
+                }
+            }
+        }
+        [RelayCommand]
         public async Task LoadMore()
         {
+
             var tup = new Tuple<List<Post>,string>(null,null);
             User = Discussion.User;
             if (LinkNext == null)
@@ -56,6 +73,12 @@ namespace FlarentApp.ViewModels.Dialogs
                 tup = await FlarumApiProviders.GetPostsWithLink(LinkNext, Flarent.Settings.Token);
             var posts = tup.Item1;
             LinkNext = tup.Item2;
+
+            if(Discussion.Posts.Count == 0)
+            {
+                Discussion = await FlarumApiProviders.GetDiscussion(Discussion.Id.Value, 0, Flarent.Settings.Forum, Flarent.Settings.Token);
+            }
+
             var allPostsList = new List<int>();
             foreach (var item in Discussion.Posts)
             {
@@ -67,7 +90,8 @@ namespace FlarentApp.ViewModels.Dialogs
                 {
                     var index = posts.IndexOf(post);
                     Posts.Add(post);
-                    if (index == posts.Count) return;
+                    if (index + 1 == posts.Count) return;
+
                     if (posts[index + 1].Number - 1 != post.Number)//中间有评论
                     {
                         var comments = allPostsList.GetRange(post.Number.Value, posts[index + 1].Number.Value - post.Number.Value - 1);
@@ -78,7 +102,7 @@ namespace FlarentApp.ViewModels.Dialogs
             }
             finally
             {
-                if (allPostsList[allPostsList.Count - 1] != posts[posts.Count - 1].Number&&LinkNext == "")//添加剩余的评论
+                if (allPostsList.Count != posts[posts.Count - 1].Number.Value&&LinkNext == "")//添加剩余的评论
                 {
                     var num = posts[posts.Count - 1].Number.Value;
                     var comments = allPostsList.GetRange(posts[posts.Count - 1].Number.Value, allPostsList.Count - num);

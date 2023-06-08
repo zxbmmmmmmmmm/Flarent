@@ -10,6 +10,7 @@ using FlarumApi.Models;
 using Microsoft.Toolkit.Uwp.UI;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Newtonsoft.Json.Linq;
+using RichTextControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -202,6 +203,10 @@ namespace FlarentApp.Views.Controls
             VotesToggleButton.Click += VotesToggleButton_Click;
             EditMenuItem.Click -= EditMenuItem_Click;
             EditMenuItem.Click += EditMenuItem_Click;
+            ContentBlock.LinkClicked -= HtmlTextBlock_LinkClicked;
+            ContentBlock.LinkClicked += HtmlTextBlock_LinkClicked;
+            ContentBlock.ImageClicked -= HtmlTextBlock_ImageClicked;
+            ContentBlock.ImageClicked += HtmlTextBlock_ImageClicked;
             if (Window.Current.Bounds.Width >= 865 && Window.Current.Bounds.Width >= 550 && CanAdaptive)
             {
                 PostArea.Margin = new Thickness(32, 4, 200, 0);
@@ -220,19 +225,13 @@ namespace FlarentApp.Views.Controls
            {
             // UserButton.Click -= UserButton_Click;
             //ContentMarkdownTextBlock.LinkClicked -= ContentMarkdownTextBlock_LinkClicked;
+
             Dispose();
             //ReplyButton.Click -= ReplyButton_Click;
             //VotesToggleButton.Click -= VotesToggleButton_Click;
             //EditMenuItem.Click -= EditMenuItem_Click;         
         }
 
-        private void ContentMarkdownTextBlock_ImageClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
-        {
-            //ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", ContentMarkdownTextBlock);
-            new ImageView().Show(e.Link);
-            //var shell = Window.Current.Content as ShellPage;
-            //shell.ShowImage(e.Link);            
-        }
         private void Ellipse_Tapped(object sender, TappedRoutedEventArgs e)
         {
             var btn = (Ellipse)sender;
@@ -254,10 +253,15 @@ namespace FlarentApp.Views.Controls
                     ReplyButton.Click -= ReplyButton_Click;
                     VotesToggleButton.Click -= VotesToggleButton_Click;
                     EditMenuItem.Click -= EditMenuItem_Click;
-                 }
-
+                    ContentBlock.LinkClicked -= HtmlTextBlock_LinkClicked;
+                    ContentBlock.ImageClicked -= HtmlTextBlock_ImageClicked;
+                    Unloaded -= UserControl_Unloaded;
+                    Loaded -= UserControl_Loaded;
+                }
+                Bindings.StopTracking();
                 Post = null;
-                
+                ContentBlock = null;
+                GC.Collect();
                 disposedValue = true;
             }
         }

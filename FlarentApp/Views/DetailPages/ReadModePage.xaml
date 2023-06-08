@@ -7,7 +7,7 @@
     xmlns:local="using:FlarentApp.Views.DetailPages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FlarumApi.Models"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:app="using:FlarentApp.Helpers"
     mc:Ignorable="d">
     <Page.Resources>
         <local:PostDataTemplateSelector
@@ -16,10 +16,9 @@
             Normal="{StaticResource NormalTemplate}" />
         <DataTemplate x:Key="NormalTemplate" x:DataType="models:Post">
             <lc:PostTemplate IsReadMode="True" Post="{x:Bind}" />
-
         </DataTemplate>
         <DataTemplate x:Key="CommentsTemplate" x:DataType="local:CommentList">
-            <Grid MaxWidth="1320">
+            <Grid MaxWidth="1320" Visibility="{x:Bind app:Flarent.Settings.IsReadModeCommentsVisible}">
                 <Button
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
@@ -63,7 +62,7 @@
     </Page.Resources>
 
     <Grid>
-        <ScrollViewer x:Name="MainScrollViewer" ViewChanged="ScrollViewer_ViewChanged">
+        <ScrollViewer x:Name="MainScrollViewer" ViewChanged="ScrollViewer_ViewChanged" IsEnabled="{x:Bind ViewModel.LoadMoreCommand.IsRunning,Converter={StaticResource BooleanInversionConverter}, Mode=OneWay}">
             <Grid Margin="{StaticResource SmallLeftTopRightBottomMargin}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -94,7 +93,7 @@
                 </Grid>
                 <!--  内容区域  -->
                 <Grid Grid.Row="1">
-                    <muxc:ItemsRepeater ItemTemplate="{StaticResource PostDataTemplateSelector}" ItemsSource="{x:Bind ViewModel.Posts, Mode=OneWay}" />
+                    <muxc:ItemsRepeater ItemTemplate="{StaticResource PostDataTemplateSelector}" ItemsSource="{x:Bind ViewModel.Posts, Mode=OneWay}"/>
                 </Grid>
 
             </Grid>
@@ -103,5 +102,11 @@
             VerticalAlignment="Bottom"
             IsIndeterminate="True"
             Visibility="{x:Bind ViewModel.LoadMoreCommand.IsRunning, Mode=OneWay}" />
+        <Grid Background="#60333333" Visibility="{x:Bind ViewModel.LoadAllCommand.IsRunning, Mode=OneWay}"/>
+        <muxc:ProgressRing
+            VerticalAlignment="Center"
+            Height="80"
+            Width="80"
+            Visibility="{x:Bind ViewModel.LoadAllCommand.IsRunning, Mode=OneWay}" />
     </Grid>
 </Page>

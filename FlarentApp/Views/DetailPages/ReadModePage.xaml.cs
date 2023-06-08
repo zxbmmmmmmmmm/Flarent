@@ -1,4 +1,5 @@
-﻿using FlarentApp.ViewModels.Dialogs;
+﻿using FlarentApp.Helpers;
+using FlarentApp.ViewModels.Dialogs;
 using FlarumApi.Models;
 using System;
 using System.Collections.Generic;
@@ -33,13 +34,23 @@ namespace FlarentApp.Views.DetailPages
         {
             base.OnNavigatedTo(e);
             ViewModel.Discussion = e.Parameter as Discussion;
-            ViewModel.LoadMoreCommand.ExecuteAsync(null);
+            if(Flarent.Settings.ReadModeLoadAllPostsFirst)
+            {
+                ViewModel.LoadAllCommand.ExecuteAsync(null);
+
+            }
+            else
+            {
+                ViewModel.LoadMoreCommand.ExecuteAsync(null);
+            }
         }
 
         private void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             var height = Window.Current.Bounds.Height*0.8 + MainScrollViewer.ExtentHeight * 0.1;
-            if (MainScrollViewer.VerticalOffset + height >= MainScrollViewer.ExtentHeight&&!ViewModel.LoadMoreCommand.IsRunning)
+            if (MainScrollViewer.VerticalOffset + height >= MainScrollViewer.ExtentHeight
+                &&!ViewModel.LoadMoreCommand.IsRunning
+                &&ViewModel.LinkNext != "")
             {
                 ViewModel.LoadMoreCommand.ExecuteAsync(null);
             }

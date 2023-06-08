@@ -112,9 +112,11 @@ namespace FlarentApp.Views
         {
             //var item = (ListViewItem)DiscussionsListView.ContainerFromItem(e.ClickedItem);
             //ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", item);
-            var clicked = e.ClickedItem as Discussion;
-            var id = clicked.Id;
-            NavigationService.Navigate<DiscussionDetailPage>(id);
+            var discussion = e.ClickedItem as Discussion;
+            if (Flarent.Settings.ReadModeDefault)
+                NavigationService.Navigate<ReadModePage>(discussion);
+            else
+                NavigationService.Navigate<DiscussionDetailPage>(discussion.Id);
         }
 
         private void NavigationView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
