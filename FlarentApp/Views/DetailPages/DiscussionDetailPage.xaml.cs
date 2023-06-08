@@ -6,7 +6,9 @@ using FlarumApi;
 using FlarumApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -33,11 +35,13 @@ namespace FlarentApp.Views.DetailPages
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
-    public sealed partial class DiscussionDetailPage : Page, INotifyPropertyChanged
+    public sealed partial class DiscussionDetailPage : Page, INotifyPropertyChanged,IDisposable
     {
         public ScrollViewer PostScrollViewer = new ScrollViewer();
         //public Discussion Discussion= new Discussion();
         public List<int> PostIds = new List<int>();
+
+        public ObservableCollection<Post> Posts { get; set; } = new ObservableCollection<Post>();
         //public int CurrentPage;
         public int LastPosts;
         public int TotalPages;
@@ -96,6 +100,7 @@ namespace FlarentApp.Views.DetailPages
             }
         }
         private bool _isFirstPage;
+        private bool disposedValue;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -122,6 +127,22 @@ namespace FlarentApp.Views.DetailPages
             await GetDiscussion();
             await TurnToPage(0);
             
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            PostScrollViewer.ViewChanged -= PostScrollViewer_ViewChanged;
+            PostSlider.PointerReleased -= PostSlider_PointerReleased;
+            NextPageButton.Click -= NextPageButton_Click;
+            PreviousPageButton.Click -= PreviousPageButton_Click;
+            ReplyButton.Click -= ReplyButton_Click;
+            DownloadItem.Click -= DownloadItem_Click;
+            RefreshItem.Click -= RefreshItem_Click;
+            PostsListView.Loaded -= PostsListView_Loaded;
+            ReadModeButton.Click -= ReadModeButton_Click;
+            GC.Collect();
+            Dispose();
         }
         private void PostScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
@@ -189,8 +210,16 @@ namespace FlarentApp.Views.DetailPages
             PostSlider.IsEnabled = false;
             var list = PostIds.GetRange(min, range);
             var data = await FlarumApiProviders.GetPostsWithId(list, Flarent.Settings.Forum, Flarent.Settings.Token);
-            if (data[0].Number == 1) Discussion.User = data[0].User;
-            PostsListView.ItemsSource = data;
+            if (data[0].Number == 1 && Discussion.User == null)
+            {
+                Discussion.User = data[0].User;
+            }
+            Posts.Clear();
+            foreach (var post in data)
+            {
+                Posts.Add(post);
+            }
+            PostsListView.ItemsSource = Posts;
             PageTextBlock.Text = $"{CurrentPage + 1}/{TotalPages}页";
             PagePostsTextBlock.Text = $"第{min + 1}-{min + range}条回复";
             PostSlider.IsEnabled = true;
@@ -298,6 +327,37 @@ namespace FlarentApp.Views.DetailPages
         private void ReadModeButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(typeof(ReadModePage),Discussion);
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: 释放托管状态(托管对象)
+                }
+
+                // TODO: 释放未托管的资源(未托管的对象)并重写终结器
+                Discussion = null;
+                PostIds = null;
+                Posts = null;              
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: 仅当“Dispose(bool disposing)”拥有用于释放未托管资源的代码时才替代终结器
+        // ~DiscussionDetailPage()
+        // {
+        //     // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose()
+        {
+            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 

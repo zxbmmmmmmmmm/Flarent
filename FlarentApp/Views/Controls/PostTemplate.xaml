@@ -15,7 +15,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid x:Name="PostArea" HorizontalAlignment="Stretch" MaxWidth="1256">
+    <Grid x:Name="PostArea" HorizontalAlignment="Stretch" MaxWidth="1256" x:DefaultBindMode="OneWay">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -26,18 +26,18 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-            <Ellipse Height="32" Width="32" HorizontalAlignment="Left" Tapped="Ellipse_Tapped" Visibility="{x:Bind IsReadMode,Converter={StaticResource BooleanVisibilityInversionConverter},Mode=OneWay}">
+            <Ellipse Height="32" Width="32" HorizontalAlignment="Left" Tapped="Ellipse_Tapped" Visibility="{x:Bind IsReadMode,Converter={StaticResource BooleanVisibilityInversionConverter}}">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="{x:Bind Post.User.AvatarUrl,Mode=OneWay}"/>
+                    <ImageBrush ImageSource="{x:Bind Post.User.AvatarUrl}"/>
                 </Ellipse.Fill>
             </Ellipse>
             <StackPanel Orientation="Horizontal">
-                <HyperlinkButton x:Name="UserButton" Click="UserButton_Click"  FontSize="15" Visibility="{x:Bind IsReadMode,Converter={StaticResource BooleanVisibilityInversionConverter},Mode=OneWay}">
-                    <TextBlock Text="{x:Bind Post.User.DisplayName,Mode=OneWay}"/>
+                <HyperlinkButton x:Name="UserButton" Click="UserButton_Click"  FontSize="15" Visibility="{x:Bind IsReadMode,Converter={StaticResource BooleanVisibilityInversionConverter}}">
+                    <TextBlock Text="{x:Bind Post.User.DisplayName}"/>
                 </HyperlinkButton>
                 <StackPanel Orientation="Horizontal" Visibility="{x:Bind IsReadMode}">
                     <TextBlock Text="#" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
-                    <TextBlock Text="{x:Bind Post.Number,Mode=OneWay}" Margin="0,0,4,0" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
+                    <TextBlock Text="{x:Bind Post.Number}" Margin="0,0,4,0" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
                 </StackPanel>
                 <TextBlock Text="{x:Bind Post.CreatedAt,Converter={StaticResource DateConverter}}" VerticalAlignment="Center" Style="{StaticResource DetailBodyBaseMediumStyle}"/>
                 <TextBlock Text="已编辑" ToolTipService.ToolTip="{x:Bind Post.EditedAt,Converter={StaticResource DateConverter}}" VerticalAlignment="Center" Margin="{StaticResource SmallLeftMargin}" Style="{StaticResource DetailBodyBaseMediumStyle}" Visibility="{x:Bind Post.EditedAt,Converter={StaticResource NullToVisibilityConverter}}"/>
@@ -55,17 +55,17 @@
                                     UriPrefix="ms-appx://"
                                     SchemeList="companyportal,randomscheme"
                                     Margin="{StaticResource SmallTopMargin}"
-                                    Text="{x:Bind Post.ContentHtml,Mode=OneWay,Converter={StaticResource HtmlToMarkdownConverter}}"
+                                    Text="{x:Bind Post.ContentHtml,Converter={StaticResource HtmlToMarkdownConverter}}"
                                     LinkClicked="ContentMarkdownTextBlock_LinkClicked"
                                     ImageClicked="ContentMarkdownTextBlock_ImageClicked" Visibility="Collapsed"/>-->
-        <richtext:HtmlTextBlock Html="{x:Bind Post.ContentHtml,Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" Margin="0,12,0,0" Visibility="Visible" LinkClicked="HtmlTextBlock_LinkClicked" ImageClicked="HtmlTextBlock_ImageClicked"/>
-        <!--<RichTextBlock x:Name="PostContent" html:HtmlProperties.Html="{x:Bind Post.ContentHtml,Mode=OneWay}" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalTextAlignment="Start" Visibility="Collapsed"/>-->
+        <richtext:HtmlTextBlock Html="{x:Bind Post.ContentHtml}" Grid.Row="1" HorizontalAlignment="Stretch" Margin="0,12,0,0" Visibility="Visible" LinkClicked="HtmlTextBlock_LinkClicked" ImageClicked="HtmlTextBlock_ImageClicked"/>
+        <!--<RichTextBlock x:Name="PostContent" html:HtmlProperties.Html="{x:Bind Post.ContentHtml}" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalTextAlignment="Start" Visibility="Collapsed"/>-->
         <!--<WebView x:Name="ContentWebView"
             NavigationCompleted="ContentWebView_NavigationCompleted"
                  NavigationStarting="ContentWebView_NavigationStarting"
                  ScriptNotify="ContentWebView_ScriptNotify"
                  Visibility="Collapsed"
-            app:WebViewExtensions.HtmlSource="{x:Bind Post.ContentHtml,Mode=OneWay}"
+            app:WebViewExtensions.HtmlSource="{x:Bind Post.ContentHtml}"
             Grid.Row="1"
             DefaultBackgroundColor="Transparent"
             ScrollViewer.IsVerticalRailEnabled="False"/>-->
@@ -74,18 +74,18 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <FontIcon x:Name="PostIcon" Glyph="{x:Bind Post.SpecialContent.Icon}" VerticalAlignment="Top" />
+            <!--<FontIcon x:Name="PostIcon" Glyph="{x:Bind Post.SpecialContent.Icon}" VerticalAlignment="Top" />-->
             <controls:MarkdownTextBlock x:Name="DescriptionTextBlock" Background="Transparent" Text="{x:Bind Post.SpecialContent.Description}" muxc:BackdropMaterial.ApplyToRootOrPageBackground="True" Margin="8,0,0,0" Grid.Column="1"/>
         </Grid>
         
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" >
-            <ToggleButton x:Name="VotesToggleButton" IsChecked="{x:Bind Post.HasUpvoted}" Visibility="{x:Bind Post.Votes,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}" >
+            <ToggleButton x:Name="VotesToggleButton" IsChecked="{x:Bind Post.HasUpvoted}" Visibility="{x:Bind Post.Votes,Converter={StaticResource NullToVisibilityConverter}}" >
                 <StackPanel Orientation="Horizontal">
                     <FontIcon Glyph="&#xE19F;" FontSize="14"/>
-                    <TextBlock x:Name="VotesTextBlock" Text="{x:Bind Post.Votes,Mode=OneWay}" Margin="{StaticResource SmallLeftMargin}"/>
+                    <TextBlock x:Name="VotesTextBlock" Text="{x:Bind Post.Votes}" Margin="{StaticResource SmallLeftMargin}"/>
                 </StackPanel>
             </ToggleButton>
-            <Button x:Name="ReplyButton" Visibility="{x:Bind app:Flarent.Settings.Token,Mode=OneWay,Converter={StaticResource NullToVisibilityConverter}}">
+            <Button x:Name="ReplyButton" Visibility="{x:Bind app:Flarent.Settings.Token,Converter={StaticResource NullToVisibilityConverter}}">
                 <StackPanel Orientation="Horizontal">
                     <FontIcon Glyph="&#xE97A;" FontSize="14"/>
                     <TextBlock Text="回复" Margin="{StaticResource SmallLeftMargin}"/>
@@ -95,7 +95,7 @@
                 <SymbolIcon Symbol="More"/>
                 <Button.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem x:Name="EditMenuItem" Icon="Edit" Text="编辑" Visibility="{x:Bind ReplyButton.Visibility,Mode=OneWay}" IsEnabled="{x:Bind Post.CanEdit}"/>
+                        <MenuFlyoutItem x:Name="EditMenuItem" Icon="Edit" Text="编辑" Visibility="{x:Bind ReplyButton.Visibility}" IsEnabled="{x:Bind Post.CanEdit}"/>
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>

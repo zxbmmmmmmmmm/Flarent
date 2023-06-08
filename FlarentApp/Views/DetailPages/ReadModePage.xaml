@@ -19,7 +19,7 @@
             <lc:PostTemplate IsReadMode="True" Post="{x:Bind}" />
         </DataTemplate>
         <DataTemplate x:Key="CommentsTemplate" x:DataType="local:CommentList">
-            <Grid MaxWidth="1256" Margin="32,0">
+            <Grid MaxWidth="1256">
                 <Button
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
@@ -33,21 +33,21 @@
                             Margin="8,12"
                             HorizontalAlignment="Left"
                             Orientation="Horizontal">
-                            <FontIcon FontSize="16" Glyph="&#xE8F2;" />
+                            <FontIcon FontSize="16" Glyph="&#xE8F2;"  Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"/>
                             <TextBlock
                                 Margin="{StaticResource SmallLeftMargin}"
                                 FontSize="16"
-                                Text="{x:Bind Comments.Count}" />
+                                Text="{x:Bind Comments.Count}" Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"/>
                             <TextBlock
                                 VerticalAlignment="Center"
                                 FontSize="16"
-                                Text="条回复" />
+                                Text="条回复"  Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"/>
                         </StackPanel>
                         <FontIcon
                             Margin="0,0,8,0"
                             HorizontalAlignment="Right"
                             FontSize="16"
-                            Glyph="&#xE00F;" />
+                            Glyph="&#xE00F;"  Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"/>
                     </Grid>
 
                 </Button>

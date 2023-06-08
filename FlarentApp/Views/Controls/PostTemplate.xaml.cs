@@ -7,6 +7,7 @@ using FlarentApp.Views.Dialogs;
 using FlarentApp.Views.WindowPages;
 using FlarumApi;
 using FlarumApi.Models;
+using Microsoft.Toolkit.Uwp.UI;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Newtonsoft.Json.Linq;
 using System;
@@ -98,9 +99,10 @@ namespace FlarentApp.Views.Controls
         private async void ReplyButton_Click(object sender, RoutedEventArgs e)
         {
             var btn = sender as Button;
-            var clicked = btn.DataContext as Post;
+            var post = (btn.FindParent(typeof(PostTemplate)) as PostTemplate).Post;
 
-            await WindowService.Current.CreateReplyWindow(Post.Discussion,null, $"@\"{clicked.User.DisplayName}\"#p{clicked.Id} ",null);
+
+            await WindowService.Current.CreateReplyWindow(Post.Discussion,null, $"@\"{post.User.DisplayName}\"#p{post.Id} ",null);
 
 
             //await new ReplyDialog(Post.Discussion,null, $"@\"{clicked.User.DisplayName}\"#p{clicked.Id} ").ShowAsync();

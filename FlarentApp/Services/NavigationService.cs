@@ -52,7 +52,6 @@ namespace FlarentApp.Services
                 Frame.GoBack();
                 return true;
             }
-
             return false;
         }
 

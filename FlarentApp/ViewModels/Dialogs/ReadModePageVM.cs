@@ -8,9 +8,11 @@ using FlarumApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Appointments;
 
 namespace FlarentApp.ViewModels.Dialogs
 {
@@ -44,7 +46,7 @@ namespace FlarentApp.ViewModels.Dialogs
         [RelayCommand]
         public async Task LoadMore()
         {
-            var tup = new Tuple<ObservableCollection<Post>,string>(null,null);
+            var tup = new Tuple<List<Post>,string>(null,null);
             User = Discussion.User;
             if (LinkNext == null)
                 tup = await FlarumApiProviders.GetPostsWithLink($"https://{Flarent.Settings.Forum}/api/posts?filter[discussion]={Discussion.Id}&filter[author]={User.UserName}", Flarent.Settings.Token);
@@ -52,34 +54,49 @@ namespace FlarentApp.ViewModels.Dialogs
                 return;
             else
                 tup = await FlarumApiProviders.GetPostsWithLink(LinkNext, Flarent.Settings.Token);
-            var _posts = tup.Item1;
+            var posts = tup.Item1;
             LinkNext = tup.Item2;
             var allPostsList = new List<int>();
             foreach (var item in Discussion.Posts)
             {
                 allPostsList.Add(item.Id.Value);
             }
-            for (int i = 0; i<_posts.Count; i++)
+            foreach(var post in posts)
             {
-                if (i != 0)
+                var index = posts.IndexOf(post);
+                Posts.Add(post);
+                if (index == posts.Count) return;
+                if (posts[index + 1].Number - 1 != post.Number)//中间有评论
                 {
-                    if (_posts[i - 1].Number + 1 != _posts[i].Number)
-                    {
 
-                        var comments = allPostsList.GetRange(_posts[i - 1].Number.Value, _posts[i].Number.Value - _posts[i - 1].Number.Value - 1);
-                        Posts.Add(new CommentList { Comments = comments ,ViewModel = this}) ;
-                    }
+                    var comments = allPostsList.GetRange(post.Number.Value, posts[index + 1].Number.Value - post.Number.Value - 1);
+                    Posts.Add(new CommentList { Comments = comments, ViewModel = this });
                 }
-                Posts.Add(_posts[i]);
+
             }
-            if(_posts.Count == 1&&PostIds.Count > 1)
+            //for (int i = 0; i<posts.Count; i++)
+            //{
+            //    if (i != 0)
+            //    {
+            //        if (posts[i - 1].Number + 1 != posts[i].Number)
+            //        {
+
+            //            var comments = allPostsList.GetRange(posts[i - 1].Number.Value, posts[i].Number.Value - posts[i - 1].Number.Value - 1);
+            //            Posts.Add(new CommentList { Comments = comments ,ViewModel = this}) ;
+            //        }
+            //    }
+            //    Posts.Add(posts[i]);
+            //}
+            if (allPostsList[allPostsList.Count - 1] != posts[posts.Count - 1].Number)//添加剩余的评论
             {
-                Posts.Add(new CommentList { Comments = allPostsList.GetRange(1,PostIds.Count -1), ViewModel = this });
+                var num = posts[posts.Count - 1].Number.Value;
+                var comments = allPostsList.GetRange(posts[posts.Count - 1].Number.Value, allPostsList.Count - num);
+                Posts.Add(new CommentList { Comments = comments, ViewModel = this });
             }
 
         }
         [RelayCommand]
-        public async Task ViewComments(List<int> posts)
+        public void ViewComments(List<int> posts)
         {
             NavigationService.OpenInRightPane(typeof(PostDetailPage), posts);
 

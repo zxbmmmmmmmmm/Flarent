@@ -54,7 +54,10 @@ namespace FlarentApp.Views.DetailPages
             var targetNum = words[words.Length - 1];//找到最后一个数字
             LoadingProgressRing.Visibility = Visibility.Visible;
             var posts = await FlarumApiProviders.GetPostsWithLink($"https://{Flarent.Settings.Forum}/api/posts?filter[discussion]={targetDiscussion}&filter[number]={targetNum}", Flarent.Settings.Token);
-            Posts = posts.Item1;
+            foreach (var post in posts.Item1)
+            {
+                Posts.Add(post);
+            }
             LoadingProgressRing.Visibility = Visibility.Collapsed;
             //Posts = posts.Item1;
             PostsListView.ItemsSource = Posts;
@@ -62,7 +65,10 @@ namespace FlarentApp.Views.DetailPages
         private async void GetPost(int id)
         {
             var posts = await FlarumApiProviders.GetPostsWithLink($"https://{Flarent.Settings.Forum}/api/posts?filter[id]={id}", Flarent.Settings.Token);
-            Posts = posts.Item1;
+            foreach (var post in posts.Item1)
+            {
+                Posts.Add(post);
+            }
             //Posts = posts.Item1;
             PostsListView.ItemsSource = Posts;
             LoadingProgressRing.Visibility = Visibility.Collapsed;
@@ -70,7 +76,10 @@ namespace FlarentApp.Views.DetailPages
         public async void GetPost(List<int> ids)
         {
             var posts = await FlarumApiProviders.GetPostsWithId(ids,Flarent.Settings.Forum, Flarent.Settings.Token);
-            Posts = posts;
+            foreach (var item in posts)
+            {
+                Posts.Add(item);
+            }
             //Posts = posts.Item1;
             PostsListView.ItemsSource = Posts;
             LoadingProgressRing.Visibility = Visibility.Collapsed;

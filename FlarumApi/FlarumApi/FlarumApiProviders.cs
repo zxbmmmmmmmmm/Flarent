@@ -23,7 +23,7 @@ namespace FlarumApi
         /// </summary>
         /// <param name="postIds"></param>
         /// <returns></returns>
-        public async static Task<ObservableCollection<Post>> GetPostsWithId(List<int> postIds, string forum , string token)
+        public async static Task<List<Post>> GetPostsWithId(List<int> postIds, string forum , string token)
         {
             var link = $"https://{forum}/api/posts?page[limit]=30&filter[id]=";
             foreach (int postId in postIds)
@@ -39,7 +39,7 @@ namespace FlarumApi
         /// </summary>
         /// <param name="link"></param>
         /// <returns></returns>
-        public async static Task<Tuple<ObservableCollection<Post>, string>> GetPostsWithLink(string link , string token)
+        public async static Task<Tuple<List<Post>, string>> GetPostsWithLink(string link , string token)
         { 
             var data = await NetworkHelper.GetAsync(link, token);
             var posts = FlarumApiConverters.GetPosts(data);
@@ -48,7 +48,7 @@ namespace FlarumApi
             {
                 linkNext = data["links"]["next"].ToString();
             }
-            return new Tuple<ObservableCollection<Post>, string>(posts, linkNext);
+            return new Tuple<List<Post>, string>(posts, linkNext);
         }
         /// <summary>
         /// 获取单个讨论信息
@@ -360,9 +360,9 @@ namespace FlarumApi
     }
     public sealed class FlarumApiConverters
     {
-        public static ObservableCollection<Post> GetPosts(JObject jObj)
+        public static List<Post> GetPosts(JObject jObj)
         {
-            var posts = new ObservableCollection<Post>();
+            var posts = new List<Post>();
             var data = jObj["data"];
             var inclusions = InclusionTypeFilter.FiltTypes(jObj["included"]);
             var users = inclusions.Item2;

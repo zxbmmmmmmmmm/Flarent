@@ -150,7 +150,7 @@ namespace RichTextControls
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-
+            UnhookListeners();
         }
 
     }

@@ -28,8 +28,14 @@ namespace FlarentApp.Views.Controls
         {
             this.InitializeComponent();
             this.DataContextChanged += (s, e) => Bindings.Update();
+            Unloaded += DiscussionTemplate_Unloaded;
         }
 
+        private void DiscussionTemplate_Unloaded(object sender, RoutedEventArgs e)
+        {
+            LastPostedUserButton.Click -= LastPostedUserButton_Click;
+            PosterButton.Click -= PosterButton_Click;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
