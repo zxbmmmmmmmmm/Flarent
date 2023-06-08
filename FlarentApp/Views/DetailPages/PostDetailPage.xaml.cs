@@ -75,11 +75,21 @@ namespace FlarentApp.Views.DetailPages
         }
         public async void GetPost(List<int> ids)
         {
-            var posts = await FlarumApiProviders.GetPostsWithId(ids,Flarent.Settings.Forum, Flarent.Settings.Token);
-            foreach (var item in posts)
+            int i= 0;
+            while(i <= ids.Count)
             {
-                Posts.Add(item);
+                var posts = new List<Post>();
+                if(i+ 50 <= ids.Count) 
+                    posts = await FlarumApiProviders.GetPostsWithId(ids.GetRange(i,i + 50), Flarent.Settings.Forum, Flarent.Settings.Token);
+                else
+                    posts = await FlarumApiProviders.GetPostsWithId(ids.GetRange(i, ids.Count - i), Flarent.Settings.Forum, Flarent.Settings.Token);
+                foreach (var item in posts)
+                {
+                    Posts.Add(item);
+                }
+                i += 50;
             }
+
             //Posts = posts.Item1;
             PostsListView.ItemsSource = Posts;
             LoadingProgressRing.Visibility = Visibility.Collapsed;

@@ -8,7 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FlarumApi.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
     <Page.Resources>
         <local:PostDataTemplateSelector
@@ -17,9 +16,10 @@
             Normal="{StaticResource NormalTemplate}" />
         <DataTemplate x:Key="NormalTemplate" x:DataType="models:Post">
             <lc:PostTemplate IsReadMode="True" Post="{x:Bind}" />
+
         </DataTemplate>
         <DataTemplate x:Key="CommentsTemplate" x:DataType="local:CommentList">
-            <Grid MaxWidth="1256">
+            <Grid MaxWidth="1320">
                 <Button
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
@@ -27,8 +27,8 @@
                     BorderBrush="Transparent"
                     CornerRadius="0"
                     Command="{x:Bind ViewModel.ViewCommentsCommand,Mode=OneWay}"
-                    CommandParameter="{x:Bind Comments}">
-                    <Grid>
+                    CommandParameter="{x:Bind Comments}" Margin="32,0">
+                    <Grid >
                         <StackPanel
                             Margin="8,12"
                             HorizontalAlignment="Left"
@@ -56,7 +56,8 @@
                     Grid.Row="4"
                     VerticalAlignment="Bottom"
                     BorderBrush="#33808080"
-                    BorderThickness="0,1,0,0" />
+                    BorderThickness="0,1,0,0"
+                    Margin="32,0"/>
             </Grid>
         </DataTemplate>
     </Page.Resources>

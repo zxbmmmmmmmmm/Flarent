@@ -61,18 +61,29 @@ namespace FlarentApp.ViewModels.Dialogs
             {
                 allPostsList.Add(item.Id.Value);
             }
-            foreach(var post in posts)
+            try
             {
-                var index = posts.IndexOf(post);
-                Posts.Add(post);
-                if (index == posts.Count) return;
-                if (posts[index + 1].Number - 1 != post.Number)//中间有评论
+                foreach (var post in posts)
                 {
+                    var index = posts.IndexOf(post);
+                    Posts.Add(post);
+                    if (index == posts.Count) return;
+                    if (posts[index + 1].Number - 1 != post.Number)//中间有评论
+                    {
+                        var comments = allPostsList.GetRange(post.Number.Value, posts[index + 1].Number.Value - post.Number.Value - 1);
+                        Posts.Add(new CommentList { Comments = comments, ViewModel = this });
+                    }
 
-                    var comments = allPostsList.GetRange(post.Number.Value, posts[index + 1].Number.Value - post.Number.Value - 1);
+                }
+            }
+            finally
+            {
+                if (allPostsList[allPostsList.Count - 1] != posts[posts.Count - 1].Number&&LinkNext == "")//添加剩余的评论
+                {
+                    var num = posts[posts.Count - 1].Number.Value;
+                    var comments = allPostsList.GetRange(posts[posts.Count - 1].Number.Value, allPostsList.Count - num);
                     Posts.Add(new CommentList { Comments = comments, ViewModel = this });
                 }
-
             }
             //for (int i = 0; i<posts.Count; i++)
             //{
@@ -87,12 +98,7 @@ namespace FlarentApp.ViewModels.Dialogs
             //    }
             //    Posts.Add(posts[i]);
             //}
-            if (allPostsList[allPostsList.Count - 1] != posts[posts.Count - 1].Number)//添加剩余的评论
-            {
-                var num = posts[posts.Count - 1].Number.Value;
-                var comments = allPostsList.GetRange(posts[posts.Count - 1].Number.Value, allPostsList.Count - num);
-                Posts.Add(new CommentList { Comments = comments, ViewModel = this });
-            }
+
 
         }
         [RelayCommand]

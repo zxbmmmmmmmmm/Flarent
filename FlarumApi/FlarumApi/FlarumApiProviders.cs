@@ -25,7 +25,7 @@ namespace FlarumApi
         /// <returns></returns>
         public async static Task<List<Post>> GetPostsWithId(List<int> postIds, string forum , string token)
         {
-            var link = $"https://{forum}/api/posts?page[limit]=30&filter[id]=";
+            var link = $"https://{forum}/api/posts?page[limit]=50&filter[id]=";
             foreach (int postId in postIds)
             {
                 link = link.Insert(link.Length, postId.ToString() + ",");//逐个添加需要的post
