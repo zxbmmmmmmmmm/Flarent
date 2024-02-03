@@ -1,4 +1,6 @@
 # FlarentApp
+![](https://build.appcenter.ms/v0.1/apps/4a78e810-f5da-4167-8856-860ef8c3d95e/branches/master/badge)
+
 UWP client of Flarum!
 ## Download
 https://discuss.flarum.org.cn/d/3829
